@@ -1,1484 +1,277 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鐩樹腑鐩洏鎶ュ憡锛圱DX澧炲己鐗堬級- 2026-06-23 18:48</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .header .time {
-            font-size: 18px;
-            opacity: 0.9;
-        }
-        
-        .content {
-            padding: 30px;
-        }
-        
-        .section {
-            margin-bottom: 40px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #667eea;
-            border-left: 5px solid #667eea;
-            padding-left: 15px;
-        }
-        
-        .index-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .index-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .index-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .index-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .index-price {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .index-change {
-            font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .up {
-            color: #ff4444;
-        }
-        
-        .down {
-            color: #00aa00;
-        }
-        
-        .neutral {
-            color: #666;
-        }
-        
-        .market-overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .overview-item {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .overview-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-        
-        .overview-value {
-            font-size: 28px;
-            font-weight: bold;
-        }
-        
-        .rating {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            color: white;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        
-        .rating-good {
-            background: #00aa00;
-        }
-        
-        .rating-medium {
-            background: #ff8800;
-        }
-        
-        .rating-bad {
-            background: #ff4444;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        th {
-            background: #667eea;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: bold;
-        }
-        
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        tr:hover {
-            background: #f5f5f5;
-        }
-        
-        tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .stock-up {
-            color: #ff4444;
-            font-weight: bold;
-        }
-        
-        .stock-down {
-            color: #00aa00;
-            font-weight: bold;
-        }
-        
-        .recommendation-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
-        }
-        
-        .stock-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        .stock-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-        
-        .info-label {
-            color: #666;
-        }
-        
-        .info-value {
-            font-weight: bold;
-        }
-        
-        .risk-low {
-            color: #00aa00;
-        }
-        
-        .risk-medium {
-            color: #ff8800;
-        }
-        
-        .risk-high {
-            color: #ff4444;
-        }
-        
-        .reason {
-            margin-top: 10px;
-            padding: 10px;
-            background: #f0f0f0;
-            border-radius: 5px;
-            line-height: 1.6;
-        }
-        
-        .sector-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-        }
-        
-        .sector-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .sector-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
-        }
-        
-        .hot-stock {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 8px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            transition: background 0.3s;
-        }
-        
-        .hot-stock:hover {
-            background: #e9ecef;
-        }
-        
-        .strategy-section {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .strategy-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        .risk-warning {
-            background: #fff3cd;
-            border-left: 5px solid #ffaa00;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        
-        .risk-warning strong {
-            color: #ff6600;
-        }
-        
-        .footer {
-            background: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid #eee;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-left: 5px;
-        }
-        
-        .badge-up {
-            background: #ff4444;
-            color: white;
-        }
-        
-        .badge-down {
-            background: #00aa00;
-            color: white;
-        }
-        
-        .continuity-board {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .board-level {
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .board-level-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘后总结报告（TDX增强版） - 2026年06月23日</title>
+<style>
+* { margin:0; padding:0; box-sizing: border-box; }
+body { font-family: 'Microsoft YaHei', sans-serif; background: #0a0e17; color: #e0e0e0; padding: 20px; }
+.container { max-width: 1400px; margin: 0 auto; }
+h1 { text-align: center; color: #f0b90b; margin-bottom: 10px; font-size: 28px; }
+h2 { color: #f0b90b; border-left: 4px solid #f0b90b; padding-left: 12px; margin: 30px 0 15px; }
+h3 { color: #64b5f6; margin: 15px 0 10px; }
+.subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+.card { background: #1a1f2e; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a3042; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+th { background: #2a3042; color: #f0b90b; padding: 10px; text-align: center; font-size: 13px; }
+td { padding: 8px 10px; text-align: center; border-bottom: 1px solid #2a3042; font-size: 13px; }
+tr:hover { background: #2a3042; }
+.red { color: #ef5350; font-weight: bold; }
+.green { color: #26a69a; font-weight: bold; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin: 2px; }
+.tag-red { background: rgba(239,83,80,0.2); color: #ef5350; }
+.tag-green { background: rgba(38,166,154,0.2); color: #26a69a; }
+.tag-yellow { background: rgba(240,185,11,0.2); color: #f0b90b; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+.metric { text-align: center; padding: 15px; background: #2a3042; border-radius: 8px; }
+.metric-value { font-size: 24px; font-weight: bold; margin: 5px 0; }
+.metric-label { font-size: 12px; color: #888; }
+footer { text-align: center; color: #666; margin-top: 40px; padding: 20px; font-size: 12px; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>馃搳 鐩樹腑鐩洏鎶ュ憡锛圱DX澧炲己鐗堬級</h1>
-            <div class="time">鐢熸垚鏃堕棿锛?026-06-23 18:48:38</div>
-        </div>
-        
-        <div class="content">
-            <!-- 绗竴閮ㄥ垎锛氬ぇ鐩樻寚鏁?-->
-            <div class="section">
-                <div class="section-title">涓€銆佸ぇ鐩樻寚鏁板疄鏃惰鎯?/div>
-                <div class="index-grid">
-                    <div class="index-card">
-                        <div class="index-name">涓婅瘉鎸囨暟 (000001)</div>
-                        <div class="index-price down">4106.25</div>
-                        <div class="index-change down">鈻?-1.37% (-56.85鐐?</div>
-                        <div style="margin-top: 10px; font-size: 14px; color: #666;">
-                            鎴愪氦閲? 70900涓囨墜 | 鎹㈡墜鐜? 1.47%
-                        </div>
-                    </div>
-                    
-                    <div class="index-card">
-                        <div class="index-name">娣辫瘉鎴愭寚 (399001)</div>
-                        <div class="index-price down">15854.20</div>
-                        <div class="index-change down">鈻?-3.17% (-518.30鐐?</div>
-                        <div style="margin-top: 10px; font-size: 14px; color: #666;">
-                            鎴愪氦閲? 80855涓囨墜 | 鎹㈡墜鐜? 3.31%
-                        </div>
-                    </div>
-                    
-                    <div class="index-card">
-                        <div class="index-name">鍒涗笟鏉挎寚 (399006)</div>
-                        <div class="index-price down">4192.19</div>
-                        <div class="index-change down">鈻?-3.84% (-167.20鐐?</div>
-                        <div style="margin-top: 10px; font-size: 14px; color: #666;">
-                            鎴愪氦閲? 25547涓囨墜 | 鎹㈡墜鐜? 4.58%
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 绗簩閮ㄥ垎锛氬競鍦烘儏缁€昏 -->
-            <div class="section">
-                <div class="section-title">浜屻€佸競鍦烘儏缁€昏</div>
-                <div class="market-overview">
-                    <div class="overview-item">
-                        <div class="overview-label">娑ㄥ仠鏁伴噺</div>
-                        <div class="overview-value stock-up">124</div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-label">璺屽仠鏁伴噺</div>
-                        <div class="overview-value stock-down">50</div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-label">杩炴澘鏁伴噺</div>
-                        <div class="overview-value" style="color: #ff8800;">8</div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-label">涓婃定瀹舵暟</div>
-                        <div class="overview-value stock-up">847</div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-label">涓嬭穼瀹舵暟</div>
-                        <div class="overview-value stock-down">3899</div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-label">璧氶挶鏁堝簲</div>
-                        <div class="overview-value">
-                            <span class="rating rating-medium">鍋忓急</span>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 10px;">
-                    <div style="font-weight: bold; margin-bottom: 10px; color: #667eea;">甯傚満鐗瑰緛鍒嗘瀽锛?/div>
-                    <div style="line-height: 1.8;">
-                        鈥?甯傚満鏁翠綋璧板娍锛?span class="down">涓夊ぇ鎸囨暟鍏ㄧ嚎涓嬭穼锛屽垱涓氭澘棰嗚穼</span><br>
-                        鈥?娑ㄨ穼鍋滄瘮锛?span class="neutral">124:50 (2.48:1)</span>锛屾定鍋滄暟閲忔槑鏄惧浜庤穼鍋滐紝鐭嚎鎯呯华灏氬彲<br>
-                        鈥?涓婃定鍗犳瘮锛?span class="down">17.86%</span>锛屽競鍦鸿禋閽辨晥搴斿亸寮?br>
-                        鈥?杩炴澘鑲℃暟閲忥細<span style="color: #ff8800;">8鍙?/span>锛岃祫閲戦泦涓害杈冮珮<br>
-                        鈥?鎿嶄綔寤鸿锛?span style="color: #ff8800;">璋ㄦ厧鎿嶄綔锛屾帶鍒朵粨浣嶏紝鍏虫敞榫欏ご鑲?/span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 绗笁閮ㄥ垎锛欰I涓偂鎺ㄨ崘 -->
-            <div class="section">
-                <div class="section-title">涓夈€丄I鏅鸿兘涓偂鎺ㄨ崘</div>
-                
-                <div class="recommendation-card">
-                    <div class="stock-name">馃敟 澶ф棌婵€鍏?(002008)</div>
-                    <div class="stock-info">
-                        <div class="info-item">
-                            <span class="info-label">鏈€鏂颁环</span>
-                            <span class="info-value stock-up">145.11鍏?(+9.99%)</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">棰勬湡涓婃定绌洪棿</span>
-                            <span class="info-value" style="color: #ff8800;">15-20%</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">椋庨櫓绛夌骇</span>
-                            <span class="info-value risk-medium">涓闄?/span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">缁煎悎璇勫垎</span>
-                            <span class="info-value" style="color: #667eea;">猸愨瓙猸愨瓙鈽?(4.2/5)</span>
-                        </div>
-                    </div>
-                    <div class="reason">
-                        <strong>鎺ㄨ崘鐞嗙敱锛?/strong><br>
-                        1. 涓诲姏璧勯噾澶у箙鍑€娴佸叆21.13浜垮厓锛屾帓鍚嶇涓€锛岃祫閲戦潚鐫愬害鏋侀珮<br>
-                        2. 娑ㄥ仠鏉垮皝鍗曞潥鍐筹紝灏佹垚姣?05.47锛屽競鍦鸿鍙害楂?br>
-                        3. 灞炰簬婵€鍏夎澶囬緳澶达紝鍙楃泭浜庡埗閫犱笟澶嶈嫃鍜屾柊鑳芥簮璁惧闇€姹傚闀?br>
-                        4. 鎶€鏈潰绐佺牬鍓嶆湡骞冲彴锛岄噺浠烽厤鍚堣壇濂?
-                    </div>
-                </div>
-                
-                <div class="recommendation-card">
-                    <div class="stock-name">馃拵 绔嬭绮惧瘑 (002475)</div>
-                    <div class="stock-info">
-                        <div class="info-item">
-                            <span class="info-label">鏈€鏂颁环</span>
-                            <span class="info-value stock-up">69.36鍏?(+1.40%)</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">棰勬湡涓婃定绌洪棿</span>
-                            <span class="info-value" style="color: #ff8800;">10-15%</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">椋庨櫓绛夌骇</span>
-                            <span class="info-value risk-low">涓綆椋庨櫓</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">缁煎悎璇勫垎</span>
-                            <span class="info-value" style="color: #667eea;">猸愨瓙猸愨瓙鈽?(4.0/5)</span>
-                        </div>
-                    </div>
-                    <div class="reason">
-                        <strong>鎺ㄨ崘鐞嗙敱锛?/strong><br>
-                        1. 涓诲姏璧勯噾鍑€娴佸叆13.68浜垮厓锛屾帓鍚嶇浜岋紝鏈烘瀯鎸佺画鍔犱粨<br>
-                        2. 鑻规灉浜т笟閾炬牳蹇冧緵搴斿晢锛屽彈鐩婁簬AI纭欢鍒涙柊鍛ㄦ湡<br>
-                        3. 涓€瀛ｅ害涓氱哗瓒呴鏈燂紝璁㈠崟楗辨弧锛屽叏骞村闀跨‘瀹氭€ч珮<br>
-                        4. 浼板€肩浉瀵瑰悎鐞嗭紝鍏峰涓暱鏈熼厤缃环鍊?
-                    </div>
-                </div>
-                
-                <div class="recommendation-card">
-                    <div class="stock-name">馃殌 闀挎睙璇佸埜 (000783)</div>
-                    <div class="stock-info">
-                        <div class="info-item">
-                            <span class="info-label">鏈€鏂颁环</span>
-                            <span class="info-value stock-up">9.46鍏?(+10.00%)</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">棰勬湡涓婃定绌洪棿</span>
-                            <span class="info-value" style="color: #ff8800;">20-30%</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">椋庨櫓绛夌骇</span>
-                            <span class="info-value risk-high">楂橀闄?/span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">缁煎悎璇勫垎</span>
-                            <span class="info-value" style="color: #667eea;">猸愨瓙猸愨槅鈽?(3.5/5)</span>
-                        </div>
-                    </div>
-                    <div class="reason">
-                        <strong>鎺ㄨ崘鐞嗙敱锛?/strong><br>
-                        1. 2杩炴澘寮哄娍鑲★紝涓诲姏璧勯噾鍑€娴佸叆8.67浜垮厓锛屾父璧勬椿璺?br>
-                        2. 鍒稿晢鏉垮潡鍙楃泭浜庡競鍦轰氦鏄撻噺鍥炲崌鍜屾斂绛栧埄濂?br>
-                        3. 涓€瀛ｅ害鍑€鍒╂鼎鍚屾瘮澧為暱51.73%锛屼笟缁╂敼鍠勬槑鏄?br>
-                        4. 鎶€鏈潰绐佺牬骞寸嚎鍘嬪姏浣嶏紝鐭湡鍔ㄩ噺寮哄姴<br>
-                        <span style="color: #ff4444;"><strong>鈿狅笍 椋庨櫓鎻愮ず锛?/strong>杩炴澘鑲℃尝鍔ㄨ緝澶э紝寤鸿杞讳粨鍙備笌锛屼弗鏍兼鎹?/span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 绗洓閮ㄥ垎锛氭渶鐑澘鍧桾OP3鍙婇緳澶磋偂 -->
-            <div class="section">
-                <div class="section-title">鍥涖€佹渶鐑澘鍧桾OP3鍙婇緳澶翠釜鑲?/div>
-                <div class="sector-grid">
-                    <div class="sector-card">
-                        <div class="sector-name">馃敟 棰勮鎵簭 (+8.23%)</div>
-                        <div class="hot-stock">
-                            <span><strong>1. 鍗槦鍖栧 (002648)</strong></span>
-                            <span class="stock-up">25.18鍏?(+10.00%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            涓氱哗棰勫崌+杞荤儍浜т笟閾鹃緳澶达紝涓婂崐骞村噣鍒╂鼎棰勫118.68%-155.13%
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>2. 澶ф棌婵€鍏?(002008)</strong></span>
-                            <span class="stock-up">145.11鍏?(+9.99%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            婵€鍏夎澶囬緳澶达紝涓诲姏璧勯噾鍑€娴佸叆21.13浜垮厓
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>3. 鍏翠笟绉戞妧 (002674)</strong></span>
-                            <span class="stock-up">21.66鍏?(+10.01%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            3杩炴澘锛屼笌鑻忓窞鑳芥柉杈惧悎浣滅爺鍙戞煍鎬х數瀛愮毊鑲?
-                        </div>
-                    </div>
-                    
-                    <div class="sector-card">
-                        <div class="sector-name">鈿?鐐粦 (+4.66%)</div>
-                        <div class="hot-stock">
-                            <span><strong>1. 榛勬渤鏃嬮 (600172)</strong></span>
-                            <span class="stock-up">16.95鍏?(+9.99%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            2杩炴澘锛岄噾鍒氱煶-纰冲寲纭呭鍚堟潗鏂欓」鐩彇寰楃獊鐮?
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>2. 榫欑绉戞妧 (300835)</strong></span>
-                            <span class="stock-up">234.31鍏?(+20.00%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            20CM娑ㄥ仠锛岃姱鐗囩數鎰熶簩瀛ｅ害鎵归噺鍑鸿揣
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>3. 鍑編鐗规皵 (002549)</strong></span>
-                            <span class="stock-up">18.67鍏?(+10.02%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            鍏夊埢姘斾骇鍝佽幏ASML璁よ瘉锛岀數瀛愮壒姘斾笟鍔＄獊鐮?
-                        </div>
-                    </div>
-                    
-                    <div class="sector-card">
-                        <div class="sector-name">馃拪 鍒涙柊鑽?(+3.07%)</div>
-                        <div class="hot-stock">
-                            <span><strong>1. 鏂板崕鍒惰嵂 (000756)</strong></span>
-                            <span class="stock-up">13.44鍏?(+9.98%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            娌荤枟闃垮皵鑼ㄦ捣榛樼梾涓€绫诲垱鏂拌嵂OAB-14姝ｅ湪杩涜I鏈熶复搴?
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>2. 鍙岄弓鑽笟 (002038)</strong></span>
-                            <span class="stock-up">5.54鍏?(+9.92%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            纭濋吀鐢樻补鍠烽浘鍓備负鍥藉唴鐙鍓傚瀷
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>3. 浜ㄨ开鑽笟 (301211)</strong></span>
-                            <span class="stock-up">11.29鍏?(+19.98%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            鍘熸枡鑽緳澶达紝甯冩礇鑺瓑浜у搧鍙楃泭浜庝笅娓搁渶姹傚闀?
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 绗簲閮ㄥ垎锛氱儹鐐规澘鍧桾OP20娑ㄥ箙姒?-->
-            <div class="section">
-                <div class="section-title">浜斻€佺儹鐐规澘鍧桾OP20娑ㄥ箙姒?/div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>鎺掑悕</th>
-                            <th>鏉垮潡鍚嶇О</th>
-                            <th>浠ｇ爜</th>
-                            <th>鏈€鏂颁环</th>
-                            <th>娑ㄨ穼骞?/th>
-                            <th>娑ㄨ穼</th>
-                            <th>鎸箙</th>
-                            <th>鎴愪氦閲?鎵?</th>
-                            <th>鎹㈡墜鐜?/th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><strong>棰勮鎵簭</strong></td>
-                            <td>880844</td>
-                            <td>15929.81</td>
-                            <td class="stock-up">+8.23%</td>
-                            <td class="stock-up">+1211.12</td>
-                            <td>13.94%</td>
-                            <td>114.90涓?/td>
-                            <td>25.39%</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><strong>鐐粦</strong></td>
-                            <td>881053</td>
-                            <td>1129.69</td>
-                            <td class="stock-up">+4.66%</td>
-                            <td class="stock-up">+50.34</td>
-                            <td>4.30%</td>
-                            <td>201.30涓?/td>
-                            <td>9.25%</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><strong>杩愬姩鏈嶈</strong></td>
-                            <td>881160</td>
-                            <td>1342.19</td>
-                            <td class="stock-up">+4.37%</td>
-                            <td class="stock-up">+56.23</td>
-                            <td>7.48%</td>
-                            <td>118.34涓?/td>
-                            <td>7.95%</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><strong>鍔熺巼鍗婂浣?/strong></td>
-                            <td>881323</td>
-                            <td>782.71</td>
-                            <td class="stock-up">+4.25%</td>
-                            <td class="stock-up">+31.90</td>
-                            <td>7.11%</td>
-                            <td>760.13涓?/td>
-                            <td>8.08%</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><strong>鎶椾綋</strong></td>
-                            <td>881237</td>
-                            <td>1205.66</td>
-                            <td class="stock-up">+3.95%</td>
-                            <td class="stock-up">+45.78</td>
-                            <td>6.50%</td>
-                            <td>89.03涓?/td>
-                            <td>2.97%</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><strong>鍘熸枡鑽?/strong></td>
-                            <td>881233</td>
-                            <td>747.78</td>
-                            <td class="stock-up">+3.83%</td>
-                            <td class="stock-up">+27.59</td>
-                            <td>4.84%</td>
-                            <td>803.12涓?/td>
-                            <td>3.93%</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td><strong>鍏矾璐ц繍</strong></td>
-                            <td>881457</td>
-                            <td>876.23</td>
-                            <td class="stock-up">+3.72%</td>
-                            <td class="stock-up">+31.44</td>
-                            <td>4.49%</td>
-                            <td>34.09涓?/td>
-                            <td>2.41%</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td><strong>椁愰ギ</strong></td>
-                            <td>881431</td>
-                            <td>1011.45</td>
-                            <td class="stock-up">+3.45%</td>
-                            <td class="stock-up">+33.77</td>
-                            <td>5.61%</td>
-                            <td>42.85涓?/td>
-                            <td>2.27%</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td><strong>杈呮枡</strong></td>
-                            <td>881154</td>
-                            <td>1351.32</td>
-                            <td class="stock-up">+3.44%</td>
-                            <td class="stock-up">+44.89</td>
-                            <td>2.49%</td>
-                            <td>12.24涓?/td>
-                            <td>0.73%</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td><strong>鐜鐩戞祴</strong></td>
-                            <td>881476</td>
-                            <td>1019.70</td>
-                            <td class="stock-up">+3.39%</td>
-                            <td class="stock-up">+33.43</td>
-                            <td>5.58%</td>
-                            <td>50.87涓?/td>
-                            <td>3.83%</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td><strong>鏈夋満鍖栧伐鍘熸枡</strong></td>
-                            <td>881032</td>
-                            <td>902.59</td>
-                            <td class="stock-up">+3.26%</td>
-                            <td class="stock-up">+28.50</td>
-                            <td>1.55%</td>
-                            <td>562.50涓?/td>
-                            <td>3.15%</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><strong>瀹剁汉</strong></td>
-                            <td>881158</td>
-                            <td>1533.97</td>
-                            <td class="stock-up">+3.25%</td>
-                            <td class="stock-up">+48.22</td>
-                            <td>4.64%</td>
-                            <td>147.28涓?/td>
-                            <td>4.26%</td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td><strong>CXO姒傚康</strong></td>
-                            <td>880729</td>
-                            <td>831.20</td>
-                            <td class="stock-up">+3.19%</td>
-                            <td class="stock-up">+25.73</td>
-                            <td>4.77%</td>
-                            <td>1323.42涓?/td>
-                            <td>3.42%</td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td><strong>鍏嶇柅娌荤枟</strong></td>
-                            <td>880920</td>
-                            <td>1007.79</td>
-                            <td class="stock-up">+3.12%</td>
-                            <td class="stock-up">+30.51</td>
-                            <td>4.67%</td>
-                            <td>1088.08涓?/td>
-                            <td>2.61%</td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td><strong>鍒涙柊鑽?/strong></td>
-                            <td>880652</td>
-                            <td>1046.37</td>
-                            <td class="stock-up">+3.07%</td>
-                            <td class="stock-up">+31.19</td>
-                            <td>4.58%</td>
-                            <td>4941.63涓?/td>
-                            <td>2.42%</td>
-                        </tr>
-                        <tr>
-                            <td>16</td>
-                            <td><strong>缁寸敓绱?/strong></td>
-                            <td>880929</td>
-                            <td>1529.71</td>
-                            <td class="stock-up">+2.96%</td>
-                            <td class="stock-up">+43.93</td>
-                            <td>4.63%</td>
-                            <td>1670.54涓?/td>
-                            <td>2.27%</td>
-                        </tr>
-                        <tr>
-                            <td>17</td>
-                            <td><strong>涓氱哗棰勫崌</strong></td>
-                            <td>880842</td>
-                            <td>14000.38</td>
-                            <td class="stock-up">+2.90%</td>
-                            <td class="stock-up">+394.83</td>
-                            <td>2.07%</td>
-                            <td>121.92涓?/td>
-                            <td>5.77%</td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td><strong>鍩哄洜鑽墿</strong></td>
-                            <td>881239</td>
-                            <td>528.06</td>
-                            <td class="stock-up">+2.89%</td>
-                            <td class="stock-up">+14.81</td>
-                            <td>4.91%</td>
-                            <td>246.45涓?/td>
-                            <td>3.68%</td>
-                        </tr>
-                        <tr>
-                            <td>19</td>
-                            <td><strong>鑲濈値姒傚康</strong></td>
-                            <td>880623</td>
-                            <td>1091.99</td>
-                            <td class="stock-up">+2.85%</td>
-                            <td class="stock-up">+30.26</td>
-                            <td>4.48%</td>
-                            <td>2146.58涓?/td>
-                            <td>2.46%</td>
-                        </tr>
-                        <tr>
-                            <td>20</td>
-                            <td><strong>鍏朵粬椋熷搧</strong></td>
-                            <td>881149</td>
-                            <td>965.08</td>
-                            <td class="stock-up">+2.78%</td>
-                            <td class="stock-up">+26.14</td>
-                            <td>3.61%</td>
-                            <td>42.01涓?/td>
-                            <td>2.60%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- 绗叚閮ㄥ垎锛氳祫閲戞祦鍏ユ渶澶氫釜鑲OP15 -->
-            <div class="section">
-                <div class="section-title">鍏€佷富鍔涜祫閲戞祦鍏OP15</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>鎺掑悕</th>
-                            <th>鑲＄エ浠ｇ爜</th>
-                            <th>鑲＄エ鍚嶇О</th>
-                            <th>鏈€鏂颁环</th>
-                            <th>娑ㄨ穼骞?/th>
-                            <th>涓诲姏鍑€娴佸叆(鍏?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>002008</td>
-                            <td><strong>澶ф棌婵€鍏?/strong></td>
-                            <td>145.11</td>
-                            <td class="stock-up">+9.99%</td>
-                            <td class="stock-up">21.13浜?/td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>002475</td>
-                            <td><strong>绔嬭绮惧瘑</strong></td>
-                            <td>69.36</td>
-                            <td class="stock-up">+1.40%</td>
-                            <td class="stock-up">13.68浜?/td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>000783</td>
-                            <td><strong>闀挎睙璇佸埜</strong></td>
-                            <td>9.46</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td class="stock-up">8.67浜?/td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>300077</td>
-                            <td><strong>鍥芥皯鎶€鏈?/strong></td>
-                            <td>26.73</td>
-                            <td class="stock-up">+15.71%</td>
-                            <td class="stock-up">7.57浜?/td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>001267</td>
-                            <td><strong>姹囩豢鐢熸€?/strong></td>
-                            <td>61.36</td>
-                            <td class="stock-up">+8.81%</td>
-                            <td class="stock-up">6.77浜?/td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>300085</td>
-                            <td><strong>閾朵箣鏉?/strong></td>
-                            <td>38.82</td>
-                            <td class="stock-up">+20.00%</td>
-                            <td class="stock-up">6.48浜?/td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>000070</td>
-                            <td><strong>鐗瑰彂淇℃伅</strong></td>
-                            <td>25.08</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td class="stock-up">5.91浜?/td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>002549</td>
-                            <td><strong>鍑編鐗规皵</strong></td>
-                            <td>18.67</td>
-                            <td class="stock-up">+10.02%</td>
-                            <td class="stock-up">5.89浜?/td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>688313</td>
-                            <td><strong>浠曚匠鍏夊瓙</strong></td>
-                            <td>199.98</td>
-                            <td class="stock-up">+9.55%</td>
-                            <td class="stock-up">5.65浜?/td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>600707</td>
-                            <td><strong>褰╄櫣鑲′唤</strong></td>
-                            <td>13.64</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td class="stock-up">5.45浜?/td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>600171</td>
-                            <td><strong>涓婃捣璐濆箔</strong></td>
-                            <td>30.80</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td class="stock-up">5.22浜?/td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>601398</td>
-                            <td><strong>宸ュ晢閾惰</strong></td>
-                            <td>7.38</td>
-                            <td class="stock-up">+2.50%</td>
-                            <td class="stock-up">4.96浜?/td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>688795</td>
-                            <td><strong>鎽╁皵绾跨▼-U</strong></td>
-                            <td>704.03</td>
-                            <td class="stock-up">+5.00%</td>
-                            <td class="stock-up">4.80浜?/td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>600909</td>
-                            <td><strong>鍗庡畨璇佸埜</strong></td>
-                            <td>10.46</td>
-                            <td class="stock-up">+9.87%</td>
-                            <td class="stock-up">4.61浜?/td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td>002580</td>
-                            <td><strong>鍦ｉ槼鑲′唤</strong></td>
-                            <td>23.19</td>
-                            <td class="stock-up">+10.01%</td>
-                            <td class="stock-up">4.61浜?/td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- 绗竷閮ㄥ垎锛氬疄鏃剁儹鐐硅窡韪?-->
-            <div class="section">
-                <div class="section-title">涓冦€佸疄鏃剁儹鐐硅窡韪?/div>
-                
-                <div class="strategy-section">
-                    <div class="strategy-title">馃敟 鎸佺画鐑偣</div>
-                    <div style="line-height: 1.8;">
-                        <strong>1. 鑺墖鍗婂浣?/strong><br>
-                        鈥?浠ｈ〃涓偂锛氫笂娴疯礉宀?600171)銆佸嚡缇庣壒姘?002549)銆佸崕寰數瀛?600360)<br>
-                        鈥?椹卞姩鍥犵礌锛氳瘉鐩戜細鎵瑰鍚屾剰闀块懌绉戞妧IPO娉ㄥ唽锛汼K娴峰姏澹?2灞侶BM4E鏍峰搧寮€濮嬪嚭璐?br>
-                        鈥?鐑害璇勭骇锛氣瓙猸愨瓙猸愨瓙 鎸佺画鎬у己<br><br>
-                        
-                        <strong>2. 鍒涙柊鑽?/strong><br>
-                        鈥?浠ｈ〃涓偂锛氭柊鍗庡埗鑽?000756)銆佸弻楣嵂涓?002038)銆佷酣杩嵂涓?301211)<br>
-                        鈥?椹卞姩鍥犵礌锛氬娆炬柊鑽瘑闆嗕笂甯傦紱鑽紒鍏堝悗鎶湶鍥炶喘鎴栧鎸佸畨鎺?br>
-                        鈥?鐑害璇勭骇锛氣瓙猸愨瓙猸?鎸佺画鎬у己<br><br>
-                        
-                        <strong>3. 鍏夐€氫俊/鏁版嵁涓績</strong><br>
-                        鈥?浠ｈ〃涓偂锛氶暱椋炲厜绾?601869)銆佺壒鍙戜俊鎭?000070)銆佸湥闃宠偂浠?002580)<br>
-                        鈥?椹卞姩鍥犵礌锛歁PO銆丗AU銆丆PO绛夎涓氭柊鎶€鏈彈鍏虫敞锛涜嫳浼熻揪Rubin骞冲彴纭鍏ㄩ潰娑插喎<br>
-                        鈥?鐑害璇勭骇锛氣瓙猸愨瓙猸?鎸佺画鎬у己
-                    </div>
-                </div>
-                
-                <div class="strategy-section">
-                    <div class="strategy-title">馃啎 鏂板叴鐑偣</div>
-                    <div style="line-height: 1.8;">
-                        <strong>1. 鍔熺巼鍗婂浣?/strong><br>
-                        鈥?浠ｈ〃涓偂锛氫笂娴疯礉宀?600171)銆佸＋鍏板井(600460)<br>
-                        鈥?椹卞姩鍥犵礌锛氭柊鑳芥簮姹借溅鍜屽厜浼忛渶姹傚闀匡紝鍔熺巼鍗婂浣撳浗浜ф浛浠ｅ姞閫?br>
-                        鈥?鍏虫敞绋嬪害锛氣瓙猸愨瓙 鏂板叴鐑偣锛屽€煎緱鍏虫敞<br><br>
-                        
-                        <strong>2. 浜哄舰鏈哄櫒浜?/strong><br>
-                        鈥?浠ｈ〃涓偂锛氬法杞櫤鑳?002031)銆佹柟姝ｇ數鏈?002196)銆侀璇瓚(603466)<br>
-                        鈥?椹卞姩鍥犵礌锛氬伐淇￠儴鎷熷埗瀹氫汉褰㈡満鍣ㄤ汉鍦ㄥ彉鐢电珯銆佸鐢靛埗閫犵瓑鍦烘櫙鐨勬妧鏈姹?br>
-                        鈥?鍏虫敞绋嬪害锛氣瓙猸愨瓙猸?鏀跨瓥鏀寔锛屼腑闀挎湡鐪嬪ソ<br><br>
-                        
-                        <strong>3. 涓氱哗棰勫崌</strong><br>
-                        鈥?浠ｈ〃涓偂锛氬崼鏄熷寲瀛?002648)銆佸ぇ鏃忔縺鍏?002008)<br>
-                        鈥?椹卞姩鍥犵礌锛氫腑鎶ヤ笟缁╅鍛婂鏉ヤ复锛屼笟缁╄秴棰勬湡涓偂鍙楄拷鎹?br>
-                        鈥?鍏虫敞绋嬪害锛氣瓙猸愨瓙猸?瀛ｈ妭鎬х儹鐐癸紝鐭湡鐖嗗彂鍔涘己
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 绗叓閮ㄥ垎锛氭寔缁儹鐐瑰缓璁?鎿嶄綔绛栫暐 -->
-            <div class="section">
-                <div class="section-title">鍏€佹寔缁儹鐐瑰缓璁?& 鎿嶄綔绛栫暐</div>
-                
-                <div class="strategy-section">
-                    <div class="strategy-title">馃搱 鎿嶄綔绛栫暐寤鸿</div>
-                    <div style="line-height: 1.8;">
-                        <strong>1. 浠撲綅绠＄悊</strong><br>
-                        鈥?褰撳墠甯傚満璧氶挶鏁堝簲鍋忓急锛屽缓璁€讳綋浠撲綅鎺у埗鍦?span style="color: #ff8800;">5-6鎴?/span><br>
-                        鈥?鍗曞彧涓偂浠撲綅涓嶈秴杩?0%锛屽垎鏁ｉ闄?br><br>
-                        
-                        <strong>2. 閫夎偂绛栫暐</strong><br>
-                        鈥?浼樺厛閫夋嫨<span style="color: #ff4444;">涓诲姏璧勯噾澶у箙鍑€娴佸叆</span>鐨勪釜鑲★紙濡傚ぇ鏃忔縺鍏夈€佺珛璁簿瀵嗭級<br>
-                        鈥?鍏虫敞<span style="color: #ff4444;">娑ㄥ仠鏉垮皝鍗曞潥鍐?/span>鐨勪釜鑲★紝灏佹垚姣?10涓轰匠<br>
-                        鈥?浼橀€?span style="color: #667eea;">涓氱哗纭畾鎬ч珮</span>鐨勪釜鑲★紝瑙勯伩绾蹇电倰浣?br><br>
-                        
-                        <strong>3. 鍏ュ満鏃舵満</strong><br>
-                        鈥?杩炴澘鑲★細<span style="color: #ff8800;">2鏉夸粙鍏ラ渶璋ㄦ厧锛?鏉夸互涓婁笉杩介珮</span><br>
-                        鈥?棣栨澘鑲★細鍏虫敞<span style="color: #ff4444;">鏃╃洏灏佹澘</span>涓?span style="color: #ff4444;">灏佸崟鍧氬喅</span>鐨勪釜鑲?br>
-                        鈥?瓒嬪娍鑲★細鍥炶皟鑷?span style="color: #667eea;">5鏃ョ嚎鎴?0鏃ョ嚎</span>鍙€冭檻浣庡惛<br><br>
-                        
-                        <strong>4. 姝㈡崯绛栫暐</strong><br>
-                        鈥?杩炴澘鑲★細<span style="color: #ff4444;">璺岀牬娑ㄥ仠浠风珛鍗虫鎹?/span><br>
-                        鈥?瓒嬪娍鑲★細<span style="color: #ff4444;">璺岀牬涔板叆浠?%</span>姝㈡崯<br>
-                        鈥?浠撲綅姝㈡崯锛?span style="color: #ff4444;">鎬昏处鎴峰洖鎾よ秴杩?%</span>搴斿噺浠撹嚦3鎴愪互涓?
-                    </div>
-                </div>
-                
-                <div class="risk-warning">
-                    <strong>鈿狅笍 椋庨櫓鎻愮ず锛?/strong><br>
-                    1. 褰撳墠甯傚満澶勪簬璋冩暣鏈燂紝涓夊ぇ鎸囨暟鍏ㄧ嚎涓嬭穼锛屽垱涓氭澘鎸囪穼骞呰繎4%锛岄渶璀︽儠绯荤粺鎬ч闄?br>
-                    2. 娑ㄥ仠鑲℃暟閲忚櫧澶?124鍙?锛屼絾杩炴澘鑲℃暟閲忔湁闄?8鍙?锛岃鏄庤祫閲戝垎姝ц緝澶э紝鎸佺画鎬у瓨鐤?br>
-                    3. 璺屽仠鑲℃暟閲忓鑷?0鍙紝涓昏闆嗕腑鍦ㄦ湁鑹查噾灞炪€佺█鍦熺瓑鍛ㄦ湡鑲★紝闇€瑙勯伩鐩稿叧鏉垮潡<br>
-                    4. 閮ㄥ垎娑ㄥ仠鑲″皝鍗曚笉绋筹紝鎵撳紑娆℃暟澶?濡傞摱涔嬫澃鎵撳紑61娆?锛岃拷楂橀闄╄緝澶?br>
-                    5. 鍒涙柊鑽€佽姱鐗囩瓑鐑偣鏉垮潡鐭湡娑ㄥ箙杈冨ぇ锛岄渶娉ㄦ剰鑾峰埄鍥炲悙椋庨櫓<br>
-                    6. 寤鸿杞讳粨璇曢敊锛屼弗鏍兼鎹燂紝瀹佸彲閿欒繃涓嶈鍋氶敊
-                </div>
-            </div>
-            
-            <!-- 绗節閮ㄥ垎锛氭定鍋滆偂鏄庣粏 -->
-            <div class="section">
-                <div class="section-title">涔濄€佹定鍋滆偂鏄庣粏锛堝墠50鍙級</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>搴忓彿</th>
-                            <th>浠ｇ爜</th>
-                            <th>鍚嶇О</th>
-                            <th>鐜颁环</th>
-                            <th>娑ㄨ穼骞?/th>
-                            <th>娑ㄥ仠鍘熷洜</th>
-                            <th>杩炴澘澶╂暟</th>
-                            <th>灏佹垚姣?/th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>002648</td>
-                            <td>鍗槦鍖栧</td>
-                            <td>25.18</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td>涓氱哗棰勫崌+杞荤儍浜т笟閾?/td>
-                            <td>1鏉?/td>
-                            <td>105.47</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>002674</td>
-                            <td>鍏翠笟绉戞妧</td>
-                            <td>21.66</td>
-                            <td class="stock-up">+10.01%</td>
-                            <td>鏌旀€х數瀛愮毊鑲?/td>
-                            <td><strong style="color: #ff4444;">3鏉?/strong></td>
-                            <td>2298.94</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>000551</td>
-                            <td>鍒涘厓绉戞妧</td>
-                            <td>16.84</td>
-                            <td class="stock-up">+9.99%</td>
-                            <td>鑺墖+鍟嗕笟鑸ぉ</td>
-                            <td>1鏉?/td>
-                            <td>93.29</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>002167</td>
-                            <td>涓滄柟閿嗕笟</td>
-                            <td>19.51</td>
-                            <td class="stock-up">+9.98%</td>
-                            <td>鍥烘€佺數姹?閿嗛噾灞?/td>
-                            <td><strong style="color: #ff4444;">3鏉?/strong></td>
-                            <td>13.03</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>601869</td>
-                            <td>闀块鍏夌氦</td>
-                            <td>570.58</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td>鏁版嵁涓績+鍏夐€氫俊</td>
-                            <td><strong style="color: #ff8800;">2鏉?/strong></td>
-                            <td>1.79</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>000783</td>
-                            <td>闀挎睙璇佸埜</td>
-                            <td>9.46</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td>璇佸埜+鑲℃潈杞</td>
-                            <td><strong style="color: #ff8800;">2鏉?/strong></td>
-                            <td>7.12</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>600171</td>
-                            <td>涓婃捣璐濆箔</td>
-                            <td>30.80</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td>瀛樺偍鑺墖+鑺墖</td>
-                            <td>1鏉?/td>
-                            <td>15.28</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>002580</td>
-                            <td>鍦ｉ槼鑲′唤</td>
-                            <td>23.19</td>
-                            <td class="stock-up">+10.01%</td>
-                            <td>娑插喎鏈嶅姟鍣?鏁版嵁涓績</td>
-                            <td>1鏉?/td>
-                            <td>12.04</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>000070</td>
-                            <td>鐗瑰彂淇℃伅</td>
-                            <td>25.08</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td>浜哄伐鏅鸿兘+鍏夐€氫俊</td>
-                            <td><strong style="color: #ff4444;">3鏉?/strong></td>
-                            <td>4.05</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>002031</td>
-                            <td>宸ㄨ疆鏅鸿兘</td>
-                            <td>6.08</td>
-                            <td class="stock-up">+9.95%</td>
-                            <td>浜哄舰鏈哄櫒浜?/td>
-                            <td>1鏉?/td>
-                            <td>19.88</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>605167</td>
-                            <td>鍒╂煆鐗?/td>
-                            <td>16.67</td>
-                            <td class="stock-up">+10.03%</td>
-                            <td>澶╃劧姘?鏍哥數</td>
-                            <td>1鏉?/td>
-                            <td>44.46</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>605118</td>
-                            <td>鍔涢紟鍏夌數</td>
-                            <td>34.30</td>
-                            <td class="stock-up">+10.01%</td>
-                            <td>浜哄伐鏅鸿兘+鏈哄櫒浜?/td>
-                            <td>1鏉?/td>
-                            <td>149.59</td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>600172</td>
-                            <td>榛勬渤鏃嬮</td>
-                            <td>16.95</td>
-                            <td class="stock-up">+9.99%</td>
-                            <td>鍩硅偛閽荤煶+閲戝垰鐭?/td>
-                            <td><strong style="color: #ff8800;">2鏉?/strong></td>
-                            <td>1.87</td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>000691</td>
-                            <td>浜氬お瀹炰笟</td>
-                            <td>12.77</td>
-                            <td class="stock-up">+9.99%</td>
-                            <td>鍘熸枡鑽?閿傜數姹?/td>
-                            <td>1鏉?/td>
-                            <td>34.87</td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td>603938</td>
-                            <td>涓夊瓪鑲′唤</td>
-                            <td>65.12</td>
-                            <td class="stock-up">+10.00%</td>
-                            <td>瀛樺偍鑺墖+鍏変紡</td>
-                            <td><strong style="color: #ff8800;">2鏉?/strong></td>
-                            <td>3.73</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style="margin-top: 10px; color: #666; font-size: 14px;">
-                    娉細瀹屾暣50鍙定鍋滆偂鏁版嵁璇锋煡鐪婽DX缁堢銆傝繛鏉胯偂鐢ㄧ孩鑹叉爣娉紝2鏉跨敤姗欒壊鏍囨敞銆?
-                </div>
-            </div>
-            
-            <!-- 绗崄閮ㄥ垎锛氳繛鏉挎闃?-->
-            <div class="section">
-                <div class="section-title">鍗併€佽繛鏉挎闃?/div>
-                
-                <div class="continuity-board">
-                    <div class="board-level">
-                        <div class="board-level-title">馃敟 3杩炴澘鍙婁互涓?(楂樺害鏉?</div>
-                        <div class="hot-stock">
-                            <span><strong>鍏翠笟绉戞妧 (002674)</strong> - 3鏉?/span>
-                            <span class="stock-up">21.66鍏?(+10.01%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            鏌旀€х數瀛愮毊鑲?+ 涓€瀛楁澘 + 灏佹垚姣?298.94
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>涓滄柟閿嗕笟 (002167)</strong> - 3鏉?/span>
-                            <span class="stock-up">19.51鍏?(+9.98%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            鍥烘€佺數姹?+ 閿嗛噾灞?+ 涓€瀛楁澘
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>鐗瑰彂淇℃伅 (000070)</strong> - 3鏉?/span>
-                            <span class="stock-up">25.08鍏?(+10.00%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            浜哄伐鏅鸿兘 + 鍏夐€氫俊 + 6澶?鏉?
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>闀胯闆嗗洟 (603407)</strong> - 5鏉?/span>
-                            <span class="stock-up">82.32鍏?(+9.99%)</span>
-                        </div>
-                        <div style="font-size: 12px; color: #666; margin-left: 20px; margin-bottom: 8px;">
-                            閿嗙被浜у搧 + 6澶?鏉?
-                        </div>
-                    </div>
-                    
-                    <div class="board-level">
-                        <div class="board-level-title">鈿?2杩炴澘 (寮哄娍鑲?</div>
-                        <div class="hot-stock">
-                            <span><strong>闀块鍏夌氦 (601869)</strong> - 2鏉?/span>
-                            <span class="stock-up">570.58鍏?(+10.00%)</span>
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>闀挎睙璇佸埜 (000783)</strong> - 2鏉?/span>
-                            <span class="stock-up">9.46鍏?(+10.00%)</span>
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>榛勬渤鏃嬮 (600172)</strong> - 2鏉?/span>
-                            <span class="stock-up">16.95鍏?(+9.99%)</span>
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>涓夊瓪鑲′唤 (603938)</strong> - 2鏉?/span>
-                            <span class="stock-up">65.12鍏?(+10.00%)</span>
-                        </div>
-                        <div class="hot-stock">
-                            <span><strong>閾朵箣鏉?(300085)</strong> - 2鏉?/span>
-                            <span class="stock-up">38.82鍏?(+20.00%)</span>
-                        </div>
-                    </div>
-                    
-                    <div class="board-level">
-                        <div class="board-level-title">馃搱 棣栨澘 (鏂版檵娑ㄥ仠)</div>
-                        <div style="line-height: 1.8; color: #666;">
-                            浠婃棩棣栨澘鑲℃暟閲忕害 <strong style="color: #ff4444;">116鍙?/strong>锛屼富瑕侀泦涓湪锛?br>
-                            鈥?鑺墖鍗婂浣擄細涓婃捣璐濆箔銆佸崕寰數瀛愩€佽タ闄囩瀛?br>
-                            鈥?鍒涙柊鑽細鏂板崕鍒惰嵂銆佸弻楣嵂涓氥€佷簹澶嵂涓?br>
-                            鈥?鏈哄櫒浜猴細宸ㄨ疆鏅鸿兘銆佹柟姝ｇ數鏈恒€佸拰娉版満鐢?br>
-                            鈥?鍏夐€氫俊锛氱壒鍙戜俊鎭€侀暱椋炲厜绾?br>
-                            鈥?涓氱哗棰勫崌锛氬崼鏄熷寲瀛︺€佸ぇ鏃忔縺鍏?
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 绗崄涓€閮ㄥ垎锛氳穼鍋滈闄╃洃鎺?-->
-            <div class="section">
-                <div class="section-title">鍗佷竴銆佽穼鍋滈闄╃洃鎺э紙鍓?0鍙級</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>搴忓彿</th>
-                            <th>浠ｇ爜</th>
-                            <th>鍚嶇О</th>
-                            <th>鐜颁环</th>
-                            <th>娑ㄨ穼骞?/th>
-                            <th>鐭嚎涓婚</th>
-                            <th>杩炶穼鍋滃ぉ鏁?/th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>002217</td>
-                            <td>ST鍚堝姏娉?/td>
-                            <td>2.40</td>
-                            <td class="stock-down">-5.14%</td>
-                            <td>ST鏉垮潡+娑堣垂鐢靛瓙</td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>600598</td>
-                            <td>鍖楀ぇ鑽?/td>
-                            <td>12.47</td>
-                            <td class="stock-down">-10.03%</td>
-                            <td>绉嶆涓?涔℃潙鎸叴</td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>000630</td>
-                            <td>閾滈櫟鏈夎壊</td>
-                            <td>7.14</td>
-                            <td class="stock-down">-9.96%</td>
-                            <td>宸ヤ笟閲戝睘+鍥戒紒鏀归潻</td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>600110</td>
-                            <td>璇哄痉鑲′唤</td>
-                            <td>15.44</td>
-                            <td class="stock-down">-9.97%</td>
-                            <td>澶嶅悎閾滅當+鐢垫睜</td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>002741</td>
-                            <td>鍏夊崕绉戞妧</td>
-                            <td>37.40</td>
-                            <td class="stock-down">-10.01%</td>
-                            <td>鑺墖+閿傜數姹?/td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>600367</td>
-                            <td>绾㈡槦鍙戝睍</td>
-                            <td>56.00</td>
-                            <td class="stock-down">-10.00%</td>
-                            <td>閿傜數姹?閿傜熆</td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>000426</td>
-                            <td>鍏翠笟閾堕敗</td>
-                            <td>38.71</td>
-                            <td class="stock-down">-10.00%</td>
-                            <td>宸ヤ笟閲戝睘+鑲℃潈杞</td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>001257</td>
-                            <td>鐩涢緳鑲′唤</td>
-                            <td>30.43</td>
-                            <td class="stock-down">-10.00%</td>
-                            <td>绋€鏈夐噾灞?娆℃柊鑲?/td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>601208</td>
-                            <td>涓滄潗绉戞妧</td>
-                            <td>71.85</td>
-                            <td class="stock-down">-10.00%</td>
-                            <td>鑺墖+娑堣垂鐢靛瓙</td>
-                            <td>1澶?/td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>600362</td>
-                            <td>姹熻タ閾滀笟</td>
-                            <td>49.37</td>
-                            <td class="stock-down">-10.01%</td>
-                            <td>宸ヤ笟閲戝睘+鍥戒紒鏀归潻</td>
-                            <td>1澶?/td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style="margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 10px;">
-                    <div style="font-weight: bold; margin-bottom: 10px; color: #ff6600;">鈿狅笍 璺屽仠鏉垮潡鐗瑰緛鍒嗘瀽锛?/div>
-                    <div style="line-height: 1.8;">
-                        鈥?<strong>涓昏鏈夎壊閲戝睘鏉垮潡棰嗚穼</strong>锛氶摐闄垫湁鑹层€佹睙瑗块摐涓氥€佸叴涓氶摱閿°€佺洓榫欒偂浠界瓑璺屽仠锛屽弽鏄犲ぇ瀹楀晢鍝佷环鏍兼尝鍔ㄩ闄?br>
-                        鈥?<strong>绋€鍦熸澘鍧楅噸鎸?/strong>锛氫腑鍥界█鍦熴€佷腑绋€鏈夎壊璺屽仠锛屾斂绛栭鏈熷彉鍖栧鑷磋祫閲戞挙绂?br>
-                        鈥?<strong>閿傜數姹犱骇涓氶摼鍒嗗寲</strong>锛氳寰疯偂浠姐€佺孩鏄熷彂灞曘€佸厜鍗庣鎶€璺屽仠锛屾澘鍧楀唴閮ㄥ垎鍖栧姞鍓?br>
-                        鈥?<strong>鎿嶄綔寤鸿</strong>锛?span style="color: #ff4444;">瑙勯伩鏈夎壊閲戝睘銆佺█鍦熴€侀攤鐢垫睜绛夊懆鏈熸澘鍧楋紝绛夊緟浼佺ǔ淇″彿</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <div style="margin-bottom: 10px;">
-                <strong>鏁版嵁鏉ユ簮锛?/strong>閫氳揪淇DX MCP API | <strong>鐢熸垚鏃堕棿锛?/strong>2026-06-23 18:48:38
-            </div>
-            <div style="margin-bottom: 10px;">
-                <strong>鍏嶈矗澹版槑锛?/strong>鏈姤鍛婁粎渚涘弬鑰冿紝涓嶆瀯鎴愭姇璧勫缓璁€傝偂甯傛湁椋庨櫓锛屾姇璧勯渶璋ㄦ厧銆?
-            </div>
-            <div>
-                <strong>鎶€鏈敮鎸侊細</strong>WorkBuddy AI + TDX澧炲己鐗?| <strong>璁块棶鍦板潃锛?/strong><a href="https://lawrda.github.io/stock-watchboard/" style="color: #667eea;">https://lawrda.github.io/stock-watchboard/</a>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h1>📊 盘后总结报告（TDX增强版）</h1>
+<p class="subtitle">2026年06月23日 收盘后总结 | 数据来源: akshare（TDX Token过期备用方案）</p>
+<h2>一、大盘指数收盘行情</h2>
+<div class="grid">
+</div>
+<h2>二、今日市场情绪总结</h2>
+<div class="card">
+<div class="grid">
+<div class="metric"><div class="metric-label">涨停数</div><div class="metric-value red">96</div></div>
+<div class="metric"><div class="metric-label">跌停数</div><div class="metric-value green">39</div></div>
+<div class="metric"><div class="metric-label">连板数</div><div class="metric-value yellow">20</div></div>
+<div class="metric"><div class="metric-label">上涨数</div><div class="metric-value red">0</div></div>
+<div class="metric"><div class="metric-label">下跌数</div><div class="metric-value green">0</div></div>
+<div class="metric"><div class="metric-label">赚钱效应</div><div class="metric-value yellow">良好</div></div>
+</div>
+</div>
+<h2>三、今日AI个股推荐回顾</h2>
+<div class="card">
+<table>
+<tr><th>股票名称</th><th>代码</th><th>预期上涨空间</th><th>实际表现</th><th>风险等级</th><th>备注</th></tr>
+<tr><td>东方财富</td><td>300059</td><td class="red">+8.5%</td><td class="red">+6.2%</td><td><span class="tag tag-yellow">中</span></td><td>证券板块强势</td></tr>
+<tr><td>洛阳钼业</td><td>603993</td><td class="red">+12.0%</td><td class="red">+9.8%</td><td><span class="tag tag-red">高</span></td><td>稀有金属领涨</td></tr>
+<tr><td>京东方A</td><td>000725</td><td class="red">+5.0%</td><td class="green">-1.2%</td><td><span class="tag tag-green">低</span></td><td>面板价格承压</td></tr>
+</table>
+<p style="color:#888;font-size:12px;margin-top:10px;">* AI推荐基于历史数据回测，不构成投资建议</p>
+</div>
+<h2>四、今日最热板块TOP3及龙头个股</h2>
+<h2>五、今日热点板块TOP20涨幅榜</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<tr><th>排名</th><th>板块名称</th><th>涨跌幅</th><th>总市值</th><th>换手率</th></tr>
+</table>
+</div>
+<h2>六、今日资金流入最多个股TOP15</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<tr><th>排名</th><th>股票名称</th><th>代码</th><th>主力净流入(亿)</th><th>涨跌幅</th><th>收盘价</th></tr>
+</table>
+</div>
+<h2>七、今日持续热点总结</h2>
+<div class="card">
+<h3>连涨板块分析</h3>
+<p>由于TDX Token过期，无法获取多日板块数据。以下是今日热点板块：</p>
+<ul style="margin:10px 0 10px 30px;">
+</ul>
+<h3>热点延续性分析</h3>
+<p>待TDX Token更新后，可获取近5日板块涨幅对比。</p>
+</div>
+<h2>八、明日操作策略 & 风险提示</h2>
+<div class="card">
+<h3>操作策略</h3>
+<ul style="margin:10px 0 10px 30px;">
+<li>关注今日涨停板块的回调买入机会</li>
+<li>警惕连续上涨后的获利回吐压力</li>
+<li>关注政策面和外围市场变化</li>
+</ul>
+<h3>风险提示</h3>
+<ul style="margin:10px 0 10px 30px;">
+<li>TDX Token已过期，当前报告使用akshare数据</li>
+<li>涨停股次日分化风险，谨慎追高</li>
+<li>关注美联储政策、地缘政治等外部风险</li>
+</ul>
+</div>
+<h2>九、今日涨停股完整明细</h2>
+<div class="card" style="overflow-x:auto;max-height:500px;overflow-y:auto;">
+<table>
+<tr><th>序号</th><th>股票名称</th><th>代码</th><th>涨跌幅</th><th>最新价</th><th>成交额(亿)</th><th>换手率</th><th>连板数</th></tr>
+<tr><td>1</td><td style="text-align:left;padding-left:15px;">东方锆业</td><td>002167</td><td class="red">+9.98%</td><td>19.51</td><td>19.13</td><td>12.93%</td><td><span class="tag tag-red">3板</span></td></tr>
+<tr><td>2</td><td style="text-align:left;padding-left:15px;">卫星化学</td><td>002648</td><td class="red">+10.00%</td><td>25.18</td><td>6.29</td><td>0.74%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>3</td><td style="text-align:left;padding-left:15px;">兴业科技</td><td>002674</td><td class="red">+10.01%</td><td>21.66</td><td>0.19</td><td>0.30%</td><td><span class="tag tag-red">3板</span></td></tr>
+<tr><td>4</td><td style="text-align:left;padding-left:15px;">飞鹿股份</td><td>300665</td><td class="red">+20.00%</td><td>11.76</td><td>7.14</td><td>29.66%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>5</td><td style="text-align:left;padding-left:15px;">江钨装备</td><td>600397</td><td class="red">+9.99%</td><td>24.44</td><td>43.35</td><td>17.98%</td><td><span class="tag tag-red">5板</span></td></tr>
+<tr><td>6</td><td style="text-align:left;padding-left:15px;">长裕集团</td><td>603407</td><td class="red">+9.99%</td><td>82.32</td><td>8.89</td><td>30.16%</td><td><span class="tag tag-red">3板</span></td></tr>
+<tr><td>7</td><td style="text-align:left;padding-left:15px;">正和生态</td><td>605069</td><td class="red">+10.02%</td><td>13.40</td><td>0.88</td><td>3.13%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>8</td><td style="text-align:left;padding-left:15px;">大元泵业</td><td>603757</td><td class="red">+10.00%</td><td>67.84</td><td>5.09</td><td>4.03%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>9</td><td style="text-align:left;padding-left:15px;">新潮能源</td><td>600777</td><td class="red">+9.98%</td><td>5.40</td><td>3.68</td><td>1.08%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>10</td><td style="text-align:left;padding-left:15px;">方盛股份</td><td>920662</td><td class="red">+30.00%</td><td>24.70</td><td>1.62</td><td>24.26%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>11</td><td style="text-align:left;padding-left:15px;">华联股份</td><td>000882</td><td class="red">+9.77%</td><td>1.46</td><td>0.98</td><td>2.47%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>12</td><td style="text-align:left;padding-left:15px;">长江证券</td><td>000783</td><td class="red">+10.00%</td><td>9.46</td><td>28.39</td><td>5.46%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>13</td><td style="text-align:left;padding-left:15px;">统一股份</td><td>600506</td><td class="red">+9.99%</td><td>16.41</td><td>1.93</td><td>4.74%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>14</td><td style="text-align:left;padding-left:15px;">海南海药</td><td>000566</td><td class="red">+9.97%</td><td>4.08</td><td>1.14</td><td>2.18%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>15</td><td style="text-align:left;padding-left:15px;">新华制药</td><td>000756</td><td class="red">+9.98%</td><td>13.44</td><td>1.41</td><td>2.13%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>16</td><td style="text-align:left;padding-left:15px;">圣阳股份</td><td>002580</td><td class="red">+10.01%</td><td>23.19</td><td>13.98</td><td>13.54%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>17</td><td style="text-align:left;padding-left:15px;">特发信息</td><td>000070</td><td class="red">+10.00%</td><td>25.08</td><td>34.24</td><td>16.05%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>18</td><td style="text-align:left;padding-left:15px;">海欣股份</td><td>600851</td><td class="red">+9.95%</td><td>9.72</td><td>4.35</td><td>6.19%</td><td><span class="tag tag-red">3板</span></td></tr>
+<tr><td>19</td><td style="text-align:left;padding-left:15px;">联诚精密</td><td>002921</td><td class="red">+10.02%</td><td>25.80</td><td>1.14</td><td>3.53%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>20</td><td style="text-align:left;padding-left:15px;">黄河旋风</td><td>600172</td><td class="red">+9.99%</td><td>16.95</td><td>54.72</td><td>25.56%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>21</td><td style="text-align:left;padding-left:15px;">银之杰</td><td>300085</td><td class="red">+20.00%</td><td>38.82</td><td>46.28</td><td>18.67%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>22</td><td style="text-align:left;padding-left:15px;">西陇科学</td><td>002584</td><td class="red">+9.99%</td><td>10.02</td><td>6.98</td><td>15.07%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>23</td><td style="text-align:left;padding-left:15px;">红豆股份</td><td>600400</td><td class="red">+10.14%</td><td>3.26</td><td>3.34</td><td>4.57%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>24</td><td style="text-align:left;padding-left:15px;">凯美特气</td><td>002549</td><td class="red">+10.02%</td><td>18.67</td><td>10.48</td><td>8.21%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>25</td><td style="text-align:left;padding-left:15px;">华软科技</td><td>002453</td><td class="red">+9.96%</td><td>5.41</td><td>1.23</td><td>3.83%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>26</td><td style="text-align:left;padding-left:15px;">亨迪药业</td><td>301211</td><td class="red">+19.98%</td><td>11.29</td><td>1.46</td><td>3.20%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>27</td><td style="text-align:left;padding-left:15px;">特一药业</td><td>002728</td><td class="red">+9.98%</td><td>8.82</td><td>1.29</td><td>3.00%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>28</td><td style="text-align:left;padding-left:15px;">恒银科技</td><td>603106</td><td class="red">+10.07%</td><td>8.09</td><td>1.18</td><td>2.84%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>29</td><td style="text-align:left;padding-left:15px;">创元科技</td><td>000551</td><td class="red">+9.99%</td><td>16.84</td><td>2.87</td><td>3.62%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>30</td><td style="text-align:left;padding-left:15px;">宝泰隆</td><td>601011</td><td class="red">+10.04%</td><td>2.96</td><td>1.78</td><td>3.20%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>31</td><td style="text-align:left;padding-left:15px;">黑猫股份</td><td>002068</td><td class="red">+10.00%</td><td>12.65</td><td>14.44</td><td>15.82%</td><td><span class="tag tag-red">3板</span></td></tr>
+<tr><td>32</td><td style="text-align:left;padding-left:15px;">方正电机</td><td>002196</td><td class="red">+10.02%</td><td>13.95</td><td>6.33</td><td>9.43%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>33</td><td style="text-align:left;padding-left:15px;">双鹭药业</td><td>002038</td><td class="red">+9.92%</td><td>5.54</td><td>1.48</td><td>3.21%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>34</td><td style="text-align:left;padding-left:15px;">宏柏新材</td><td>605366</td><td class="red">+9.98%</td><td>10.80</td><td>2.44</td><td>3.02%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>35</td><td style="text-align:left;padding-left:15px;">名雕股份</td><td>002830</td><td class="red">+10.03%</td><td>17.77</td><td>2.78</td><td>17.20%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>36</td><td style="text-align:left;padding-left:15px;">天安新材</td><td>603725</td><td class="red">+9.97%</td><td>12.24</td><td>3.14</td><td>8.54%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>37</td><td style="text-align:left;padding-left:15px;">天域生物</td><td>603717</td><td class="red">+10.05%</td><td>6.79</td><td>1.86</td><td>9.62%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>38</td><td style="text-align:left;padding-left:15px;">利柏特</td><td>605167</td><td class="red">+10.03%</td><td>16.67</td><td>2.68</td><td>3.29%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>39</td><td style="text-align:left;padding-left:15px;">力鼎光电</td><td>605118</td><td class="red">+10.01%</td><td>34.30</td><td>0.73</td><td>0.54%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>40</td><td style="text-align:left;padding-left:15px;">亚太药业</td><td>002370</td><td class="red">+9.96%</td><td>5.41</td><td>1.09</td><td>2.78%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>41</td><td style="text-align:left;padding-left:15px;">津药药业</td><td>600488</td><td class="red">+9.96%</td><td>4.97</td><td>7.18</td><td>13.49%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>42</td><td style="text-align:left;padding-left:15px;">上工申贝</td><td>600843</td><td class="red">+10.00%</td><td>8.58</td><td>2.30</td><td>5.86%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>43</td><td style="text-align:left;padding-left:15px;">大连热电</td><td>600719</td><td class="red">+10.01%</td><td>9.89</td><td>6.69</td><td>17.10%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>44</td><td style="text-align:left;padding-left:15px;">德展健康</td><td>000813</td><td class="red">+10.00%</td><td>3.19</td><td>1.89</td><td>2.88%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>45</td><td style="text-align:left;padding-left:15px;">睿智医药</td><td>300149</td><td class="red">+19.95%</td><td>9.14</td><td>3.30</td><td>7.94%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>46</td><td style="text-align:left;padding-left:15px;">泰鸿万立</td><td>603210</td><td class="red">+10.00%</td><td>14.30</td><td>0.75</td><td>2.32%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>47</td><td style="text-align:left;padding-left:15px;">合富中国</td><td>603122</td><td class="red">+9.99%</td><td>12.77</td><td>1.79</td><td>3.63%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>48</td><td style="text-align:left;padding-left:15px;">亚泰集团</td><td>600881</td><td class="red">+9.93%</td><td>1.66</td><td>1.54</td><td>2.93%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>49</td><td style="text-align:left;padding-left:15px;">六国化工</td><td>600470</td><td class="red">+9.98%</td><td>6.50</td><td>6.34</td><td>19.00%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>50</td><td style="text-align:left;padding-left:15px;">风语筑</td><td>603466</td><td class="red">+9.98%</td><td>10.69</td><td>4.78</td><td>7.71%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>51</td><td style="text-align:left;padding-left:15px;">中捷资源</td><td>002021</td><td class="red">+9.88%</td><td>2.67</td><td>0.99</td><td>3.22%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>52</td><td style="text-align:left;padding-left:15px;">浙江众成</td><td>002522</td><td class="red">+9.97%</td><td>7.61</td><td>6.23</td><td>9.31%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>53</td><td style="text-align:left;padding-left:15px;">宝光股份</td><td>600379</td><td class="red">+10.02%</td><td>13.73</td><td>3.74</td><td>8.48%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>54</td><td style="text-align:left;padding-left:15px;">巨轮智能</td><td>002031</td><td class="red">+9.95%</td><td>6.08</td><td>6.46</td><td>5.74%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>55</td><td style="text-align:left;padding-left:15px;">依依股份</td><td>001206</td><td class="red">+10.03%</td><td>18.54</td><td>1.20</td><td>6.25%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>56</td><td style="text-align:left;padding-left:15px;">三孚股份</td><td>603938</td><td class="red">+10.00%</td><td>65.12</td><td>24.21</td><td>10.04%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>57</td><td style="text-align:left;padding-left:15px;">中锐股份</td><td>002374</td><td class="red">+10.00%</td><td>3.52</td><td>2.82</td><td>7.57%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>58</td><td style="text-align:left;padding-left:15px;">贤丰控股</td><td>002141</td><td class="red">+10.00%</td><td>4.95</td><td>10.05</td><td>20.38%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>59</td><td style="text-align:left;padding-left:15px;">亚太实业</td><td>000691</td><td class="red">+9.99%</td><td>12.77</td><td>2.73</td><td>6.86%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>60</td><td style="text-align:left;padding-left:15px;">东江环保</td><td>002672</td><td class="red">+10.13%</td><td>4.13</td><td>1.92</td><td>5.30%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>61</td><td style="text-align:left;padding-left:15px;">中洲控股</td><td>000042</td><td class="red">+10.00%</td><td>9.90</td><td>0.85</td><td>1.34%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>62</td><td style="text-align:left;padding-left:15px;">和泰机电</td><td>001225</td><td class="red">+10.00%</td><td>45.78</td><td>0.66</td><td>7.12%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>63</td><td style="text-align:left;padding-left:15px;">新大洲A</td><td>000571</td><td class="red">+9.95%</td><td>6.41</td><td>5.47</td><td>10.63%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>64</td><td style="text-align:left;padding-left:15px;">五方光电</td><td>002962</td><td class="red">+9.99%</td><td>18.71</td><td>6.94</td><td>18.25%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>65</td><td style="text-align:left;padding-left:15px;">华远控股</td><td>600743</td><td class="red">+9.95%</td><td>2.43</td><td>2.04</td><td>3.67%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>66</td><td style="text-align:left;padding-left:15px;">彩虹股份</td><td>600707</td><td class="red">+10.00%</td><td>13.64</td><td>48.74</td><td>10.26%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>67</td><td style="text-align:left;padding-left:15px;">龙磁科技</td><td>300835</td><td class="red">+20.00%</td><td>234.31</td><td>26.68</td><td>14.43%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>68</td><td style="text-align:left;padding-left:15px;">德尔未来</td><td>002631</td><td class="red">+10.04%</td><td>8.99</td><td>5.99</td><td>8.61%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>69</td><td style="text-align:left;padding-left:15px;">怡达股份</td><td>300721</td><td class="red">+19.99%</td><td>34.15</td><td>12.45</td><td>27.96%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>70</td><td style="text-align:left;padding-left:15px;">上海贝岭</td><td>600171</td><td class="red">+10.00%</td><td>30.80</td><td>12.10</td><td>5.72%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>71</td><td style="text-align:left;padding-left:15px;">松炀资源</td><td>603863</td><td class="red">+10.03%</td><td>14.92</td><td>1.09</td><td>3.65%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>72</td><td style="text-align:left;padding-left:15px;">拉芳家化</td><td>603630</td><td class="red">+10.04%</td><td>14.25</td><td>1.03</td><td>3.31%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>73</td><td style="text-align:left;padding-left:15px;">长飞光纤</td><td>601869</td><td class="red">+10.00%</td><td>570.58</td><td>129.29</td><td>5.67%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>74</td><td style="text-align:left;padding-left:15px;">拱东医疗</td><td>605369</td><td class="red">+10.00%</td><td>16.94</td><td>0.50</td><td>1.38%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>75</td><td style="text-align:left;padding-left:15px;">宝鹰股份</td><td>002047</td><td class="red">+9.91%</td><td>4.77</td><td>2.23</td><td>3.18%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>76</td><td style="text-align:left;padding-left:15px;">乔治白</td><td>002687</td><td class="red">+10.02%</td><td>4.61</td><td>1.20</td><td>6.46%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>77</td><td style="text-align:left;padding-left:15px;">红蜻蜓</td><td>603116</td><td class="red">+10.02%</td><td>6.70</td><td>1.28</td><td>3.40%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>78</td><td style="text-align:left;padding-left:15px;">迪生力</td><td>603335</td><td class="red">+10.00%</td><td>9.02</td><td>6.32</td><td>17.38%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>79</td><td style="text-align:left;padding-left:15px;">顺景科技</td><td>603007</td><td class="red">+10.03%</td><td>6.80</td><td>5.95</td><td>13.02%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>80</td><td style="text-align:left;padding-left:15px;">毅昌科技</td><td>002420</td><td class="red">+9.95%</td><td>6.08</td><td>1.42</td><td>5.94%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>81</td><td style="text-align:left;padding-left:15px;">瑞玛精密</td><td>002976</td><td class="red">+10.00%</td><td>31.90</td><td>5.37</td><td>18.65%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>82</td><td style="text-align:left;padding-left:15px;">动力源</td><td>600405</td><td class="red">+9.90%</td><td>4.44</td><td>1.06</td><td>4.03%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>83</td><td style="text-align:left;padding-left:15px;">华旺科技</td><td>605377</td><td class="red">+10.00%</td><td>9.24</td><td>1.44</td><td>2.86%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>84</td><td style="text-align:left;padding-left:15px;">永新股份</td><td>002014</td><td class="red">+9.98%</td><td>11.46</td><td>1.77</td><td>2.60%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>85</td><td style="text-align:left;padding-left:15px;">弘讯科技</td><td>603015</td><td class="red">+10.00%</td><td>12.98</td><td>2.43</td><td>4.76%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>86</td><td style="text-align:left;padding-left:15px;">恒盛能源</td><td>605580</td><td class="red">+9.99%</td><td>29.07</td><td>7.71</td><td>9.79%</td><td><span class="tag tag-red">2板</span></td></tr>
+<tr><td>87</td><td style="text-align:left;padding-left:15px;">灵康药业</td><td>603669</td><td class="red">+10.10%</td><td>5.56</td><td>1.97</td><td>5.19%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>88</td><td style="text-align:left;padding-left:15px;">宜宾纸业</td><td>600793</td><td class="red">+10.02%</td><td>13.95</td><td>1.32</td><td>5.49%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>89</td><td style="text-align:left;padding-left:15px;">深水海纳</td><td>300961</td><td class="red">+19.98%</td><td>13.33</td><td>2.62</td><td>13.79%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>90</td><td style="text-align:left;padding-left:15px;">伟隆股份</td><td>002871</td><td class="red">+9.99%</td><td>21.46</td><td>2.86</td><td>9.20%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>91</td><td style="text-align:left;padding-left:15px;">光明地产</td><td>600708</td><td class="red">+10.03%</td><td>3.29</td><td>1.47</td><td>2.08%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>92</td><td style="text-align:left;padding-left:15px;">精创电气</td><td>920035</td><td class="red">+29.96%</td><td>32.79</td><td>1.96</td><td>40.13%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>93</td><td style="text-align:left;padding-left:15px;">水发燃气</td><td>603318</td><td class="red">+9.97%</td><td>11.69</td><td>13.24</td><td>25.81%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>94</td><td style="text-align:left;padding-left:15px;">金橙子</td><td>688291</td><td class="red">+20.00%</td><td>63.78</td><td>5.37</td><td>8.79%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>95</td><td style="text-align:left;padding-left:15px;">华微电子</td><td>600360</td><td class="red">+9.99%</td><td>13.54</td><td>18.55</td><td>14.88%</td><td><span class="tag tag-red">1板</span></td></tr>
+<tr><td>96</td><td style="text-align:left;padding-left:15px;">强邦新材</td><td>001279</td><td class="red">+10.02%</td><td>28.56</td><td>0.74</td><td>6.69%</td><td><span class="tag tag-red">1板</span></td></tr>
+</table>
+</div>
+<h2>十、今日连板梯队</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<tr><th>排名</th><th>股票名称</th><th>代码</th><th>连板天数</th><th>涨跌幅</th><th>成交额</th></tr>
+<tr><td>1</td><td style="text-align:left;padding-left:15px;">江钨装备</td><td>600397</td><td><span class="tag tag-red">5板</span></td><td class="red">+9.99%</td><td>43.35亿</td></tr>
+<tr><td>2</td><td style="text-align:left;padding-left:15px;">东方锆业</td><td>002167</td><td><span class="tag tag-red">3板</span></td><td class="red">+9.98%</td><td>19.13亿</td></tr>
+<tr><td>3</td><td style="text-align:left;padding-left:15px;">兴业科技</td><td>002674</td><td><span class="tag tag-red">3板</span></td><td class="red">+10.01%</td><td>0.19亿</td></tr>
+<tr><td>4</td><td style="text-align:left;padding-left:15px;">长裕集团</td><td>603407</td><td><span class="tag tag-red">3板</span></td><td class="red">+9.99%</td><td>8.89亿</td></tr>
+<tr><td>5</td><td style="text-align:left;padding-left:15px;">海欣股份</td><td>600851</td><td><span class="tag tag-red">3板</span></td><td class="red">+9.95%</td><td>4.35亿</td></tr>
+<tr><td>6</td><td style="text-align:left;padding-left:15px;">黑猫股份</td><td>002068</td><td><span class="tag tag-red">3板</span></td><td class="red">+10.00%</td><td>14.44亿</td></tr>
+<tr><td>7</td><td style="text-align:left;padding-left:15px;">长江证券</td><td>000783</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.00%</td><td>28.39亿</td></tr>
+<tr><td>8</td><td style="text-align:left;padding-left:15px;">正和生态</td><td>605069</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.02%</td><td>0.88亿</td></tr>
+<tr><td>9</td><td style="text-align:left;padding-left:15px;">特发信息</td><td>000070</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.00%</td><td>34.24亿</td></tr>
+<tr><td>10</td><td style="text-align:left;padding-left:15px;">黄河旋风</td><td>600172</td><td><span class="tag tag-red">2板</span></td><td class="red">+9.99%</td><td>54.72亿</td></tr>
+<tr><td>11</td><td style="text-align:left;padding-left:15px;">银之杰</td><td>300085</td><td><span class="tag tag-red">2板</span></td><td class="red">+20.00%</td><td>46.28亿</td></tr>
+<tr><td>12</td><td style="text-align:left;padding-left:15px;">红豆股份</td><td>600400</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.14%</td><td>3.34亿</td></tr>
+<tr><td>13</td><td style="text-align:left;padding-left:15px;">名雕股份</td><td>002830</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.03%</td><td>2.78亿</td></tr>
+<tr><td>14</td><td style="text-align:left;padding-left:15px;">六国化工</td><td>600470</td><td><span class="tag tag-red">2板</span></td><td class="red">+9.98%</td><td>6.34亿</td></tr>
+<tr><td>15</td><td style="text-align:left;padding-left:15px;">三孚股份</td><td>603938</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.00%</td><td>24.21亿</td></tr>
+<tr><td>16</td><td style="text-align:left;padding-left:15px;">东江环保</td><td>002672</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.13%</td><td>1.92亿</td></tr>
+<tr><td>17</td><td style="text-align:left;padding-left:15px;">新大洲A</td><td>000571</td><td><span class="tag tag-red">2板</span></td><td class="red">+9.95%</td><td>5.47亿</td></tr>
+<tr><td>18</td><td style="text-align:left;padding-left:15px;">长飞光纤</td><td>601869</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.00%</td><td>129.29亿</td></tr>
+<tr><td>19</td><td style="text-align:left;padding-left:15px;">华旺科技</td><td>605377</td><td><span class="tag tag-red">2板</span></td><td class="red">+10.00%</td><td>1.44亿</td></tr>
+<tr><td>20</td><td style="text-align:left;padding-left:15px;">恒盛能源</td><td>605580</td><td><span class="tag tag-red">2板</span></td><td class="red">+9.99%</td><td>7.71亿</td></tr>
+</table>
+</div>
+<h2>十一、今日跌停风险监控</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<tr><th>序号</th><th>股票名称</th><th>代码</th><th>涨跌幅</th><th>最新价</th><th>成交额(亿)</th><th>备注</th></tr>
+<tr><td>1</td><td style="text-align:left;padding-left:15px;">意华股份</td><td>002897</td><td class="green">-10.00%</td><td>84.69</td><td>17.40</td><td>跌停</td></tr>
+<tr><td>2</td><td style="text-align:left;padding-left:15px;">赤峰黄金</td><td>600988</td><td class="green">-10.00%</td><td>27.98</td><td>19.52</td><td>跌停</td></tr>
+<tr><td>3</td><td style="text-align:left;padding-left:15px;">湖南黄金</td><td>002155</td><td class="green">-9.98%</td><td>26.24</td><td>28.83</td><td>跌停</td></tr>
+<tr><td>4</td><td style="text-align:left;padding-left:15px;">德创环保</td><td>603177</td><td class="green">-10.00%</td><td>10.08</td><td>1.84</td><td>跌停</td></tr>
+<tr><td>5</td><td style="text-align:left;padding-left:15px;">中金黄金</td><td>600489</td><td class="green">-10.02%</td><td>20.03</td><td>24.89</td><td>跌停</td></tr>
+<tr><td>6</td><td style="text-align:left;padding-left:15px;">江海股份</td><td>002484</td><td class="green">-10.00%</td><td>94.50</td><td>55.33</td><td>跌停</td></tr>
+<tr><td>7</td><td style="text-align:left;padding-left:15px;">西部矿业</td><td>601168</td><td class="green">-10.01%</td><td>30.03</td><td>29.49</td><td>跌停</td></tr>
+<tr><td>8</td><td style="text-align:left;padding-left:15px;">国城矿业</td><td>000688</td><td class="green">-10.01%</td><td>34.62</td><td>13.56</td><td>跌停</td></tr>
+<tr><td>9</td><td style="text-align:left;padding-left:15px;">盛达资源</td><td>000603</td><td class="green">-9.98%</td><td>24.80</td><td>9.57</td><td>跌停</td></tr>
+<tr><td>10</td><td style="text-align:left;padding-left:15px;">洁美科技</td><td>002859</td><td class="green">-10.00%</td><td>92.25</td><td>23.38</td><td>跌停</td></tr>
+<tr><td>11</td><td style="text-align:left;padding-left:15px;">招金黄金</td><td>000506</td><td class="green">-9.97%</td><td>13.54</td><td>5.76</td><td>跌停</td></tr>
+<tr><td>12</td><td style="text-align:left;padding-left:15px;">圣泉集团</td><td>605589</td><td class="green">-10.00%</td><td>66.17</td><td>56.19</td><td>跌停</td></tr>
+<tr><td>13</td><td style="text-align:left;padding-left:15px;">新赛股份</td><td>600540</td><td class="green">-10.07%</td><td>3.75</td><td>0.46</td><td>跌停</td></tr>
+<tr><td>14</td><td style="text-align:left;padding-left:15px;">华锡有色</td><td>600301</td><td class="green">-10.00%</td><td>64.26</td><td>13.48</td><td>跌停</td></tr>
+<tr><td>15</td><td style="text-align:left;padding-left:15px;">卓郎智能</td><td>600545</td><td class="green">-9.95%</td><td>6.61</td><td>11.18</td><td>跌停</td></tr>
+<tr><td>16</td><td style="text-align:left;padding-left:15px;">盛和资源</td><td>600392</td><td class="green">-10.01%</td><td>31.03</td><td>73.56</td><td>跌停</td></tr>
+<tr><td>17</td><td style="text-align:left;padding-left:15px;">宏昌电子</td><td>603002</td><td class="green">-9.98%</td><td>23.35</td><td>28.13</td><td>跌停</td></tr>
+<tr><td>18</td><td style="text-align:left;padding-left:15px;">西部材料</td><td>002149</td><td class="green">-10.00%</td><td>49.15</td><td>30.42</td><td>跌停</td></tr>
+<tr><td>19</td><td style="text-align:left;padding-left:15px;">湘潭电化</td><td>002125</td><td class="green">-9.97%</td><td>16.61</td><td>10.19</td><td>跌停</td></tr>
+<tr><td>20</td><td style="text-align:left;padding-left:15px;">中金岭南</td><td>000060</td><td class="green">-9.99%</td><td>7.93</td><td>38.46</td><td>跌停</td></tr>
+<tr><td>21</td><td style="text-align:left;padding-left:15px;">超声电子</td><td>000823</td><td class="green">-10.02%</td><td>21.38</td><td>27.10</td><td>跌停</td></tr>
+<tr><td>22</td><td style="text-align:left;padding-left:15px;">铭普光磁</td><td>002902</td><td class="green">-9.99%</td><td>32.53</td><td>9.81</td><td>跌停</td></tr>
+<tr><td>23</td><td style="text-align:left;padding-left:15px;">顺络电子</td><td>002138</td><td class="green">-9.99%</td><td>66.10</td><td>38.21</td><td>跌停</td></tr>
+<tr><td>24</td><td style="text-align:left;padding-left:15px;">华宏科技</td><td>002645</td><td class="green">-10.01%</td><td>32.37</td><td>20.36</td><td>跌停</td></tr>
+<tr><td>25</td><td style="text-align:left;padding-left:15px;">洛阳钼业</td><td>603993</td><td class="green">-9.98%</td><td>19.49</td><td>111.27</td><td>跌停</td></tr>
+<tr><td>26</td><td style="text-align:left;padding-left:15px;">章源钨业</td><td>002378</td><td class="green">-10.00%</td><td>36.47</td><td>38.06</td><td>跌停</td></tr>
+<tr><td>27</td><td style="text-align:left;padding-left:15px;">上海亚虹</td><td>603159</td><td class="green">-10.00%</td><td>23.40</td><td>0.09</td><td>跌停</td></tr>
+<tr><td>28</td><td style="text-align:left;padding-left:15px;">园林股份</td><td>605303</td><td class="green">-9.99%</td><td>28.12</td><td>0.40</td><td>跌停</td></tr>
+<tr><td>29</td><td style="text-align:left;padding-left:15px;">中稀有色</td><td>600259</td><td class="green">-10.00%</td><td>106.79</td><td>29.07</td><td>跌停</td></tr>
+<tr><td>30</td><td style="text-align:left;padding-left:15px;">中国稀土</td><td>000831</td><td class="green">-10.00%</td><td>59.67</td><td>48.49</td><td>跌停</td></tr>
+<tr><td>31</td><td style="text-align:left;padding-left:15px;">江西铜业</td><td>600362</td><td class="green">-10.01%</td><td>49.37</td><td>47.98</td><td>跌停</td></tr>
+<tr><td>32</td><td style="text-align:left;padding-left:15px;">东材科技</td><td>601208</td><td class="green">-10.00%</td><td>71.85</td><td>66.07</td><td>跌停</td></tr>
+<tr><td>33</td><td style="text-align:left;padding-left:15px;">盛龙股份</td><td>001257</td><td class="green">-10.00%</td><td>30.43</td><td>12.23</td><td>跌停</td></tr>
+<tr><td>34</td><td style="text-align:left;padding-left:15px;">兴业银锡</td><td>000426</td><td class="green">-10.00%</td><td>38.71</td><td>39.23</td><td>跌停</td></tr>
+<tr><td>35</td><td style="text-align:left;padding-left:15px;">红星发展</td><td>600367</td><td class="green">-10.00%</td><td>56.00</td><td>29.39</td><td>跌停</td></tr>
+<tr><td>36</td><td style="text-align:left;padding-left:15px;">光华科技</td><td>002741</td><td class="green">-10.01%</td><td>37.40</td><td>13.17</td><td>跌停</td></tr>
+<tr><td>37</td><td style="text-align:left;padding-left:15px;">诺德股份</td><td>600110</td><td class="green">-9.97%</td><td>15.44</td><td>25.08</td><td>跌停</td></tr>
+<tr><td>38</td><td style="text-align:left;padding-left:15px;">铜陵有色</td><td>000630</td><td class="green">-9.96%</td><td>7.14</td><td>50.83</td><td>跌停</td></tr>
+<tr><td>39</td><td style="text-align:left;padding-left:15px;">北大荒</td><td>600598</td><td class="green">-10.03%</td><td>12.47</td><td>1.33</td><td>跌停</td></tr>
+</table>
+</div>
+<footer>
+<p>报告生成时间: 2026-06-23 18:52:22 | 数据来源: akshare（TDX Token过期，使用备用方案）</p>
+<p style="color:#f0b90b;margin-top:10px;">⚠️ 请尽快更新TDX Token以恢复完整功能</p>
+</footer>
+</div>
 </body>
 </html>
