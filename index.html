@@ -1,153 +1,173 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>热点板块盯盘报告 2026年06月23日</title>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>盘中盯盘报告（TDX增强版）</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:#0a0e17;color:#e0e0e0;}
-.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:30px;text-align:center;border-bottom:2px solid #0f3460;}
-.header h1{color:#e94560;font-size:28px;margin-bottom:8px;}
-.header .date{color:#888;font-size:14px;}
-.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;padding:20px;max-width:1200px;margin:0 auto;}
-.summary-card{background:#16213e;border-radius:10px;padding:20px;text-align:center;border:1px solid #0f3460;}
-.summary-card .num{font-size:32px;font-weight:bold;margin:10px 0;}
-.summary-card .label{color:#888;font-size:13px;}
-.red{color:#ff4444;}
-.green{color:#00c853;}
-.gold{color:#ffd700;}
-.section{max-width:1200px;margin:20px auto;padding:0 20px;}
-.section-title{font-size:18px;color:#e94560;margin:25px 0 15px;padding-left:10px;border-left:4px solid #e94560;}
-.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px;}
-.index-card{background:#16213e;border-radius:10px;padding:20px;border:1px solid #0f3460;}
-.index-card .name{color:#888;font-size:13px;margin-bottom:5px;}
-.index-card .price{font-size:26px;font-weight:bold;}
-.index-card .chg{font-size:15px;margin-top:5px;}
-table{width:100%;border-collapse:collapse;background:#16213e;border-radius:10px;overflow:hidden;margin-bottom:20px;}
-th{background:#0f3460;color:#fff;padding:12px 10px;font-size:13px;text-align:left;}
-td{padding:10px;font-size:13px;border-bottom:1px solid #1a1a2e;}
-tr:hover{background:#1a1a2e;}
-.tag{display:inline-block;background:#0f3460;color:#aaa;padding:2px 8px;border-radius:10px;font-size:11px;margin:1px;}
-.footer{text-align:center;padding:30px;color:#555;font-size:12px;}
-</style>
-</head>
-<body>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px;color:#333}
+.container{max-width:1400px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:30px;text-align:center}
+.header h1{font-size:28px;margin-bottom:8px;text-shadow:2px 2px 4px rgba(0,0,0,.2)}
+.header .time{font-size:14px;opacity:.9} .header .time span{opacity:.7}
+.section{padding:25px;border-bottom:1px solid #eee} .section:last-child{border-bottom:none}
+.section-title{font-size:20px;font-weight:bold;margin-bottom:20px;display:flex;align-items:center}
+.section-title::before{content:'';display:inline-block;width:5px;height:20px;background:linear-gradient(180deg,#667eea,#764ba2);border-radius:3px;margin-right:12px}
+.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.index-card{background:#fff;border-radius:12px;padding:24px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.08);border:1px solid #eee;transition:transform .3s}
+.index-card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(102,126,234,.2)}
+.idx-name{font-size:15px;color:#666;margin-bottom:8px;font-weight:500}
+.idx-price{font-size:36px;font-weight:bold;margin:10px 0;letter-spacing:-1px}
+.idx-change{font-size:17px;font-weight:bold} .idx-extra{font-size:12px;color:#999;margin-top:10px;line-height:1.6}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px}
+.metric{text-align:center;background:#f8f9fa;border-radius:12px;padding:22px 12px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.m-label{font-size:13px;color:#888;margin-bottom:8px} .m-value{font-size:32px;font-weight:bold}
+.red{color:#ff4444!important} .green{color:#00aa00!important} .flat{color:#888!important} .orange{color:#ff8c00!important}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:#f8f9fa;padding:11px 14px;text-align:left;font-weight:600;color:#555;border-bottom:2px solid #eee;white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid #f0f0f0} tr:hover{background:#fafafa}
+.stock-code{color:#667eea;font-weight:600;font-family:Consolas,monospace}
+.tag{display:inline-block;background:#eef0ff;color:#5555aa;padding:2px 7px;border-radius:10px;font-size:11px;margin:1px}
+.tag-hot{background:#fff0e0;color:#cc6600}
+.board-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:bold;color:#fff}
+.badge-5{background:linear-gradient(135deg,#ff416c,#ff4b2b)}
+.badge-4{background:linear-gradient(135deg,#f857a6,#ff5858)}
+.badge-3{background:linear-gradient(135deg,#f093fb,#f5576c)}
+.badge-2{background:linear-gradient(135deg,#4facfe,#00f2fe);color:#333}
+.footer{text-align:center;padding:20px;color:#aaa;font-size:12px;border-top:1px solid #eee}
+@media(max-width:600px){.index-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}table{font-size:12px}}
+</style></head><body>
+<div class="container">
 <div class="header">
-    <h1>热点板块盯盘报告</h1>
-    <div class="date">2026年06月23日 盘后总结（TDX MCP 数据版）</div>
-</div>
-<div class="summary-grid">
-    <div class="summary-card"><div class="label">涨停</div><div class="num red">124</div></div>
-    <div class="summary-card"><div class="label">连板</div><div class="num gold">20</div></div>
-    <div class="summary-card"><div class="label">跌停</div><div class="num green">50</div></div>
-    <div class="summary-card"><div class="label">上证指数</div><div class="num green">4106.25</div><div class="green">-1.37%</div></div>
-    <div class="summary-card"><div class="label">深证成指</div><div class="num green">15854.20</div><div class="green">-3.17%</div></div>
-    <div class="summary-card"><div class="label">创业板指</div><div class="num green">4192.19</div><div class="green">-3.84%</div></div>
-</div>
-<div class="section">
-<div class="section-title">大盘指数</div>
-<div class="index-grid">
-    <div class="index-card"><div class="name">上证指数 (000001)</div><div class="price green">4106.25</div><div class="chg green">-1.37% | 量:70900万手 换:1.47%</div></div>
-    <div class="index-card"><div class="name">深证成指 (399001)</div><div class="price green">15854.20</div><div class="chg green">-3.17% | 量:80855万手 换:3.31%</div></div>
-    <div class="index-card"><div class="name">创业板指 (399006)</div><div class="price green">4192.19</div><div class="chg green">-3.84% | 量:25547万手 换:4.58%</div></div>
-</div>
-<div class="section-title">连板股票（20只）</div>
-<table>
-<tr><th>代码</th><th>名称</th><th>现价</th><th>涨幅</th><th>连板</th><th>概念</th></tr>
-<tr><td>300085</td><td><strong>银之杰</strong></td><td>38.82</td><td class="red">+20.00%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">人工智能</span><span class="tag">跨境电商</span><span class="tag">大数据</span></td></tr>
-<tr><td>600400</td><td><strong>红豆股份</strong></td><td>3.26</td><td class="red">+10.14%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">电商概念</span><span class="tag">新零售</span><span class="tag">服装家纺</span></td></tr>
-<tr><td>002672</td><td><strong>东江环保</strong></td><td>4.13</td><td class="red">+10.13%</td><td class="gold"><strong>3板</strong></td><td><span class="tag">微小盘股</span><span class="tag">国企改革</span><span class="tag">粤港澳</span></td></tr>
-<tr><td>002830</td><td><strong>名雕股份</strong></td><td>17.77</td><td class="red">+10.03%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">活跃小盘非融</span><span class="tag">微小盘股</span><span class="tag">新零售</span></td></tr>
-<tr><td>605069</td><td><strong>正和生态</strong></td><td>13.40</td><td class="red">+10.02%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">微小盘股</span><span class="tag">人工智能</span><span class="tag">机器人概念</span></td></tr>
-<tr><td>002674</td><td><strong>兴业科技</strong></td><td>21.66</td><td class="red">+10.01%</td><td class="gold"><strong>3板</strong></td><td><span class="tag">纺织制造</span><span class="tag">医疗器械概念</span><span class="tag">华为汽车</span></td></tr>
-<tr><td>601869</td><td><strong>长飞光纤</strong></td><td>570.58</td><td class="red">+10.00%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">数据中心</span><span class="tag">光通信</span><span class="tag">空芯光纤</span></td></tr>
-<tr><td>605377</td><td><strong>华旺科技</strong></td><td>9.24</td><td class="red">+10.00%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">造纸</span><span class="tag">高分红股</span></td></tr>
-<tr><td>000783</td><td><strong>长江证券</strong></td><td>9.46</td><td class="red">+10.00%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">周期股</span><span class="tag">股权转让</span><span class="tag">证券</span></td></tr>
-<tr><td>002068</td><td><strong>黑猫股份</strong></td><td>12.65</td><td class="red">+10.00%</td><td class="gold"><strong>3板</strong></td><td><span class="tag">超级电容</span><span class="tag">国企改革</span><span class="tag">新材料</span></td></tr>
-<tr><td>603938</td><td><strong>三孚股份</strong></td><td>65.12</td><td class="red">+10.00%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">存储芯片</span><span class="tag">芯片</span><span class="tag">光伏</span></td></tr>
-<tr><td>000070</td><td><strong>特发信息</strong></td><td>25.08</td><td class="red">+10.00%</td><td class="gold"><strong>3板</strong></td><td><span class="tag">人工智能</span><span class="tag">数据中心</span><span class="tag">国企改革</span></td></tr>
-<tr><td>600397</td><td><strong>江钨装备</strong></td><td>24.44</td><td class="red">+9.99%</td><td class="gold"><strong>5板</strong></td><td><span class="tag">国企改革</span><span class="tag">专用设备</span><span class="tag">焦煤</span></td></tr>
-<tr><td>603407</td><td><strong>长裕集团</strong></td><td>82.32</td><td class="red">+9.99%</td><td class="gold"><strong>5板</strong></td><td><span class="tag">次新股</span><span class="tag">比亚迪概念</span><span class="tag">化学原料</span></td></tr>
-<tr><td>605580</td><td><strong>恒盛能源</strong></td><td>29.07</td><td class="red">+9.99%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">芯片</span><span class="tag">养老金持股</span><span class="tag">第三代半导体</span></td></tr>
-<tr><td>600172</td><td><strong>黄河旋风</strong></td><td>16.95</td><td class="red">+9.99%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">培育钻石</span><span class="tag">金刚石</span></td></tr>
-<tr><td>600470</td><td><strong>六国化工</strong></td><td>6.50</td><td class="red">+9.98%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">微小盘股</span><span class="tag">乡村振兴</span><span class="tag">农用化工</span></td></tr>
-<tr><td>002167</td><td><strong>东方锆业</strong></td><td>19.51</td><td class="red">+9.98%</td><td class="gold"><strong>3板</strong></td><td><span class="tag">固态电池</span><span class="tag">锆金属</span></td></tr>
-<tr><td>600851</td><td><strong>海欣股份</strong></td><td>9.72</td><td class="red">+9.95%</td><td class="gold"><strong>3板</strong></td><td><span class="tag">创新药</span><span class="tag">原料药</span></td></tr>
-<tr><td>000571</td><td><strong>新大洲A</strong></td><td>6.41</td><td class="red">+9.95%</td><td class="gold"><strong>2板</strong></td><td><span class="tag">新零售</span><span class="tag">煤炭开采</span><span class="tag">国防军工</span></td></tr>
-</table>
-<div class="section-title">涨停股票（124只，显示前40只）</div>
-<table>
-<tr><th>代码</th><th>名称</th><th>现价</th><th>涨幅</th><th>连板</th><th>概念</th></tr>
-<tr><td>002648</td><td><strong>卫星化学</strong></td><td>25.18</td><td class="red">+10.00%</td><td>1板</td><td><span class="tag">非周期股</span><span class="tag">业绩预升</span><span class="tag">化学原料</span></td></tr>
-<tr><td>002674</td><td><strong>兴业科技</strong></td><td>21.66</td><td class="red">+10.01%</td><td class="gold">3板</td><td><span class="tag">纺织制造</span><span class="tag">医疗器械概念</span><span class="tag">华为汽车</span></td></tr>
-<tr><td>000551</td><td><strong>创元科技</strong></td><td>16.84</td><td class="red">+9.99%</td><td>1板</td><td><span class="tag">芯片</span><span class="tag">国企改革</span><span class="tag">商业航天</span></td></tr>
-<tr><td>002167</td><td><strong>东方锆业</strong></td><td>19.51</td><td class="red">+9.98%</td><td class="gold">3板</td><td><span class="tag">固态电池</span><span class="tag">锆金属</span></td></tr>
-<tr><td>601869</td><td><strong>长飞光纤</strong></td><td>570.58</td><td class="red">+10.00%</td><td class="gold">2板</td><td><span class="tag">数据中心</span><span class="tag">光通信</span><span class="tag">空芯光纤</span></td></tr>
-<tr><td>000783</td><td><strong>长江证券</strong></td><td>9.46</td><td class="red">+10.00%</td><td class="gold">2板</td><td><span class="tag">周期股</span><span class="tag">股权转让</span><span class="tag">证券</span></td></tr>
-<tr><td>600171</td><td><strong>上海贝岭</strong></td><td>30.80</td><td class="red">+10.00%</td><td>1板</td><td><span class="tag">存储芯片</span><span class="tag">芯片</span></td></tr>
-<tr><td>002580</td><td><strong>圣阳股份</strong></td><td>23.19</td><td class="red">+10.01%</td><td>1板</td><td><span class="tag">液冷服务器</span><span class="tag">数据中心</span><span class="tag">国企改革</span></td></tr>
-<tr><td>000070</td><td><strong>特发信息</strong></td><td>25.08</td><td class="red">+10.00%</td><td class="gold">3板</td><td><span class="tag">人工智能</span><span class="tag">数据中心</span><span class="tag">国企改革</span></td></tr>
-<tr><td>002031</td><td><strong>巨轮智能</strong></td><td>6.08</td><td class="red">+9.95%</td><td>1板</td><td><span class="tag">人形机器人</span><span class="tag">高端装备</span><span class="tag">机器人概念</span></td></tr>
-<tr><td>605167</td><td><strong>利柏特</strong></td><td>16.67</td><td class="red">+10.03%</td><td>1板</td><td><span class="tag">天然气</span><span class="tag">专业工程</span><span class="tag">一带一路</span></td></tr>
-<tr><td>605118</td><td><strong>力鼎光电</strong></td><td>34.30</td><td class="red">+10.01%</td><td>1板</td><td><span class="tag">人工智能</span><span class="tag">专精特新</span><span class="tag">机器人概念</span></td></tr>
-<tr><td>600172</td><td><strong>黄河旋风</strong></td><td>16.95</td><td class="red">+9.99%</td><td class="gold">2板</td><td><span class="tag">培育钻石</span><span class="tag">金刚石</span></td></tr>
-<tr><td>000691</td><td><strong>亚太实业</strong></td><td>12.77</td><td class="red">+9.99%</td><td>1板</td><td><span class="tag">股东减持</span><span class="tag">原料药</span><span class="tag">锂电池概念</span></td></tr>
-<tr><td>603938</td><td><strong>三孚股份</strong></td><td>65.12</td><td class="red">+10.00%</td><td class="gold">2板</td><td><span class="tag">存储芯片</span><span class="tag">芯片</span><span class="tag">光伏</span></td></tr>
-<tr><td>002196</td><td><strong>方正电机</strong></td><td>13.95</td><td class="red">+10.02%</td><td>1板</td><td><span class="tag">人形机器人</span><span class="tag">国企改革</span><span class="tag">低空经济</span></td></tr>
-<tr><td>001225</td><td><strong>和泰机电</strong></td><td>45.78</td><td class="red">+10.00%</td><td>1板</td><td><span class="tag">活跃小盘非融</span><span class="tag">微小盘股</span><span class="tag">专用设备</span></td></tr>
-<tr><td>002584</td><td><strong>西陇科学</strong></td><td>10.02</td><td class="red">+9.99%</td><td>1板</td><td><span class="tag">芯片</span><span class="tag">储能</span><span class="tag">电商概念</span></td></tr>
-<tr><td>603407</td><td><strong>长裕集团</strong></td><td>82.32</td><td class="red">+9.99%</td><td class="gold">5板</td><td><span class="tag">次新股</span><span class="tag">比亚迪概念</span><span class="tag">化学原料</span></td></tr>
-<tr><td>002522</td><td><strong>浙江众成</strong></td><td>7.61</td><td class="red">+9.97%</td><td>1板</td><td><span class="tag">国企改革</span><span class="tag">新材料</span><span class="tag">专精特新</span></td></tr>
-<tr><td>603335</td><td><strong>迪生力</strong></td><td>9.02</td><td class="red">+10.00%</td><td>1板</td><td><span class="tag">芯片</span><span class="tag">汽车零部件</span><span class="tag">动力电池回收</span></td></tr>
-<tr><td>300835</td><td><strong>龙磁科技</strong></td><td>234.31</td><td class="red">+20.00%</td><td>1板</td><td><span class="tag">周期股</span><span class="tag">数据中心</span><span class="tag">专精特新</span></td></tr>
-<tr><td>600843</td><td><strong>上工申贝</strong></td><td>8.58</td><td class="red">+10.00%</td><td>1板</td><td><span class="tag">低空经济</span><span class="tag">机器人概念</span><span class="tag">上海国资改革</span></td></tr>
-<tr><td>600360</td><td><strong>华微电子</strong></td><td>13.54</td><td class="red">+9.99%</td><td>1板</td><td><span class="tag">芯片</span><span class="tag">半导体</span><span class="tag">华为概念</span></td></tr>
-<tr><td>000756</td><td><strong>新华制药</strong></td><td>13.44</td><td class="red">+9.98%</td><td>1板</td><td><span class="tag">创新药</span><span class="tag">国企改革</span><span class="tag">新零售</span></td></tr>
-<tr><td>002038</td><td><strong>双鹭药业</strong></td><td>5.54</td><td class="red">+9.92%</td><td>1板</td><td><span class="tag">创新药</span><span class="tag">创投概念</span><span class="tag">基因概念</span></td></tr>
-<tr><td>600777</td><td><strong>新潮能源</strong></td><td>5.40</td><td class="red">+9.98%</td><td>1板</td><td><span class="tag">摘帽</span><span class="tag">天然气</span><span class="tag">人民币贬值受益</span></td></tr>
-<tr><td>605366</td><td><strong>宏柏新材</strong></td><td>10.80</td><td class="red">+9.98%</td><td>1板</td><td><span class="tag">新材料</span><span class="tag">专项贷款</span><span class="tag">光通信</span></td></tr>
-<tr><td>002370</td><td><strong>亚太药业</strong></td><td>5.41</td><td class="red">+9.96%</td><td>1板</td><td><span class="tag">创新药</span><span class="tag">控制权变更</span></td></tr>
-<tr><td>002549</td><td><strong>凯美特气</strong></td><td>18.67</td><td class="red">+10.02%</td><td>1板</td><td><span class="tag">芯片</span><span class="tag">专精特新</span><span class="tag">冷链物流</span></td></tr>
-<tr><td>603757</td><td><strong>大元泵业</strong></td><td>67.84</td><td class="red">+10.00%</td><td>1板</td><td><span class="tag">液冷服务器</span><span class="tag">数据中心</span><span class="tag">通用设备</span></td></tr>
-<tr><td>603122</td><td><strong>合富中国</strong></td><td>12.77</td><td class="red">+9.99%</td><td>1板</td><td><span class="tag">人工智能</span><span class="tag">医药商业</span></td></tr>
-<tr><td>603106</td><td><strong>恒银科技</strong></td><td>8.09</td><td class="red">+10.07%</td><td>1板</td><td><span class="tag">人工智能</span><span class="tag">电商概念</span><span class="tag">操作系统</span></td></tr>
-<tr><td>603210</td><td><strong>泰鸿万立</strong></td><td>14.30</td><td class="red">+10.00%</td><td>1板</td><td><span class="tag">储能</span><span class="tag">汽车零部件</span><span class="tag">锂电池概念</span></td></tr>
-<tr><td>300085</td><td><strong>银之杰</strong></td><td>38.82</td><td class="red">+20.00%</td><td class="gold">2板</td><td><span class="tag">人工智能</span><span class="tag">跨境电商</span><span class="tag">大数据</span></td></tr>
-<tr><td>600708</td><td><strong>光明地产</strong></td><td>3.29</td><td class="red">+10.03%</td><td>1板</td><td><span class="tag">国企改革</span><span class="tag">房地产开发</span></td></tr>
-<tr><td>002728</td><td><strong>特一药业</strong></td><td>8.82</td><td class="red">+9.98%</td><td>1板</td><td><span class="tag">中药</span><span class="tag">摩根中国A股基金持股</span></td></tr>
-<tr><td>603630</td><td><strong>拉芳家化</strong></td><td>14.25</td><td class="red">+10.04%</td><td>1板</td><td><span class="tag">微小盘股</span><span class="tag">电商概念</span><span class="tag">新零售</span></td></tr>
-<tr><td>600851</td><td><strong>海欣股份</strong></td><td>9.72</td><td class="red">+9.95%</td><td class="gold">3板</td><td><span class="tag">创新药</span><span class="tag">原料药</span></td></tr>
-<tr><td>301211</td><td><strong>亨迪药业</strong></td><td>11.29</td><td class="red">+19.98%</td><td>1板</td><td><span class="tag">原料药</span><span class="tag">人民币贬值受益</span></td></tr>
-</table>
-<div class="section-title">跌停股票（50只，显示前20只）</div>
-<table>
-<tr><th>代码</th><th>名称</th><th>现价</th><th>跌幅</th><th>概念</th></tr>
-<tr><td>002217</td><td><strong>ST合力泰</strong></td><td>2.40</td><td class="green">-5.14%</td><td><span class="tag">ST板块</span><span class="tag">国企改革</span><span class="tag">消费电子</span></td></tr>
-<tr><td>600598</td><td><strong>北大荒</strong></td><td>12.47</td><td class="green">-10.03%</td><td><span class="tag">国企改革</span><span class="tag">电商概念</span><span class="tag">乡村振兴</span></td></tr>
-<tr><td>000630</td><td><strong>铜陵有色</strong></td><td>7.14</td><td class="green">-9.96%</td><td><span class="tag">周期股</span><span class="tag">国企改革</span><span class="tag">工业金属</span></td></tr>
-<tr><td>600110</td><td><strong>诺德股份</strong></td><td>15.44</td><td class="green">-9.97%</td><td><span class="tag">储能</span><span class="tag">粤港澳</span><span class="tag">复合铜箔</span></td></tr>
-<tr><td>002741</td><td><strong>光华科技</strong></td><td>37.40</td><td class="green">-10.01%</td><td><span class="tag">芯片</span><span class="tag">半导体</span><span class="tag">锂电池概念</span></td></tr>
-<tr><td>600367</td><td><strong>红星发展</strong></td><td>56.00</td><td class="green">-10.00%</td><td><span class="tag">国企改革</span><span class="tag">锂电池概念</span><span class="tag">锂矿</span></td></tr>
-<tr><td>000426</td><td><strong>兴业银锡</strong></td><td>38.71</td><td class="green">-10.00%</td><td><span class="tag">周期股</span><span class="tag">股权转让</span><span class="tag">工业金属</span></td></tr>
-<tr><td>001257</td><td><strong>盛龙股份</strong></td><td>30.43</td><td class="green">-10.00%</td><td><span class="tag">次新股</span><span class="tag">稀有金属</span></td></tr>
-<tr><td>601208</td><td><strong>东材科技</strong></td><td>71.85</td><td class="green">-10.00%</td><td><span class="tag">芯片</span><span class="tag">塑料</span><span class="tag">消费电子概念</span></td></tr>
-<tr><td>600362</td><td><strong>江西铜业</strong></td><td>49.37</td><td class="green">-10.01%</td><td><span class="tag">周期股</span><span class="tag">国企改革</span><span class="tag">工业金属</span></td></tr>
-<tr><td>000831</td><td><strong>中国稀土</strong></td><td>59.67</td><td class="green">-10.00%</td><td><span class="tag">稀土永磁</span><span class="tag">中字头</span></td></tr>
-<tr><td>600259</td><td><strong>中稀有色</strong></td><td>106.79</td><td class="green">-10.00%</td><td><span class="tag">国企改革</span><span class="tag">稀有金属</span></td></tr>
-<tr><td>605303</td><td><strong>园林股份</strong></td><td>28.12</td><td class="green">-9.99%</td><td><span class="tag">存储芯片</span><span class="tag">芯片</span></td></tr>
-<tr><td>603159</td><td><strong>上海亚虹</strong></td><td>23.40</td><td class="green">-10.00%</td><td><span class="tag">专用设备</span><span class="tag">汽车电子</span></td></tr>
-<tr><td>002378</td><td><strong>章源钨业</strong></td><td>36.47</td><td class="green">-10.00%</td><td><span class="tag">工业母机</span><span class="tag">稀有金属</span></td></tr>
-<tr><td>603993</td><td><strong>洛阳钼业</strong></td><td>19.49</td><td class="green">-9.98%</td><td><span class="tag">周期股</span></td></tr>
-<tr><td>002645</td><td><strong>华宏科技</strong></td><td>32.37</td><td class="green">-10.01%</td><td><span class="tag">机器人概念</span><span class="tag">钴金属</span></td></tr>
-<tr><td>002138</td><td><strong>顺络电子</strong></td><td>66.10</td><td class="green">-9.99%</td><td><span class="tag">芯片</span><span class="tag">元器件</span><span class="tag">机器人概念</span></td></tr>
-<tr><td>002902</td><td><strong>铭普光磁</strong></td><td>32.53</td><td class="green">-9.99%</td><td><span class="tag">芯片</span><span class="tag">数据中心</span><span class="tag">华为概念</span></td></tr>
-<tr><td>000823</td><td><strong>超声电子</strong></td><td>21.38</td><td class="green">-10.02%</td><td><span class="tag">数据中心</span><span class="tag">国企改革</span><span class="tag">商业航天</span></td></tr>
-</table>
-</div>
-<div class="footer">
-    <p>数据来源：通达信 MCP 连接器（TDX MCP）| 生成时间：2026-06-23 21:29:43</p>
-    <p>仅供参考，不构成投资建议。股市有风险，投资需谨慎。</p>
-</div>
-</body>
-</html>
+<h1>📊 盘中盯盘报告（TDX增强版）</h1>
+<div class="time">生成时间：2026年06月23日 21:39:33 <span>| 数据来源：通达信TDX MCP | 真实数据</span></div></div>
+
+<!-- 一、大盘指数 -->
+<div class="section"><div class="section-title">一、大盘指数</div><div class="index-grid">
+<div class="index-card"><div class="idx-name">上证指数 (000001)</div>
+<div class="idx-price green">4,106.25</div><div class="idx-change green">-1.37% (-56.85点)</div>
+<div class="idx-extra">成交量: 709,003,913手 | 换手率: 1.47%</div></div>
+<div class="index-card"><div class="idx-name">深证成指 (399001)</div>
+<div class="idx-price green">15,854.20</div><div class="idx-change green">-3.17% (-518.30点)</div>
+<div class="idx-extra">成交量: 808,549,306手 | 换手率: 3.31%</div></div>
+<div class="index-card"><div class="idx-name">创业板指 (399006)</div>
+<div class="idx-price green">4,192.19</div><div class="idx-change green">-3.84% (-167.20点)</div>
+<div class="idx-extra">成交量: 255,471,052手 | 换手率: 4.58%</div></div>
+</div></div>
+
+<!-- 二、市场情绪总览 -->
+<div class="section"><div class="section-title">二、市场情绪总览</div><div class="metric-grid">
+<div class="metric"><div class="m-label">涨停数量</div><div class="m-value red">124</div></div>
+<div class="metric"><div class="m-label">跌停数量</div><div class="m-value green">50</div></div>
+<div class="metric"><div class="m-label">连板数(&ge;2板)</div><div class="m-value red">20</div></div>
+<div class="metric"><div class="m-label">赚钱效应</div><div class="m-value orange">结构性机会</div></div>
+</div></div>
+
+<!-- 三、连板股票（20只）-->
+<div class="section"><div class="section-title">三、连板股票（20只）</div>
+<table><tr><th>序号</th><th>代码</th><th>名称</th><th>现价</th><th>涨幅</th><th>连板</th><th>涨停原因</th></tr><tr><td>87</td><td class="stock-code">600397</td><td><strong>江钨装备</strong></td><td>24.44</td><td class="red">+9.99%</td><td><span class="board-badge badge-5">5板</span></td><td></td></tr>
+<tr><td>19</td><td class="stock-code">603407</td><td><strong>长裕集团</strong></td><td>82.32</td><td class="red">+9.99%</td><td><span class="board-badge badge-5">5板</span></td><td></td></tr>
+<tr><td>55</td><td class="stock-code">603595</td><td><strong>ST东尼</strong></td><td>31.94</td><td class="red">+5.00%</td><td><span class="board-badge badge-4">4板</span></td><td></td></tr>
+<tr><td>59</td><td class="stock-code">002672</td><td><strong>东江环保</strong></td><td>4.13</td><td class="red">+10.13%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>2</td><td class="stock-code">002674</td><td><strong>兴业科技</strong></td><td>21.66</td><td class="red">+10.01%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>4</td><td class="stock-code">002167</td><td><strong>东方锆业</strong></td><td>19.51</td><td class="red">+9.98%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>9</td><td class="stock-code">000070</td><td><strong>特发信息</strong></td><td>25.08</td><td class="red">+10.00%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>101</td><td class="stock-code">002068</td><td><strong>黑猫股份</strong></td><td>12.65</td><td class="red">+10.00%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>39</td><td class="stock-code">600851</td><td><strong>海欣股份</strong></td><td>9.72</td><td class="red">+9.95%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>79</td><td class="stock-code">603318</td><td><strong>水发燃气</strong></td><td>11.69</td><td class="red">+9.97%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>96</td><td class="stock-code">000056</td><td><strong>*ST皇庭</strong></td><td>1.84</td><td class="red">+5.14%</td><td><span class="board-badge badge-3">3板</span></td><td></td></tr>
+<tr><td>1</td><td class="stock-code">300085</td><td><strong>银之杰</strong></td><td>38.82</td><td class="red">+20.00%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>3</td><td class="stock-code">002830</td><td><strong>名雕股份</strong></td><td>17.77</td><td class="red">+10.03%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>5</td><td class="stock-code">605069</td><td><strong>正和生态</strong></td><td>13.40</td><td class="red">+10.02%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>7</td><td class="stock-code">601869</td><td><strong>长飞光纤</strong></td><td>570.58</td><td class="red">+10.00%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>10</td><td class="stock-code">000783</td><td><strong>长江证券</strong></td><td>9.46</td><td class="red">+10.00%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>48</td><td class="stock-code">605377</td><td><strong>华旺科技</strong></td><td>9.24</td><td class="red">+10.00%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>13</td><td class="stock-code">600172</td><td><strong>黄河旋风</strong></td><td>16.95</td><td class="red">+9.99%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>16</td><td class="stock-code">605580</td><td><strong>恒盛能源</strong></td><td>29.07</td><td class="red">+9.99%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>18</td><td class="stock-code">600470</td><td><strong>六国化工</strong></td><td>6.50</td><td class="red">+9.98%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+<tr><td>20</td><td class="stock-code">000571</td><td><strong>新大洲A</strong></td><td>6.41</td><td class="red">+9.95%</td><td><span class="board-badge badge-2">2板</span></td><td></td></tr>
+</table></div>
+<div class="section"><div class="section-title">四、涨停股票（124只，按封单金额排序）</div><table><tr><th>排名</th><th>代码</th><th>名称</th><th>现价</th><th>涨幅</th><th>几板</th><th>板型</th><th>涨停原因</th><th>封单额(万)</th><th>封成比</th></tr>
+<tr><td>1</td><td class="stock-code">002648</td><td><strong>卫星化学</strong></td><td>25.18</td><td class="red">+10.00%</td><td class="">1板</td><td>一字板</td><td style="max-width:200px"></td><td>[Math]::Round(115620/10000,1)</td><td>[Math]::Round(105.5,2)</td></tr>
+<tr><td>2</td><td class="stock-code">002674</td><td><strong>兴业科技</strong></td><td>21.66</td><td class="red">+10.01%</td><td class="red">3板</td><td>一字板</td><td style="max-width:200px"></td><td>[Math]::Round(163714/10000,1)</td><td>[Math]::Round(2298.9,2)</td></tr>
+<tr><td>3</td><td class="stock-code">000551</td><td><strong>创元科技</strong></td><td>16.84</td><td class="red">+9.99%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(55879/10000,1)</td><td>[Math]::Round(93.3,2)</td></tr>
+<tr><td>4</td><td class="stock-code">002167</td><td><strong>东方锆业</strong></td><td>19.51</td><td class="red">+9.98%</td><td class="red">3板</td><td>一字板</td><td style="max-width:200px"></td><td>[Math]::Round(231236/10000,1)</td><td>[Math]::Round(13,2)</td></tr>
+<tr><td>5</td><td class="stock-code">601869</td><td><strong>长飞光纤</strong></td><td>570.58</td><td class="red">+10.00%</td><td class="">2板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(191818/10000,1)</td><td>[Math]::Round(1.8,2)</td></tr>
+<tr><td>6</td><td class="stock-code">000783</td><td><strong>长江证券</strong></td><td>9.46</td><td class="red">+10.00%</td><td class="">2板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(120990/10000,1)</td><td>[Math]::Round(7.1,2)</td></tr>
+<tr><td>7</td><td class="stock-code">600171</td><td><strong>上海贝岭</strong></td><td>30.80</td><td class="red">+10.00%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(202831/10000,1)</td><td>[Math]::Round(15.3,2)</td></tr>
+<tr><td>8</td><td class="stock-code">002580</td><td><strong>圣阳股份</strong></td><td>23.19</td><td class="red">+10.01%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(97930/10000,1)</td><td>[Math]::Round(12,2)</td></tr>
+<tr><td>9</td><td class="stock-code">000070</td><td><strong>特发信息</strong></td><td>25.08</td><td class="red">+10.00%</td><td class="red">3板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(43817/10000,1)</td><td>[Math]::Round(4.1,2)</td></tr>
+<tr><td>10</td><td class="stock-code">002031</td><td><strong>巨轮智能</strong></td><td>6.08</td><td class="red">+9.95%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(176247/10000,1)</td><td>[Math]::Round(19.9,2)</td></tr>
+<tr><td>11</td><td class="stock-code">605167</td><td><strong>利柏特</strong></td><td>16.67</td><td class="red">+10.03%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(45077/10000,1)</td><td>[Math]::Round(44.5,2)</td></tr>
+<tr><td>12</td><td class="stock-code">605118</td><td><strong>力鼎光电</strong></td><td>34.30</td><td class="red">+10.01%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(27536/10000,1)</td><td>[Math]::Round(149.6,2)</td></tr>
+<tr><td>13</td><td class="stock-code">600172</td><td><strong>黄河旋风</strong></td><td>16.95</td><td class="red">+9.99%</td><td class="">2板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(49934/10000,1)</td><td>[Math]::Round(1.9,2)</td></tr>
+<tr><td>14</td><td class="stock-code">000691</td><td><strong>亚太实业</strong></td><td>12.77</td><td class="red">+9.99%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(30876/10000,1)</td><td>[Math]::Round(34.9,2)</td></tr>
+<tr><td>15</td><td class="stock-code">603938</td><td><strong>三孚股份</strong></td><td>65.12</td><td class="red">+10.00%</td><td class="">2板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(30677/10000,1)</td><td>[Math]::Round(3.7,2)</td></tr>
+<tr><td>16</td><td class="stock-code">002196</td><td><strong>方正电机</strong></td><td>13.95</td><td class="red">+10.02%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(84999/10000,1)</td><td>[Math]::Round(14.5,2)</td></tr>
+<tr><td>17</td><td class="stock-code">001225</td><td><strong>和泰机电</strong></td><td>45.78</td><td class="red">+10.00%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(19759/10000,1)</td><td>[Math]::Round(132.9,2)</td></tr>
+<tr><td>18</td><td class="stock-code">002584</td><td><strong>西陇科学</strong></td><td>10.02</td><td class="red">+9.99%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(54954/10000,1)</td><td>[Math]::Round(11.9,2)</td></tr>
+<tr><td>19</td><td class="stock-code">603407</td><td><strong>长裕集团</strong></td><td>82.32</td><td class="red">+9.99%</td><td class="red">5板</td><td>T字板</td><td style="max-width:200px"></td><td>[Math]::Round(15400/10000,1)</td><td>[Math]::Round(9.3,2)</td></tr>
+<tr><td>20</td><td class="stock-code">002522</td><td><strong>浙江众成</strong></td><td>7.61</td><td class="red">+9.97%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(46833/10000,1)</td><td>[Math]::Round(12.8,2)</td></tr>
+<tr><td>21</td><td class="stock-code">603335</td><td><strong>迪生力</strong></td><td>9.02</td><td class="red">+10.00%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(31654/10000,1)</td><td>[Math]::Round(12.1,2)</td></tr>
+<tr><td>22</td><td class="stock-code">300835</td><td><strong>龙磁科技</strong></td><td>234.31</td><td class="red">+20.00%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(54660/10000,1)</td><td>[Math]::Round(2.9,2)</td></tr>
+<tr><td>23</td><td class="stock-code">600843</td><td><strong>上工申贝</strong></td><td>8.58</td><td class="red">+10.00%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(30914/10000,1)</td><td>[Math]::Round(31.9,2)</td></tr>
+<tr><td>24</td><td class="stock-code">600360</td><td><strong>华微电子</strong></td><td>13.54</td><td class="red">+9.99%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(92017/10000,1)</td><td>[Math]::Round(3.9,2)</td></tr>
+<tr><td>25</td><td class="stock-code">000756</td><td><strong>新华制药</strong></td><td>13.44</td><td class="red">+9.98%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(26732/10000,1)</td><td>[Math]::Round(52,2)</td></tr>
+<tr><td>26</td><td class="stock-code">002038</td><td><strong>双鹭药业</strong></td><td>5.54</td><td class="red">+9.92%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(28335/10000,1)</td><td>[Math]::Round(46.6,2)</td></tr>
+<tr><td>27</td><td class="stock-code">600777</td><td><strong>新潮能源</strong></td><td>5.40</td><td class="red">+9.98%</td><td class="">1板</td><td>T字板</td><td style="max-width:200px"></td><td>[Math]::Round(10840/10000,1)</td><td>[Math]::Round(18.4,2)</td></tr>
+<tr><td>28</td><td class="stock-code">605366</td><td><strong>宏柏新材</strong></td><td>10.80</td><td class="red">+9.98%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(21752/10000,1)</td><td>[Math]::Round(26.4,2)</td></tr>
+<tr><td>29</td><td class="stock-code">002370</td><td><strong>亚太药业</strong></td><td>5.41</td><td class="red">+9.96%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(35344/10000,1)</td><td>[Math]::Round(56.8,2)</td></tr>
+<tr><td>30</td><td class="stock-code">002549</td><td><strong>凯美特气</strong></td><td>18.67</td><td class="red">+10.02%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(126446/10000,1)</td><td>[Math]::Round(5.9,2)</td></tr>
+<tr><td>31</td><td class="stock-code">603757</td><td><strong>大元泵业</strong></td><td>67.84</td><td class="red">+10.00%</td><td class="">1板</td><td>一字板</td><td style="max-width:200px"></td><td>[Math]::Round(47211/10000,1)</td><td>[Math]::Round(12.2,2)</td></tr>
+<tr><td>32</td><td class="stock-code">603122</td><td><strong>合富中国</strong></td><td>12.77</td><td class="red">+9.99%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(29227/10000,1)</td><td>[Math]::Round(33.8,2)</td></tr>
+<tr><td>33</td><td class="stock-code">603106</td><td><strong>恒银科技</strong></td><td>8.09</td><td class="red">+10.07%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(15304/10000,1)</td><td>[Math]::Round(51.4,2)</td></tr>
+<tr><td>34</td><td class="stock-code">603210</td><td><strong>泰鸿万立</strong></td><td>14.30</td><td class="red">+10.00%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(15430/10000,1)</td><td>[Math]::Round(77.7,2)</td></tr>
+<tr><td>35</td><td class="stock-code">300085</td><td><strong>银之杰</strong></td><td>38.82</td><td class="red">+20.00%</td><td class="">2板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(80345/10000,1)</td><td>[Math]::Round(1.3,2)</td></tr>
+<tr><td>36</td><td class="stock-code">600708</td><td><strong>光明地产</strong></td><td>3.29</td><td class="red">+10.03%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(26384/10000,1)</td><td>[Math]::Round(38.3,2)</td></tr>
+<tr><td>37</td><td class="stock-code">002728</td><td><strong>特一药业</strong></td><td>8.82</td><td class="red">+9.98%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(36572/10000,1)</td><td>[Math]::Round(43.8,2)</td></tr>
+<tr><td>38</td><td class="stock-code">603630</td><td><strong>拉芳家化</strong></td><td>14.25</td><td class="red">+10.04%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(16040/10000,1)</td><td>[Math]::Round(51.3,2)</td></tr>
+<tr><td>39</td><td class="stock-code">600851</td><td><strong>海欣股份</strong></td><td>9.72</td><td class="red">+9.95%</td><td class="red">3板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(13271/10000,1)</td><td>[Math]::Round(12.1,2)</td></tr>
+<tr><td>40</td><td class="stock-code">301211</td><td><strong>亨迪药业</strong></td><td>11.29</td><td class="red">+19.98%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(31362/10000,1)</td><td>[Math]::Round(31.6,2)</td></tr>
+<tr><td>41</td><td class="stock-code">002871</td><td><strong>伟隆股份</strong></td><td>21.46</td><td class="red">+9.99%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(29284/10000,1)</td><td>[Math]::Round(15.7,2)</td></tr>
+<tr><td>42</td><td class="stock-code">001206</td><td><strong>依依股份</strong></td><td>18.54</td><td class="red">+10.03%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(25253/10000,1)</td><td>[Math]::Round(37.5,2)</td></tr>
+<tr><td>43</td><td class="stock-code">603466</td><td><strong>风语筑</strong></td><td>10.69</td><td class="red">+9.98%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(40519/10000,1)</td><td>[Math]::Round(9.4,2)</td></tr>
+<tr><td>44</td><td class="stock-code">605069</td><td><strong>正和生态</strong></td><td>13.40</td><td class="red">+10.02%</td><td class="">2板</td><td>T字板</td><td style="max-width:200px"></td><td>[Math]::Round(5629/10000,1)</td><td>[Math]::Round(49.5,2)</td></tr>
+<tr><td>45</td><td class="stock-code">002921</td><td><strong>联诚精密</strong></td><td>25.80</td><td class="red">+10.02%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(17836/10000,1)</td><td>[Math]::Round(37.4,2)</td></tr>
+<tr><td>46</td><td class="stock-code">600719</td><td><strong>大连热电</strong></td><td>9.89</td><td class="red">+10.01%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(27699/10000,1)</td><td>[Math]::Round(6.3,2)</td></tr>
+<tr><td>47</td><td class="stock-code">600793</td><td><strong>宜宾纸业</strong></td><td>13.95</td><td class="red">+10.02%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(17921/10000,1)</td><td>[Math]::Round(31.7,2)</td></tr>
+<tr><td>48</td><td class="stock-code">605377</td><td><strong>华旺科技</strong></td><td>9.24</td><td class="red">+10.00%</td><td class="">2板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(19715/10000,1)</td><td>[Math]::Round(28.7,2)</td></tr>
+<tr><td>49</td><td class="stock-code">605369</td><td><strong>拱东医疗</strong></td><td>16.94</td><td class="red">+10.00%</td><td class="">1板</td><td> </td><td style="max-width:200px"></td><td>[Math]::Round(12677/10000,1)</td><td>[Math]::Round(75.5,2)</td></tr>
+<tr><td>50</td><td class="stock-code">000566</td><td><strong>海南海药</strong></td><td>4.08</td><td class="red">+9.97%</td><td class="">1板</td><td>换手板</td><td style="max-width:200px"></td><td>[Math]::Round(24353/10000,1)</td><td>[Math]::Round(32.3,2)</td></tr>
+</table><p style="color:#999;font-size:12px;margin-top:10px">注：共124只涨停股，此处展示前50只（按封单金额排序）。其余74只含ST股及小票。</p></div>
+<div class="section"><div class="section-title">五、跌停风险监控（50只，显示前30只）</div><table><tr><th>排名</th><th>代码</th><th>名称</th><th>现价</th><th>跌幅</th><th>板型</th><th>所属主题</th></tr>
+<tr><td>1</td><td class="stock-code">002217</td><td><strong>ST合力泰</strong></td><td>2.40</td><td class="green">-5.14%</td><td>一字板</td><td></td></tr>
+<tr><td>2</td><td class="stock-code">600598</td><td><strong>北大荒</strong></td><td>12.47</td><td class="green">-10.03%</td><td>一字板</td><td></td></tr>
+<tr><td>3</td><td class="stock-code">000630</td><td><strong>铜陵有色</strong></td><td>7.14</td><td class="green">-9.96%</td><td>换手板</td><td></td></tr>
+<tr><td>4</td><td class="stock-code">600110</td><td><strong>诺德股份</strong></td><td>15.44</td><td class="green">-9.97%</td><td>换手板</td><td></td></tr>
+<tr><td>5</td><td class="stock-code">002741</td><td><strong>光华科技</strong></td><td>37.40</td><td class="green">-10.01%</td><td>换手板</td><td></td></tr>
+<tr><td>6</td><td class="stock-code">600367</td><td><strong>红星发展</strong></td><td>56.00</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>7</td><td class="stock-code">000426</td><td><strong>兴业银锡</strong></td><td>38.71</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>8</td><td class="stock-code">001257</td><td><strong>盛龙股份</strong></td><td>30.43</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>9</td><td class="stock-code">601208</td><td><strong>东材科技</strong></td><td>71.85</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>10</td><td class="stock-code">600362</td><td><strong>江西铜业</strong></td><td>49.37</td><td class="green">-10.01%</td><td>换手板</td><td></td></tr>
+<tr><td>11</td><td class="stock-code">000831</td><td><strong>中国稀土</strong></td><td>59.67</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>12</td><td class="stock-code">600259</td><td><strong>中稀有色</strong></td><td>106.79</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>13</td><td class="stock-code">605303</td><td><strong>园林股份</strong></td><td>28.12</td><td class="green">-9.99%</td><td>T字板</td><td></td></tr>
+<tr><td>14</td><td class="stock-code">603159</td><td><strong>上海亚虹</strong></td><td>23.40</td><td class="green">-10.00%</td><td>一字板</td><td></td></tr>
+<tr><td>15</td><td class="stock-code">002378</td><td><strong>章源钨业</strong></td><td>36.47</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>16</td><td class="stock-code">603993</td><td><strong>洛阳钼业</strong></td><td>19.49</td><td class="green">-9.98%</td><td>换手板</td><td></td></tr>
+<tr><td>17</td><td class="stock-code">002645</td><td><strong>华宏科技</strong></td><td>32.37</td><td class="green">-10.01%</td><td>换手板</td><td></td></tr>
+<tr><td>18</td><td class="stock-code">002138</td><td><strong>顺络电子</strong></td><td>66.10</td><td class="green">-9.99%</td><td>换手板</td><td></td></tr>
+<tr><td>19</td><td class="stock-code">002902</td><td><strong>铭普光磁</strong></td><td>32.53</td><td class="green">-9.99%</td><td>换手板</td><td></td></tr>
+<tr><td>20</td><td class="stock-code">000823</td><td><strong>超声电子</strong></td><td>21.38</td><td class="green">-10.02%</td><td>换手板</td><td></td></tr>
+<tr><td>21</td><td class="stock-code">600370</td><td><strong>*ST三房</strong></td><td>1.54</td><td class="green">-4.94%</td><td>一字板</td><td></td></tr>
+<tr><td>22</td><td class="stock-code">000060</td><td><strong>中金岭南</strong></td><td>7.93</td><td class="green">-9.99%</td><td>换手板</td><td></td></tr>
+<tr><td>23</td><td class="stock-code">603429</td><td><strong>*ST集友</strong></td><td>10.33</td><td class="green">-4.97%</td><td>换手板</td><td></td></tr>
+<tr><td>24</td><td class="stock-code">002125</td><td><strong>湘潭电化</strong></td><td>16.61</td><td class="green">-9.97%</td><td>换手板</td><td></td></tr>
+<tr><td>25</td><td class="stock-code">002149</td><td><strong>西部材料</strong></td><td>49.15</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>26</td><td class="stock-code">603002</td><td><strong>宏昌电子</strong></td><td>23.35</td><td class="green">-9.98%</td><td>换手板</td><td></td></tr>
+<tr><td>27</td><td class="stock-code">600392</td><td><strong>盛和资源</strong></td><td>31.03</td><td class="green">-10.01%</td><td>换手板</td><td></td></tr>
+<tr><td>28</td><td class="stock-code">600545</td><td><strong>卓郎智能</strong></td><td>6.61</td><td class="green">-9.95%</td><td>换手板</td><td></td></tr>
+<tr><td>29</td><td class="stock-code">600301</td><td><strong>华锡有色</strong></td><td>64.26</td><td class="green">-10.00%</td><td>换手板</td><td></td></tr>
+<tr><td>30</td><td class="stock-code">600540</td><td><strong>新赛股份</strong></td><td>3.75</td><td class="green">-10.07%</td><td>一字板</td><td></td></tr>
+</table></div>
+<div class="footer"><p>本报告由 AI 自动生成 | 数据来源：通达信TDX MCP | 真实交易数据 | 仅供参考，不构成投资建议</p><p>股市有风险，投资需谨慎</p></div></div></body></html>
