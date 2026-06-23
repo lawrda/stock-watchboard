@@ -1,397 +1,198 @@
-<!
-========================================================
-  盘后总结报告 - 基础模板
-  生成时间：2026-06-23
-  使用说明：
-    1. 替换所有  占位符为实际数据
-    2. 保留所有样式和HTML结构
-    3. 数据来源：通达信行情服务器（TDX MCP）
-========================================================
->
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>热点板块盯盘系统 · 盘后总结报告 | 2026-06-23</title>
+<title>盘后总结报告 - 2026-06-23（周一）收盘数据</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box }
-body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.6 }
-.container { max-width: 1100px; margin: 0 auto; padding: 20px }
-.header { text-align: center; padding: 30px 20px; border-bottom: 1px solid #30363d }
-.header h1 { font-size: 24px; font-weight: 600; color: #58a6ff; margin-bottom: 8px }
-.header .date { font-size: 14px; color: #8b949e }
-.header .meta { display: flex; justify-content: center; gap: 20px; margin-top: 12px; flex-wrap: wrap }
-.header .badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 500 }
-.badge-strong { background: #da363322; color: #f85149; border: 1px solid #da363333 }
-.badge-source { background: #23863622; color: #3fb950; border: 1px solid #23863633 }
-.badge-time { background: #1f6feb22; color: #58a6ff; border: 1px solid #1f6feb33 }
-.section { margin-top: 28px }
-.section-title { font-size: 18px; font-weight: 600; color: #58a6ff; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; display: flex; align-items: center; gap: 8px }
-.section-title .icon { font-size: 20px }
-.emotion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px }
-.emotion-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 16px; text-align: center }
-.emotion-card .num { font-size: 28px; font-weight: 700; margin: 8px 0 }
-.emotion-card .label { font-size: 12px; color: #8b949e }
-.num-red { color: #f85149 }
-.num-green { color: #3fb950 }
-.num-gold { color: #d29922 }
-.num-blue { color: #58a6ff }
-.ladder { display: flex; flex-direction: column; gap: 10px }
-.ladder-item { display: grid; grid-template-columns: 60px 1fr auto; align-items: center; gap: 12px; background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 12px 16px }
-.ladder-item .level { text-align: center; font-size: 16px; font-weight: 700; padding: 4px 8px; border-radius: 6px }
-.level-5 { background: #da363322; color: #f85149 }
-.level-4 { background: #f0883e22; color: #f0883e }
-.level-3 { background: #d2992222; color: #d29922 }
-.level-2 { background: #1f6feb22; color: #58a6ff }
-.ladder-item .name { font-size: 14px; font-weight: 500 }
-.ladder-item .name .code { color: #8b949e; font-size: 12px; margin-left: 6px }
-.ladder-item .price { font-size: 14px; color: #f85149; font-weight: 600; text-align: right }
-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px }
-th { background: #161b22; color: #8b949e; padding: 10px 12px; text-align: left; font-weight: 500; border-bottom: 1px solid #30363d; white-space: nowrap }
-td { padding: 8px 12px; border-bottom: 1px solid #21262d }
-tr:hover { background: #161b22 }
-.td-up { color: #f85149; font-weight: 600 }
-.td-down { color: #3fb950; font-weight: 600 }
-.theme-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; margin-bottom: 16px }
-.theme-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px }
-.theme-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500 }
-.tag-fire { background: #da363322; color: #f85149 }
-.tag-hot { background: #f0883e22; color: #f0883e }
-.tag-new { background: #23863622; color: #3fb950 }
-.theme-card p { font-size: 13px; color: #b1bac4; margin-bottom: 8px }
-.timeline { position: relative; padding-left: 24px }
-.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #30363d }
-.timeline-item { position: relative; margin-bottom: 16px }
-.timeline-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #58a6ff; border: 2px solid #0d1117 }
-.timeline-item .time { font-size: 12px; color: #8b949e }
-.timeline-item .content { font-size: 13px; color: #b1bac4; margin-top: 2px }
-.watch-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px }
-.watch-item { background: #1f6feb22; border: 1px solid #1f6feb33; border-radius: 8px; padding: 8px 14px; font-size: 13px; color: #58a6ff }
-.risk-box { background: #161b22; border: 1px solid #da363333; border-radius: 12px; padding: 16px 20px; margin-top: 12px }
-.risk-box p { font-size: 13px; color: #b1bac4; margin-bottom: 6px }
-.footer { text-align: center; margin-top: 32px; padding: 20px; border-top: 1px solid #21262d; font-size: 12px; color: #484f58 }
-.note { font-size: 12px; color: #8b949e; margin-top: 4px }
-.index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 12px }
-.index-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 16px; text-align: center }
-.index-card .name { font-size: 12px; color: #8b949e; margin-bottom: 4px }
-.index-card .price { font-size: 24px; font-weight: 700 }
-.index-card .chg { font-size: 14px; margin-top: 4px }
-@media (max-width: 600px) { .ladder-item { grid-template-columns: 50px 1fr } .ladder-item .price { grid-column: 1/3; text-align: left } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Microsoft YaHei', sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { color: #58a6f5; text-align: center; margin-bottom: 10px; font-size: 28px; }
+h2 { color: #58a6f5; border-bottom: 2px solid #1f2937; padding-bottom: 8px; margin: 30px 0 15px; font-size: 20px; }
+h3 { color: #8b949d; margin: 20px 0 10px; font-size: 16px; }
+.section { background: #161b22; border: 1px solid #21262d; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin: 15px 0; }
+.card { background: #1c2128; border: 1px solid #2d333b; border-radius: 6px; padding: 15px; }
+.card-title { color: #8b949d; font-size: 13px; margin-bottom: 8px; }
+.card-value { font-size: 24px; font-weight: bold; margin: 5px 0; }
+.card-change { font-size: 14px; }
+.red { color: #f85149; }
+.green { color: #3fb950; }
+.stock-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; border-bottom: 1px solid #21262d; font-size: 14px; }
+.stock-row:last-child { border-bottom: none; }
+.stock-code { color: #58a6f5; font-family: monospace; width: 80px; }
+.stock-name { flex: 1; margin: 0 15px; }
+.stock-price { width: 80px; text-align: right; font-weight: bold; }
+.stock-boards { width: 60px; text-align: center; color: #f85149; }
+.stock-reason { flex: 2; font-size: 12px; color: #8b949d; }
+.stock-in-flow { width: 100px; text-align: right; color: #3fb950; font-weight: bold; }
+.theme-row { display: flex; align-items: center; padding: 10px 15px; border-bottom: 1px solid #21262d; font-size: 14px; }
+.theme-row:last-child { border-bottom: none; }
+.theme-name { width: 150px; color: #f0883e; font-weight: bold; }
+.theme-count { width: 120px; color: #8b949d; }
+.theme-stocks { flex: 1; font-size: 13px; color: #8b949d; }
+.pick-row { display: flex; align-items: center; padding: 10px 15px; border-bottom: 1px solid #21262d; font-size: 14px; }
+.pick-row:last-child { border-bottom: none; }
+.pick-code { color: #58a6f5; font-family: monospace; width: 80px; }
+.pick-name { width: 100px; font-weight: bold; }
+.pick-reason { flex: 1; font-size: 13px; color: #8b949d; }
+.event-row { display: flex; padding: 8px 15px; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-row:last-child { border-bottom: none; }
+.event-time { width: 80px; color: #8b949d; font-family: monospace; }
+.event-desc { flex: 1; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+.badge-red { background: #f85149; color: white; }
+.badge-green { background: #3fb950; color: black; }
+.badge-yellow { background: #d29922; color: black; }
+.summary { background: #1a1f2b; border-left: 4px solid #58a6f5; padding: 15px; border-radius: 4px; margin: 15px 0; line-height: 1.8; }
+.footer { text-align: center; color: #8b949d; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #21262d; }
 </style>
 </head>
 <body>
 <div class="container">
+<h1>📈 盘后总结报告</h1>
+<p style="text-align:center;color:#8b949d;">2026-06-23（周一）收盘数据 | 生成时间：2026-06-23 23:11</p>
 
-<! ======================================== >
-<! 头部：报告标题 + 日期 + 元数据        >
-<! 数据来源：系统时间 + TDX MCP          >
-<! ======================================== >
-<div class="header">
-  <h1>热点板块盯盘系统 · 盘后总结报告</h1>
-  <! 2026-06-23（周一）收盘数据 >
-  <div class="date">2026-06-23 周一收盘数据</div>
-  <div class="meta">
-    <! 中 >
-    <span class="badge badge-strong">赚钱效应：中</span>
-    <span class="badge badge-source">数据来源：通达信行情服务器</span>
-    <! 2026-06-23 23:10 >
-    <span class="badge badge-time">生成时间：</span>
-  </div>
-</div>
-
-<! ======================================== >
-<! 板块一：大盘指数                          >
-<! 数据来源：tdx_quotes (000001/399001/399006) >
-<! 颜色规则：A股传统 红涨绿跌                      >
-<!   num-red   (#f85149) = 上涨（正涨跌幅）        >
-<!   num-green (#3fb950) = 下跌（负涨跌幅）        >
-<! ======================================== >
+<!-- 大盘指数 -->
 <div class="section">
-  <div class="section-title"><span class="icon">📊</span> 大盘指数</div>
-  <div class="index-grid">
-    <!
-      4106.25  -1.37%
-      颜色规则：涨跌幅≥0 → num-red；涨跌幅<0 → num-green
-    >
-    <div class="index-card">
-      <div class="name">上证指数</div>
-      <div class="price ">4106.25</div>
-      <div class="chg ">-1.37%</div>
-    </div>
-    <!
-      15854.20  -3.17%
-      颜色规则：涨跌幅≥0 → num-red；涨跌幅<0 → num-green
-    >
-    <div class="index-card">
-      <div class="name">深证成指</div>
-      <div class="price ">15854.20</div>
-      <div class="chg ">-3.17%</div>
-    </div>
-    <!
-      4192.19  -3.84%
-      颜色规则：涨跌幅≥0 → num-red；涨跌幅<0 → num-green
-    >
-    <div class="index-card">
-      <div class="name">创业板指</div>
-      <div class="price ">4192.19</div>
-      <div class="chg ">-3.84%</div>
-    </div>
-  </div>
+<h2>一、大盘指数</h2>
+<div class="grid">
+<div class="card">
+<div class="card-title">上证指数</div>
+<div class="card-value">4106.25</div>
+<div class="card-change red">-1.37% ▼</div>
+<div style="font-size:12px;color:#8b949d;margin-top:8px;">成交量：70900万手<br>成交额：15945亿<br>内盘：36866万手 | 外盘：34034万手</div>
+</div>
+<div class="card">
+<div class="card-title">深证成指</div>
+<div class="card-value">15854.20</div>
+<div class="card-change red">-3.17% ▼</div>
+<div style="font-size:12px;color:#8b949d;margin-top:8px;">成交量：80855万手<br>成交额：18462亿<br>内盘：41782万手 | 外盘：39073万手</div>
+</div>
+<div class="card">
+<div class="card-title">创业板指</div>
+<div class="card-value">4192.19</div>
+<div class="card-change red">-3.84% ▼</div>
+<div style="font-size:12px;color:#8b949d;margin-top:8px;">成交量：25547万手<br>成交额：9083亿<br>内盘：13068万手 | 外盘：12479万手</div>
+</div>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块二：市场情绪总览                      >
-<! 数据来源：tdx_screener (今日涨停/今日连板/今日跌停) >
-<! ======================================== >
+<!-- 涨停板块 -->
 <div class="section">
-  <div class="section-title"><span class="icon">📈</span> 市场情绪总览</div>
-  <div class="emotion-grid">
-    <! 124 >
-    <div class="emotion-card">
-      <div class="label">涨停家数</div>
-      <div class="num num-red">124</div>
-      <div class="label">今日收盘</div>
-    </div>
-    <! 20 >
-    <div class="emotion-card">
-      <div class="label">连板家数</div>
-      <div class="num num-gold">27</div>
-      <div class="label">连续涨停晋级</div>
-    </div>
-    <! 5板：长裕集团(300382)、江钨装备(600397) >
-    <div class="emotion-card">
-      <div class="label">最高连板高度</div>
-      <div class="num num-gold">5板</div>
-      <div class="label">江钨装备</div>
-    </div>
-    <! 50 >
-    <div class="emotion-card">
-      <div class="label">跌停家数</div>
-      <div class="num num-green">50</div>
-      <div class="label">市场风险监测</div>
-    </div>
-    <! 68% >
-    <div class="emotion-card">
-      <div class="label">涨停封板率</div>
-      <div class="num num-blue">68%</div>
-      <div class="label">市场接力情绪</div>
-    </div>
-  </div>
-  <! 市场分化明显，科技成长板块（芯片、机器人、光通信）逆势走强，资源周期股（铜、稀土、黄金、钨）集体调整。涨停124只，连板20只，最高5板。主力净流入145亿，聚焦科技龙头。 >
-  <p class="note">今日涨停5只，连板5只，最高连板5板（长裕集团、江钨装备、卫星化学、长飞光纤、上海贝岭），跌停5只。赚钱效应处于中位区间。</p>
+<h2>二、涨停板块（124只）</h2>
+<h3>🔥 最高连板：5板（长裕集团、江钨装备）</h3>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="stock-row" style="color:#8b949d;font-size:12px;border-bottom:2px solid #2d333b;">
+<span style="width:80px;">代码</span><span style="flex:1;margin:0 15px;">名称</span><span style="width:80px;text-align:right;">价格</span><span style="width:60px;text-align:center;">连板</span><span style="flex:2;">涨停原因</span>
+</div>
+<div class="stock-row"><span class="stock-code">300382</span><span class="stock-name">长裕集团</span><span class="stock-price">82.32</span><span class="stock-boards">5板</span><span class="stock-reason">锆矿稀缺+金矿注入</span></div>
+<div class="stock-row"><span class="stock-code">600397</span><span class="stock-name">江钨装备</span><span class="stock-price">24.44</span><span class="stock-boards">5板</span><span class="stock-reason">钨价暴涨+军工订单</span></div>
+<div class="stock-row"><span class="stock-code">002674</span><span class="stock-name">兴业科技</span><span class="stock-price">21.66</span><span class="stock-boards">3板</span><span class="stock-reason">柔性电子皮肤</span></div>
+<div class="stock-row"><span class="stock-code">002167</span><span class="stock-name">东方锆业</span><span class="stock-price">19.51</span><span class="stock-boards">3板</span><span class="stock-reason">固态电池+锆金属</span></div>
+<div class="stock-row"><span class="stock-code">000783</span><span class="stock-name">长江证券</span><span class="stock-price">9.46</span><span class="stock-boards">2板</span><span class="stock-reason">股权转让+证券</span></div>
+<div class="stock-row"><span class="stock-code">601869</span><span class="stock-name">长飞光纤</span><span class="stock-price">570.58</span><span class="stock-boards">2板</span><span class="stock-reason">光通信+空芯光纤</span></div>
+<div class="stock-row"><span class="stock-code">600171</span><span class="stock-name">上海贝岭</span><span class="stock-price">30.80</span><span class="stock-boards">1板</span><span class="stock-reason">存储芯片+芯片</span></div>
+<div class="stock-row"><span class="stock-code">002648</span><span class="stock-name">卫星化学</span><span class="stock-price">25.18</span><span class="stock-boards">1板</span><span class="stock-reason">业绩预升+液冷冷却液</span></div>
+<div class="stock-row"><span class="stock-code">300835</span><span class="stock-name">龙磁科技</span><span class="stock-price">234.31</span><span class="stock-boards">1板</span><span class="stock-reason">芯片电感+AI服务器</span></div>
+<div class="stock-row"><span class="stock-code">002008</span><span class="stock-name">大族激光</span><span class="stock-price">25.67</span><span class="stock-boards">1板</span><span class="stock-reason">主力净流入21亿+液冷</span></div>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块三：连板梯队                            >
-<! 数据来源：tdx_screener (今日连板)          >
-<! 说明：按连板高度降序，展示前8-10只         >
-<! ======================================== >
+<!-- 跌停板块 -->
 <div class="section">
-  <div class="section-title"><span class="icon">🔥</span> 连板梯队</div>
-  <div class="ladder">
-    <! 
-      <div class="stock-row"><span class="stock-code">300382</span><span class="stock-name">长裕集团</span><span class="stock-price">82.32</span><span class="stock-boards">5板</span><span class="stock-reason">锆矿稀缺+金矿注入</span></div>
-                <div class="stock-row"><span class="stock-code">600397</span><span class="stock-name">江钨装备</span><span class="stock-price">24.44</span><span class="stock-boards">5板</span><span class="stock-reason">钨价暴涨+军工订单</span></div>
-                <div class="stock-row"><span class="stock-code">002674</span><span class="stock-name">兴业科技</span><span class="stock-price">21.66</span><span class="stock-boards">3板</span><span class="stock-reason">柔性电子皮肤</span></div>
-                <div class="stock-row"><span class="stock-code">002167</span><span class="stock-name">东方锆业</span><span class="stock-price">19.51</span><span class="stock-boards">3板</span><span class="stock-reason">固态电池+锆金属</span></div>
-                <div class="stock-row"><span class="stock-code">000783</span><span class="stock-name">长江证券</span><span class="stock-price">9.46</span><span class="stock-boards">2板</span><span class="stock-reason">股权转让+证券</span></div>
-      每只股票生成如下HTML结构（按连板数降序）：
-      <div class="ladder-item">
-        <div class="level level-5">5板</div>  ← level-5/4/3/2 对应连板数
-        <div class="name">股票名 <span class="code">股票代码</span></div>
-        <div class="price">现价 +涨跌幅%</div>
-      </div>
-      示例（5板）：
-    >
-    <div class="ladder-item">
-      <div class="level level-5">5板</div>
-      <div class="name">江钨装备 <span class="code">600397</span></div>
-      <div class="price">元 +9.99%</div>
-    </div>
-    <! 更多连板股票... >
-  </div>
-  <! 20 >
-  <p class="note">连板股票共5只，以上为部分展示。完整列表请查看TDX软件。</p>
+<h2>三、跌停板块（50只）</h2>
+<h3>⚠️ 调整板块：铜、稀土、黄金、钨等周期股</h3>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="stock-row" style="color:#8b949d;font-size:12px;border-bottom:2px solid #2d333b;">
+<span style="width:80px;">代码</span><span style="flex:1;margin:0 15px;">名称</span><span style="width:80px;text-align:right;">价格</span><span style="flex:2;">跌停原因</span>
+</div>
+<div class="stock-row"><span class="stock-code">600362</span><span class="stock-name">铜陵有色</span><span class="stock-price red">3.21</span><span class="stock-reason">铜价调整</span></div>
+<div class="stock-row"><span class="stock-code">600111</span><span class="stock-name">北方稀土</span><span class="stock-price red">18.45</span><span class="stock-reason">稀土价格回调</span></div>
+<div class="stock-row"><span class="stock-code">601899</span><span class="stock-name">紫金矿业</span><span class="stock-price red">12.67</span><span class="stock-reason">黄金调整</span></div>
+<div class="stock-row"><span class="stock-code">002842</span><span class="stock-name">中钨高新</span><span class="stock-price red">15.23</span><span class="stock-reason">钨价高位回落</span></div>
+<div class="stock-row"><span class="stock-code">688012</span><span class="stock-name">中微公司</span><span class="stock-price red">89.12</span><span class="stock-reason">芯片板块调整</span></div>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块四：主力资金净流入 TOP15               >
-<! 数据来源：tdx_screener (主力净流入)        >
-<! ======================================== >
+<!-- 主力净流入 -->
 <div class="section">
-  <div class="section-title"><span class="icon">💎</span> 主力资金净流入 TOP15</div>
-  <table>
-    <thead>
-      <tr><th>#</th><th>代码</th><th>名称</th><th>现价</th><th>涨跌幅</th><th>主力净流入</th></tr>
-    </thead>
-    <tbody>
-      <!
-        <div class="stock-row"><span class="stock-code">002008</span><span class="stock-name">大族激光</span><span class="stock-in-flow">21.13亿</span></div>
-                <div class="stock-row"><span class="stock-code">002475</span><span class="stock-name">立讯精密</span><span class="stock-in-flow">13.68亿</span></div>
-                <div class="stock-row"><span class="stock-code">000783</span><span class="stock-name">长江证券</span><span class="stock-in-flow">8.67亿</span></div>
-                <div class="stock-row"><span class="stock-code">000063</span><span class="stock-name">中兴通讯</span><span class="stock-in-flow">7.23亿</span></div>
-                <div class="stock-row"><span class="stock-code">300750</span><span class="stock-name">宁德时代</span><span class="stock-in-flow">6.45亿</span></div>
-                <div class="stock-row"><span class="stock-code">002230</span><span class="stock-name">科大讯飞</span><span class="stock-in-flow">5.89亿</span></div>
-                <div class="stock-row"><span class="stock-code">600183</span><span class="stock-name">生益科技</span><span class="stock-in-flow">5.12亿</span></div>
-                <div class="stock-row"><span class="stock-code">002920</span><span class="stock-name">德赛西威</span><span class="stock-in-flow">4.67亿</span></div>
-                <div class="stock-row"><span class="stock-code">300124</span><span class="stock-name">汇川技术</span><span class="stock-in-flow">4.23亿</span></div>
-                <div class="stock-row"><span class="stock-code">000651</span><span class="stock-name">格力电器</span><span class="stock-in-flow">3.89亿</span></div>
-        每只生成：
-        <tr>
-          <td>1</td>
-          <td></td>
-          <td>大族激光</td>
-          <td>145.11</td>
-          <td class='td-up'>+9.99%</td>
-          <td class='td-up'>21.13亿</td>
-        </tr>
-        示例：
-      >
-      <tr><td>1</td><td></td><td>大族激光</td><td>145.11</td><td class='td-up'>+9.99%</td><td class='td-up'>21.13亿</td></tr>
-      <! 更多股票... >
-    </tbody>
-  </table>
+<h2>四、主力净流入 TOP10</h2>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="stock-row" style="color:#8b949d;font-size:12px;border-bottom:2px solid #2d333b;">
+<span style="width:80px;">代码</span><span style="flex:1;margin:0 15px;">名称</span><span style="width:100px;text-align:right;">主力净流入</span>
+</div>
+<div class="stock-row"><span class="stock-code">002008</span><span class="stock-name">大族激光</span><span class="stock-in-flow">21.13亿</span></div>
+<div class="stock-row"><span class="stock-code">002475</span><span class="stock-name">立讯精密</span><span class="stock-in-flow">13.68亿</span></div>
+<div class="stock-row"><span class="stock-code">000783</span><span class="stock-name">长江证券</span><span class="stock-in-flow">8.67亿</span></div>
+<div class="stock-row"><span class="stock-code">000063</span><span class="stock-name">中兴通讯</span><span class="stock-in-flow">7.23亿</span></div>
+<div class="stock-row"><span class="stock-code">300750</span><span class="stock-name">宁德时代</span><span class="stock-in-flow">6.45亿</span></div>
+<div class="stock-row"><span class="stock-code">002230</span><span class="stock-name">科大讯飞</span><span class="stock-in-flow">5.89亿</span></div>
+<div class="stock-row"><span class="stock-code">600183</span><span class="stock-name">生益科技</span><span class="stock-in-flow">5.12亿</span></div>
+<div class="stock-row"><span class="stock-code">002920</span><span class="stock-name">德赛西威</span><span class="stock-in-flow">4.67亿</span></div>
+<div class="stock-row"><span class="stock-code">300124</span><span class="stock-name">汇川技术</span><span class="stock-in-flow">4.23亿</span></div>
+<div class="stock-row"><span class="stock-code">000651</span><span class="stock-name">格力电器</span><span class="stock-in-flow">3.89亿</span></div>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块五：热门主线概览                        >
-<! 数据来源：人工分析 / 新闻API               >
-<! 说明：根据当日涨停股分布归纳热点题材         >
-<! ======================================== >
+<!-- 五大主线 -->
 <div class="section">
-  <div class="section-title"><span class="icon">⚡</span> 热门主线概览</div>
-  <!
-    <div class="theme-row"><span class="theme-name">芯片半导体</span><span class="theme-count">涨停32只</span><span class="theme-stocks">上海贝岭、凯美特气、西陇科学、华微电子</span></div>
-                <div class="theme-row"><span class="theme-name">光通信/CPO/液冷</span><span class="theme-count">涨停28只</span><span class="theme-stocks">长飞光纤、特发信息、大元泵业、伟隆股份</span></div>
-                <div class="theme-row"><span class="theme-name">人形机器人</span><span class="theme-count">涨停18只</span><span class="theme-stocks">巨轮智能、方正电机、和泰机电、联诚精密</span></div>
-                <div class="theme-row"><span class="theme-name">锆钨稀有资源</span><span class="theme-count">涨停12只</span><span class="theme-stocks">长裕集团、江钨装备、东方锆业、黄河旋风</span></div>
-                <div class="theme-row"><span class="theme-name">医药创新药</span><span class="theme-count">涨停15只</span><span class="theme-stocks">新华制药、双鹭药业、亚太药业、亨迪药业</span></div>
-    每个主线生成：
-    <div class="theme-card">
-      <h3>主线名称 <span class="theme-tag tag-fire">火热/活跃/持续</span></h3>
-      <p>催化剂描述。相关涨停股：股票列表。</p>
-    </div>
-    示例：
-  >
-  <div class="theme-card">
-    <h3>芯片/半导体 <span class="theme-tag tag-fire">火热</span></h3>
-    <p>1、SpaceX上市大涨，商业航天受关注；2、证监会批复长鑫科技IPO，存储芯片国产化加速；3、英伟达Rubin平台确认全液冷，液冷产业链受益；4、工信部拟制定人形机器人场景标准，机器人产业化加速；5、六氟化钨价格较去年同期涨超200%，稀有资源板块走强。。相关涨停股：<div class="stock-row"><span class="stock-code">300382</span><span class="stock-name">长裕集团</span><span class="stock-price">82.32</span><span class="stock-boards">5板</span><span class="stock-reason">锆矿稀缺+金矿注入</span></div>
-                <div class="stock-row"><span class="stock-code">600397</span><span class="stock-name">江钨装备</span><span class="stock-price">24.44</span><span class="stock-boards">5板</span><span class="stock-reason">钨价暴涨+军工订单</span></div>
-                <div class="stock-row"><span class="stock-code">002648</span><span class="stock-name">卫星化学</span><span class="stock-price">25.18</span><span class="stock-boards">1板</span><span class="stock-reason">业绩预升+液冷冷却液</span></div>
-                <div class="stock-row"><span class="stock-code">601869</span><span class="stock-name">长飞光纤</span><span class="stock-price">570.58</span><span class="stock-boards">2板</span><span class="stock-reason">光通信+空芯光纤</span></div>
-                <div class="stock-row"><span class="stock-code">600171</span><span class="stock-name">上海贝岭</span><span class="stock-price">30.80</span><span class="stock-boards">1板</span><span class="stock-reason">存储芯片+芯片</span></div>。</p>
-  </div>
-  <! 更多主线... >
+<h2>五、今日五大主线</h2>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="theme-row"><span class="theme-name">🔮 芯片半导体</span><span class="theme-count">涨停32只</span><span class="theme-stocks">上海贝岭、凯美特气、西陇科学、华微电子、龙磁科技</span></div>
+<div class="theme-row"><span class="theme-name">🔵 光通信/CPO/液冷</span><span class="theme-count">涨停28只</span><span class="theme-stocks">长飞光纤、特发信息、大元泵业、伟隆股份、方盛股份</span></div>
+<div class="theme-row"><span class="theme-name">🤖️ 人形机器人</span><span class="theme-count">涨停18只</span><span class="theme-stocks">巨轮智能、方正电机、和泰机电、联诚精密、风语筑</span></div>
+<div class="theme-row"><span class="theme-name">💎 锆钨稀有资源</span><span class="theme-count">涨停12只</span><span class="theme-stocks">长裕集团、江钨装备、东方锆业、黄河旋风、三孚股份</span></div>
+<div class="theme-row"><span class="theme-name">💊 医药创新药</span><span class="theme-count">涨停15只</span><span class="theme-stocks">新华制药、双鹭药业、亚太药业、亨迪药业、灵康药业</span></div>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块六：跌停风险监控                        >
-<! 数据来源：tdx_screener (今日跌停)          >
-<! 说明：展示跌停股前10只                     >
-<! ======================================== >
+<!-- 情绪总结 -->
 <div class="section">
-  <div class="section-title"><span class="icon">📉</span> 跌停风险监控</div>
-  <! 50 >
-  <p class="note">今日跌停5只，主要为资源周期股集体调整，铜、稀土、黄金、钨板块领跌。以下为部分列表：</p>
-  <table>
-    <thead><tr><th>代码</th><th>名称</th><th>现价</th><th>涨跌幅</th><th>板块</th></tr></thead>
-    <tbody>
-      <!
-        <div class="stock-row"><span class="stock-code">600362</span><span class="stock-name">铜陵有色</span><span class="stock-price">3.21</span><span class="stock-reason">铜价调整</span></div>
-                <div class="stock-row"><span class="stock-code">600111</span><span class="stock-name">北方稀土</span><span class="stock-price">18.45</span><span class="stock-reason">稀土价格回调</span></div>
-                <div class="stock-row"><span class="stock-code">601899</span><span class="stock-name">紫金矿业</span><span class="stock-price">12.67</span><span class="stock-reason">黄金调整</span></div>
-                <div class="stock-row"><span class="stock-code">002842</span><span class="stock-name">中钨高新</span><span class="stock-price">15.23</span><span class="stock-reason">钨价高位回落</span></div>
-                <div class="stock-row"><span class="stock-code">688012</span><span class="stock-name">中微公司</span><span class="stock-price">89.12</span><span class="stock-reason">芯片板块调整</span></div>
-        每只生成：
-        <tr>
-          <td></td>
-          <td>ST合力泰</td>
-          <td></td>
-          <td class='td-down'>-5.14%</td>
-          <td>ST东尼(603595)5板，消费电子+无线充电</td>
-        </tr>
-      >
-      <tr><td></td><td>ST合力泰</td><td></td><td class='td-down'>-5.14%</td><td>ST东尼(603595)5板，消费电子+无线充电</td></tr>
-      <! 更多跌停股... >
-    </tbody>
-  </table>
-  <! 50 >
-  <p class="note">完整跌停列表共5只，请查看TDX软件获取完整数据。</p>
+<h2>六、市场情绪总结</h2>
+<div class="summary">
+<p><strong>💹 赚钱效应评级：<span style="color:#d29922;">中</span></strong></p>
+<p>市场分化明显，科技成长板块（芯片、机器人、光通信）逆势走强，资源周期股（铜、稀土、黄金、钨）集体调整。</p>
+<p>📊 <strong>涨跌停比：</strong>涨停124只 vs 跌停50只，多头占优但分化严重。</p>
+<p>🔥 <strong>连板高度：</strong>最高5板（长裕集团、江钨装备），连板20只，资金聚焦主线龙头。</p>
+<p>💰 <strong>主力流向：</strong>净流入145亿，聚焦科技龙头（大族激光21亿、立讯精密14亿）。</p>
+<p>⚠️ <strong>风险提示：</strong>资源周期股调整明显，铜、稀土、黄金板块领跌，短期谨慎追高。</p>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块七：事件驱动时间线                      >
-<! 数据来源：人工录入 / 新闻API               >
-<! ======================================== >
+<!-- 关注标的 -->
 <div class="section">
-  <div class="section-title"><span class="icon">📅</span> 事件驱动时间线</div>
-  <div class="timeline">
-    <!
-      <div class="event-row"><span class="event-time">09:25</span><span class="event-desc">长裕集团、江钨装备5板一字开盘，锆钨板块强势</span></div>
-                <div class="event-row"><span class="event-time">09:32</span><span class="event-desc">长江证券2板，证券板块受追捧</span></div>
-                <div class="event-row"><span class="event-time">10:05</span><span class="event-desc">创业板指跌超3%，成长股分化</span></div>
-                <div class="event-row"><span class="event-time">13:00</span><span class="event-desc">资源周期股加速下跌，铜、稀土、黄金板块领跌</span></div>
-                <div class="event-row"><span class="event-time">14:50</span><span class="event-desc">尾盘芯片板块回暖，上海贝岭等涨停</span></div>
-      每个事件生成：
-      <div class="timeline-item">
-        <div class="time">2026-06-23 21:07</div>
-        <div class="content">盘中锆钨板块强势，券商板块受追捧，创业板指跌超3%，资源周期股集体调整，尾盘芯片板块回暖。</div>
-      </div>
-    >
-    <div class="timeline-item">
-      <div class="time"></div>
-      <div class="content">本报告由热点板块盯盘系统自动生成，数据来源于通达信行情服务器（盘后总结）</div>
-    </div>
-  </div>
+<h2>七、明日关注标的</h2>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="pick-row"><span class="pick-code">300382</span><span class="pick-name">长裕集团</span><span class="pick-reason">锆矿龙头，5板高度，关注开板后回封机会</span></div>
+<div class="pick-row"><span class="pick-code">600397</span><span class="pick-name">江钨装备</span><span class="pick-reason">钨价暴涨，5板高度，关注钨产业链延伸</span></div>
+<div class="pick-row"><span class="pick-code">601869</span><span class="pick-name">长飞光纤</span><span class="pick-reason">空芯光纤龙头，2板，CPO技术受关注</span></div>
+<div class="pick-row"><span class="pick-code">000783</span><span class="pick-name">长江证券</span><span class="pick-reason">证券龙头，2板，5月开户数回升受益</span></div>
+<div class="pick-row"><span class="pick-code">002008</span><span class="pick-name">大族激光</span><span class="pick-reason">主力净流入21亿，液冷冷却液+机器人切割</span></div>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块八：连板关注标的（自选关注）            >
-<! 数据来源：人工筛选 / 连板梯队前5           >
-<! 筛选规则：                                  >
-<!   ❌ 排除科创板（688/689开头）            >
-<!   ❌ 排除北交所（43/83/87/88开头）       >
-<!   ❌ 排除ST个股（名称含"ST"）            >
-<! ======================================== >
+<!-- 催化剂 -->
 <div class="section">
-  <div class="section-title"><span class="icon">📋</span> 连板关注标的</div>
-  <div class="watch-list">
-    <!
-      <div class="pick-row"><span class="pick-code">300382</span><span class="pick-name">长裕集团</span><span class="pick-reason">锆矿龙头，5板高度，关注开板后回封机会</span></div>
-                <div class="pick-row"><span class="pick-code">600397</span><span class="pick-name">江钨装备</span><span class="pick-reason">钨价暴涨，5板高度，关注钨产业链延伸</span></div>
-                <div class="pick-row"><span class="pick-code">601869</span><span class="pick-name">长飞光纤</span><span class="pick-reason">空芯光纤龙头，2板，CPO技术受关注</span></div>
-                <div class="pick-row"><span class="pick-code">000783</span><span class="pick-name">长江证券</span><span class="pick-reason">证券龙头，2板，5月开户数回升受益</span></div>
-                <div class="pick-row"><span class="pick-code">002008</span><span class="pick-name">大族激光</span><span class="pick-reason">主力净流入21亿，液冷冷却液+机器人切割</span></div>
-      筛选规则：排除科创板/北交所/ST
-      每个生成：
-      <div class="watch-item">股票名 代码</div>
-    >
-    <div class="watch-item">江钨装备(600397)</div>
-    <! 更多关注标的... >
-  </div>
-  <p class="note">以上为连板股筛选结果（已过滤科创板/北交所/ST），非投资建议。注意高位股断板风险。</p>
+<h2>八、近期催化剂</h2>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="event-row"><span class="event-time">06-23 09:25</span><span class="event-desc">长裕集团、江钨装备5板一字开盘，锆钨板块强势</span></div>
+<div class="event-row"><span class="event-time">06-23 09:32</span><span class="event-desc">长江证券2板，证券板块受追捧</span></div>
+<div class="event-row"><span class="event-time">06-23 10:05</span><span class="event-desc">创业板指跌超3%，成长股分化</span></div>
+<div class="event-row"><span class="event-time">06-23 13:00</span><span class="event-desc">资源周期股加速下跌，铜、稀土、黄金板块领跌</span></div>
+<div class="event-row"><span class="event-time">06-23 14:50</span><span class="event-desc">尾盘芯片板块回暖，上海贝岭等涨停</span></div>
+</div>
 </div>
 
-<! ======================================== >
-<! 板块九：风险提示                          >
-<! 数据来源：固定模板 + 当日数据              >
-<! ======================================== >
-<div class="section">
-  <div class="section-title"><span class="icon">⚠️</span> 风险提示</div>
-  <div class="risk-box">
-    <p>1. 本报告基于通达信行情数据自动生成，数据截至收盘。</p>
-    <p>2. 涨停/连板个股存在次日大幅回调风险，请结合自身风险偏好谨慎决策。</p>
-    <p>3. 跌停5只，主要为资源周期股集体调整，铜、稀土、黄金、钨板块领跌，关注市场整体风险偏好变化。</p>
-    <p>4. 本报告仅供研究参考，<strong>不构成任何投资建议</strong>。市场有风险，投资需谨慎。</p>
-  </div>
+<!-- 免责声明 -->
+<div class="section" style="background:#1a1f2b;border-left:4px solid #d29922;">
+<h2 style="color:#d29922;">⚠️ 免责声明</h2>
+<p style="font-size:13px;line-height:1.8;">本报告仅供参考，不构成个人投资建议。股市有风险，投资需谨慎。数据来源：通达信MCP、公开市场数据。报告生成时间：2026-06-23 23:11。</p>
 </div>
 
-<! 页脚 >
 <div class="footer">
-  <p>热点板块盯盘系统 v1.0 · 数据来源：通达信行情服务器 · 生成时间：</p>
-  <p>本报告仅供参考，不构成个人投资建议</p>
+<p>📈 热点板块盯盘系统 | 生成时间：2026-06-23 23:11 | 数据来源：通达信MCP</p>
 </div>
 
 </div>
