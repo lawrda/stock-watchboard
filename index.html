@@ -1,238 +1,187 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>午间盘中盯盘报告（TDX增强版）- 20260625</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Microsoft YaHei','PingFang SC',Arial,sans-serif; background:#0a0e17; color:#e0e0e0; padding:10px; font-size:14px; }
-        .container { max-width:1400px; margin:0 auto; }
-        .header { background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); border-radius:10px; padding:25px; text-align:center; margin-bottom:15px; border:1px solid #2a2a4a; box-shadow:0 4px 20px rgba(0,0,0,0.5); }
-        .header h1 { font-size:26px; color:#e94560; margin-bottom:8px; letter-spacing:2px; }
-        .header .subtitle { font-size:13px; color:#8899aa; }
-        .section { background:#111827; border-radius:10px; padding:20px; margin-bottom:15px; border:1px solid #1e293b; box-shadow:0 2px 10px rgba(0,0,0,0.3); }
-        .section-title { font-size:17px; font-weight:bold; margin-bottom:15px; color:#f0f0f0; display:flex; align-items:center; border-bottom:1px solid #1e293b; padding-bottom:10px; }
-        .section-title .icon { margin-right:8px; font-size:20px; }
-        .indices-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
-        .index-card { background:#1a2035; border-radius:8px; padding:18px; text-align:center; border:1px solid #2a3a5a; transition:all 0.3s; }
-        .index-card:hover { border-color:#e94560; box-shadow:0 0 15px rgba(233,69,96,0.2); }
-        .index-card .name { font-size:14px; color:#8899aa; margin-bottom:8px; }
-        .index-card .price { font-size:30px; font-weight:bold; margin-bottom:5px; }
-        .index-card .change { font-size:15px; }
-        .red { color:#ff4444; }
-        .green { color:#00cc66; }
-        .gray { color:#888; }
-        .sentiment-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; text-align:center; }
-        .sentiment-item { background:#1a2035; border-radius:8px; padding:15px 8px; border:1px solid #2a3a5a; }
-        .sentiment-item .label { font-size:12px; color:#8899aa; margin-bottom:8px; }
-        .sentiment-item .value { font-size:24px; font-weight:bold; }
-        .ai-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
-        .ai-card { background:#1a2035; border-radius:8px; padding:18px; border:1px solid #2a3a5a; position:relative; overflow:hidden; }
-        .ai-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#e94560,#ff6b6b); }
-        .ai-card .stock-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-        .ai-card .stock-name { font-size:18px; font-weight:bold; color:#f0f0f0; }
-        .ai-card .stock-code { font-size:12px; color:#8899aa; }
-        .ai-card .metric { display:flex; justify-content:space-between; margin-bottom:8px; font-size:13px; }
-        .ai-card .metric .label { color:#8899aa; }
-        .ai-card .reason { font-size:12px; color:#aabbc8; margin-top:10px; padding-top:10px; border-top:1px solid #2a3a5a; line-height:1.6; }
-        .ai-card .score { position:absolute; top:15px; right:15px; background:#e94560; color:white; border-radius:50%; width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:bold; }
-        .data-table { width:100%; border-collapse:collapse; margin-top:10px; }
-        .data-table th { background:#1a2035; color:#8899aa; font-size:12px; padding:10px 8px; text-align:left; border-bottom:1px solid #2a3a5a; }
-        .data-table td { padding:9px 8px; border-bottom:1px solid #1a2035; font-size:13px; }
-        .data-table tr:hover { background:#1a2035; }
-        .stock-code { color:#5b9bd5; font-weight:bold; }
-        .sector-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; }
-        .sector-card { background:#1a2035; border-radius:8px; padding:15px; border:1px solid #2a3a5a; }
-        .sector-card .sector-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #2a3a5a; }
-        .sector-card .sector-name { font-size:15px; font-weight:bold; color:#f0f0f0; }
-        .sector-card .sector-chg { font-size:16px; font-weight:bold; }
-        .leading-stock { display:flex; justify-content:space-between; padding:6px 0; font-size:13px; border-bottom:1px solid #111827; }
-        .strategy-box { background:#1a2035; border-radius:8px; padding:18px; border-left:4px solid #e94560; }
-        .strategy-box h3 { color:#e94560; margin-bottom:12px; font-size:15px; }
-        .strategy-box p { line-height:1.8; font-size:13px; color:#aabbc8; margin-bottom:8px; }
-        .strategy-box .tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:12px; margin-right:8px; background:#2a1a2a; color:#e94560; border:1px solid #e94560; }
-        .board-tiers { display:flex; gap:15px; flex-wrap:wrap; }
-        .board-tier { flex:1; min-width:200px; background:#1a2035; border-radius:8px; padding:15px; border:1px solid #2a3a5a; text-align:center; }
-        .board-tier .board-name { font-size:18px; font-weight:bold; color:#e94560; margin-bottom:10px; }
-        .board-tier .board-count { font-size:28px; font-weight:bold; color:#f0f0f0; }
-        .hot-topic { display:flex; gap:15px; flex-wrap:wrap; }
-        .topic-item { flex:1; min-width:250px; background:#1a2035; border-radius:8px; padding:15px; border:1px solid #2a3a5a; }
-        .topic-item .topic-title { font-size:15px; font-weight:bold; color:#f0f0f0; margin-bottom:10px; }
-        .topic-item .topic-desc { font-size:12px; color:#8899aa; line-height:1.6; }
-        .risk-low { color:#00cc66; }
-        .risk-mid { color:#ffaa00; }
-        .risk-high { color:#ff4444; }
-        @media(max-width:900px){
-            .indices-grid,.ai-grid,.sector-cards { grid-template-columns:1fr; }
-            .sentiment-grid { grid-template-columns:repeat(3,1fr); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘后总结报告 - 2026-06-25（周三）收盘数据</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Microsoft YaHei', sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { color: #58a6f5; text-align: center; margin-bottom: 10px; font-size: 28px; }
+h2 { color: #58a6f5; border-bottom: 2px solid #1f2937; padding-bottom: 8px; margin: 30px 0 15px; font-size: 20px; }
+h3 { color: #8b949d; margin: 20px 0 10px; font-size: 16px; }
+.section { background: #161b22; border: 1px solid #21262d; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin: 15px 0; }
+.card { background: #1c2128; border: 1px solid #2d333b; border-radius: 6px; padding: 15px; }
+.card-title { color: #8b949d; font-size: 13px; margin-bottom: 8px; }
+.card-value { font-size: 24px; font-weight: bold; margin: 5px 0; }
+.card-change { font-size: 14px; }
+.red { color: #ff4444; }
+.green { color: #00aa00; }
+.stock-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; border-bottom: 1px solid #21262d; font-size: 14px; }
+.stock-row:last-child { border-bottom: none; }
+.stock-code { color: #58a6f5; font-family: monospace; width: 80px; }
+.stock-name { flex: 1; margin: 0 15px; }
+.stock-price { width: 80px; text-align: right; font-weight: bold; }
+.stock-boards { width: 60px; text-align: center; color: #f85149; }
+.stock-reason { flex: 2; font-size: 12px; color: #8b949d; }
+.stock-in-flow { width: 100px; text-align: right; color: #3fb950; font-weight: bold; }
+.theme-row { display: flex; align-items: center; padding: 10px 15px; border-bottom: 1px solid #21262d; font-size: 14px; }
+.theme-row:last-child { border-bottom: none; }
+.theme-name { width: 150px; color: #f0883e; font-weight: bold; }
+.theme-count { width: 120px; color: #8b949d; }
+.theme-stocks { flex: 1; font-size: 13px; color: #8b949d; }
+.pick-row { display: flex; align-items: center; padding: 10px 15px; border-bottom: 1px solid #21262d; font-size: 14px; }
+.pick-row:last-child { border-bottom: none; }
+.pick-code { color: #58a6f5; font-family: monospace; width: 80px; }
+.pick-name { width: 100px; font-weight: bold; }
+.pick-reason { flex: 1; font-size: 13px; color: #8b949d; }
+.event-row { display: flex; padding: 8px 15px; border-bottom: 1px solid #21262d; font-size: 13px; }
+.event-row:last-child { border-bottom: none; }
+.event-time { width: 80px; color: #8b949d; font-family: monospace; }
+.event-desc { flex: 1; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px; }
+.badge-red { background: #ff4444; color: white; }
+.badge-green { background: #00aa00; color: white; }
+.badge-yellow { background: #d29922; color: black; }
+.summary { background: #1a1f2b; border-left: 4px solid #58a6f5; padding: 15px; border-radius: 4px; margin: 15px 0; line-height: 1.8; }
+.footer { text-align: center; color: #8b949d; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #21262d; }
+</style>
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <h1>📊 午间盘中盯盘报告（TDX增强版）</h1>
-        <p class="subtitle">生成时间：2026-06-25 18:40:30 | 数据来源：腾讯自选股 & 东方财富 | 仅供复盘参考，不构成投资建议</p>
-    </div>
+<h1>📈 盘后总结报告</h1>
+<p style="text-align:center;color:#8b949d;">2026-06-25（周三）收盘数据 | 生成时间：2026-06-25 18:42</p>
 
-    <div class="section">
-        <div class="section-title"><span class="icon">📈</span>一、大盘指数</div>
-        <div class="indices-grid">
-    
-            <div class="index-card">
-                <div class="name">��ָ֤�� (000001)</div>
-                <div class="price red">4120.28</div>
-                <div class="change red">+0.23% (+9.47)</div>
-            </div>
-        
-            <div class="index-card">
-                <div class="name">��֤��ָ (399001)</div>
-                <div class="price red">16344.08</div>
-                <div class="change red">+1.82% (+292.76)</div>
-            </div>
-        
-            <div class="index-card">
-                <div class="name">��ҵ��ָ (399006)</div>
-                <div class="price red">4371.99</div>
-                <div class="change red">+2.84% (+120.57)</div>
-            </div>
-        
-        </div>
-    </div>
-    
-    <div class="section">
-        <div class="section-title"><span class="icon">🎯</span>二、市场情绪总览</div>
-        <div class="sentiment-grid">
-            <div class="sentiment-item"><div class="label">涨停数</div><div class="value red">50</div></div>
-            <div class="sentiment-item"><div class="label">跌停数</div><div class="value green">0</div></div>
-            <div class="sentiment-item"><div class="label">连板数</div><div class="value red">15</div></div>
-            <div class="sentiment-item"><div class="label">上涨数</div><div class="value red">--</div></div>
-            <div class="sentiment-item"><div class="label">下跌数</div><div class="value green">--</div></div>
-            <div class="sentiment-item"><div class="label">赚钱效应</div><div class="value" style="color:#ffaa00;">中等偏强</div></div>
-        </div>
-    </div>
-    
-    <div class="section">
-        <div class="section-title"><span class="icon">🤖</span>三、AI个股推荐</div>
-    <div class="ai-grid">
-                <div class="ai-card">
-                    <div class="score">7.7</div>
-                    <div class="stock-header">
-                        <div>
-                            <div class="stock-name">东山精密 <span class="stock-code">002384</span></div>
-                        </div>
-                    </div>
-                    <div class="metric"><span class="label">最新价</span><span class="red">275.8</span></div>
-                    <div class="metric"><span class="label">涨跌幅</span><span class="red">+7.26%</span></div>
-                    <div class="metric"><span class="label">预期空间</span><span class="red">+8%</span></div>
-                    <div class="metric"><span class="label">风险等级</span><span class="risk-mid">中</span></div>
-                    <div class="reason">💡 主力资金持续流入（1618817024.0万元），当日涨幅7.26%，短线动能较强</div>
-                </div>
-            
-                <div class="ai-card">
-                    <div class="score">7.5</div>
-                    <div class="stock-header">
-                        <div>
-                            <div class="stock-name">东方财富 <span class="stock-code">300059</span></div>
-                        </div>
-                    </div>
-                    <div class="metric"><span class="label">最新价</span><span class="red">21.11</span></div>
-                    <div class="metric"><span class="label">涨跌幅</span><span class="red">+4.61%</span></div>
-                    <div class="metric"><span class="label">预期空间</span><span class="red">+10%</span></div>
-                    <div class="metric"><span class="label">风险等级</span><span class="risk-low">低</span></div>
-                    <div class="reason">💡 主力资金持续流入（1518620160.0万元），当日涨幅4.61%，短线动能较强</div>
-                </div>
-            
-                <div class="ai-card">
-                    <div class="score">7.8</div>
-                    <div class="stock-header">
-                        <div>
-                            <div class="stock-name">沪电股份 <span class="stock-code">002463</span></div>
-                        </div>
-                    </div>
-                    <div class="metric"><span class="label">最新价</span><span class="red">154.99</span></div>
-                    <div class="metric"><span class="label">涨跌幅</span><span class="red">+8.12%</span></div>
-                    <div class="metric"><span class="label">预期空间</span><span class="red">+7%</span></div>
-                    <div class="metric"><span class="label">风险等级</span><span class="risk-high">高</span></div>
-                    <div class="reason">💡 主力资金持续流入（1416777504.0万元），当日涨幅8.12%，短线动能较强</div>
-                </div>
-            </div></div>
-    <div class="section">
-        <div class="section-title"><span class="icon">🔥</span>四、最热板块TOP3及龙头个股</div>
-    <div class="sector-cards">
-                <div class="sector-card">
-                    <div class="sector-header">
-                        <div class="sector-name">TOP1 激光设备</div>
-                        <div class="sector-chg red">+6.43%</div>
-                    </div>
-                    <div style="font-size:12px;color:#8899aa;margin-bottom:8px;">龙头个股：数据采集中...</div>
-                </div>
-            
-                <div class="sector-card">
-                    <div class="sector-header">
-                        <div class="sector-name">TOP2 钨</div>
-                        <div class="sector-chg red">+5.76%</div>
-                    </div>
-                    <div style="font-size:12px;color:#8899aa;margin-bottom:8px;">龙头个股：数据采集中...</div>
-                </div>
-            
-                <div class="sector-card">
-                    <div class="sector-header">
-                        <div class="sector-name">TOP3 航空运输</div>
-                        <div class="sector-chg red">+4.88%</div>
-                    </div>
-                    <div style="font-size:12px;color:#8899aa;margin-bottom:8px;">龙头个股：数据采集中...</div>
-                </div>
-            </div></div>
-    <div class="section">
-        <div class="section-title"><span class="icon">📋</span>五、热点板块TOP20涨幅榜</div>
-    <table class="data-table"><tr><th>排名</th><th>板块代码</th><th>板块名称</th><th>涨幅</th></tr><tr><td>1</td><td class="stock-code">BK1409</td><td>激光设备</td><td class="red">+6.43%</td></tr><tr><td>2</td><td class="stock-code">BK1625</td><td>钨</td><td class="red">+5.76%</td></tr><tr><td>3</td><td class="stock-code">BK1479</td><td>航空运输</td><td class="red">+4.88%</td></tr><tr><td>4</td><td class="stock-code">BK1339</td><td>被动元件</td><td class="red">+4.58%</td></tr><tr><td>5</td><td class="stock-code">BK1331</td><td>数字芯片设计</td><td class="red">+4.07%</td></tr><tr><td>6</td><td class="stock-code">BK0420</td><td>航空机场</td><td class="red">+3.93%</td></tr><tr><td>7</td><td class="stock-code">BK1462</td><td>玻纤制造</td><td class="red">+3.68%</td></tr><tr><td>8</td><td class="stock-code">BK0459</td><td>元件</td><td class="red">+3.08%</td></tr><tr><td>9</td><td class="stock-code">BK1366</td><td>证券Ⅲ</td><td class="red">+3.05%</td></tr><tr><td>10</td><td class="stock-code">BK0473</td><td>证券Ⅱ</td><td class="red">+3.05%</td></tr><tr><td>11</td><td class="stock-code">BK1341</td><td>房产租赁经纪</td><td class="red">+3.03%</td></tr><tr><td>12</td><td class="stock-code">BK1325</td><td>半导体材料</td><td class="red">+2.97%</td></tr><tr><td>13</td><td class="stock-code">BK1469</td><td>涂料</td><td class="red">+2.62%</td></tr><tr><td>14</td><td class="stock-code">BK1328</td><td>集成电路封测</td><td class="red">+2.55%</td></tr><tr><td>15</td><td class="stock-code">BK1340</td><td>印制电路板</td><td class="red">+2.48%</td></tr><tr><td>16</td><td class="stock-code">BK1036</td><td>半导体</td><td class="red">+2.27%</td></tr><tr><td>17</td><td class="stock-code">BK1480</td><td>机场</td><td class="red">+2.21%</td></tr><tr><td>18</td><td class="stock-code">BK1358</td><td>保险Ⅲ</td><td class="red">+2.19%</td></tr><tr><td>19</td><td class="stock-code">BK0474</td><td>保险Ⅱ</td><td class="red">+2.19%</td></tr><tr><td>20</td><td class="stock-code">BK1203</td><td>非银金融</td><td class="red">+2.12%</td></tr></table></div>
-    <div class="section">
-        <div class="section-title"><span class="icon">💰</span>六、资金流入最多个股TOP15</div>
-    <table class="data-table"><tr><th>排名</th><th>代码</th><th>名称</th><th>最新价</th><th>涨跌幅</th><th>主力净流入(万)</th></tr><tr><td>1</td><td class="stock-code">300502</td><td>新易盛</td><td class="red">610.49</td><td class="red">+9.94%</td><td>3672583680.0</td></tr><tr><td>2</td><td class="stock-code">603019</td><td>中科曙光</td><td class="red">97.82</td><td class="red">+10.00%</td><td>2300041488.0</td></tr><tr><td>3</td><td class="stock-code">000100</td><td>TCL科技</td><td class="red">5.34</td><td class="red">+10.10%</td><td>1643473392.0</td></tr><tr><td>4</td><td class="stock-code">002384</td><td>东山精密</td><td class="red">275.8</td><td class="red">+7.26%</td><td>1618817024.0</td></tr><tr><td>5</td><td class="stock-code">000636</td><td>风华高科</td><td class="red">79.62</td><td class="red">+10.00%</td><td>1605381168.0</td></tr><tr><td>6</td><td class="stock-code">300059</td><td>东方财富</td><td class="red">21.11</td><td class="red">+4.61%</td><td>1518620160.0</td></tr><tr><td>7</td><td class="stock-code">002463</td><td>沪电股份</td><td class="red">154.99</td><td class="red">+8.12%</td><td>1416777504.0</td></tr><tr><td>8</td><td class="stock-code">688041</td><td>海光信息</td><td class="red">360.28</td><td class="red">+6.88%</td><td>1288151040.0</td></tr><tr><td>9</td><td class="stock-code">600522</td><td>中天科技</td><td class="red">68.1</td><td class="red">+10.00%</td><td>1261317376.0</td></tr><tr><td>10</td><td class="stock-code">300223</td><td>北京君正</td><td class="red">237.36</td><td class="red">+20.00%</td><td>1233915344.0</td></tr><tr><td>11</td><td class="stock-code">300408</td><td>三环集团</td><td class="red">163.62</td><td class="red">+12.64%</td><td>1189219024.0</td></tr><tr><td>12</td><td class="stock-code">688008</td><td>澜起科技</td><td class="red">279.16</td><td class="red">+4.75%</td><td>1102459392.0</td></tr><tr><td>13</td><td class="stock-code">688981</td><td>中芯国际</td><td class="red">156.86</td><td class="red">+3.52%</td><td>1072408832.0</td></tr><tr><td>14</td><td class="stock-code">600330</td><td>天通股份</td><td class="red">35.6</td><td class="red">+10.01%</td><td>1046381872.0</td></tr><tr><td>15</td><td class="stock-code">300136</td><td>信维通信</td><td class="red">116.73</td><td class="red">+13.20%</td><td>957585440.0</td></tr></table></div>
-    <div class="section">
-        <div class="section-title"><span class="icon">🌡️</span>七、实时热点跟踪</div>
-        <div class="hot-topic">
-    <div class="topic-item"><div class="topic-title">🔴 持续热点</div><div class="topic-desc">• <strong>激光设备</strong>：板块涨幅6.43%，市场关注度持续较高</div><div class="topic-desc">• <strong>钨</strong>：板块涨幅5.76%，市场关注度持续较高</div><div class="topic-desc">• <strong>航空运输</strong>：板块涨幅4.88%，市场关注度持续较高</div></div><div class="topic-item"><div class="topic-title">🟡 新兴热点</div><div class="topic-desc">• <strong>被动元件</strong>：板块涨幅4.58%，今日新兴热点</div><div class="topic-desc">• <strong>数字芯片设计</strong>：板块涨幅4.07%，今日新兴热点</div><div class="topic-desc">• <strong>航空机场</strong>：板块涨幅3.93%，今日新兴热点</div></div></div></div>
-    <div class="section">
-        <div class="section-title"><span class="icon">🎯</span>八、持续热点建议 & 午盘操作策略</div>
-        <div class="strategy-box">
-            <h3>📌 午盘操作建议（18:40）</h3>
-            <p><span class="tag">选择性参与</span></p>
-            <p>📝 市场情绪中等偏强，可选择性参与热点板块，建议以低吸为主，避免追高。</p>
-            <p>🔑 具体操作策略：</p>
-            <p>1. 关注板块：激光设备等热点板块</p>
-            <p>2. 仓位控制：30-40%</p>
-            <p>3. 止损纪律：个股跌破3%必须止损</p>
-            <p>4. 午盘重点关注：强势股是否炸板</p>
-        </div>
-    </div>
-    
-    <div class="section">
-        <div class="section-title"><span class="icon">🚀</span>九、涨停股明细（前50只·关注标的）</div>
-    <table class="data-table"><tr><th>序号</th><th>代码</th><th>名称</th><th>最新价</th><th>涨跌幅</th><th>成交额(万)</th></tr><tr><td>1</td><td class="stock-code">300650</td><td>太龙股份</td><td class="red">14.86</td><td class="red">+20.03%</td><td>386815198.8</td></tr><tr><td>2</td><td class="stock-code">300819</td><td>聚杰微纤</td><td class="red">84.22</td><td class="red">+20.01%</td><td>732024974.36</td></tr><tr><td>3</td><td class="stock-code">300223</td><td>北京君正</td><td class="red">237.36</td><td class="red">+20.00%</td><td>12658486393.85</td></tr><tr><td>4</td><td class="stock-code">300806</td><td>斯迪克</td><td class="red">117.88</td><td class="red">+17.77%</td><td>3944076300.66</td></tr><tr><td>5</td><td class="stock-code">301418</td><td>协昌科技</td><td class="red">54.63</td><td class="red">+16.66%</td><td>546797052.29</td></tr><tr><td>6</td><td class="stock-code">300227</td><td>光韵达</td><td class="red">13.55</td><td class="red">+16.01%</td><td>1546211043.78</td></tr><tr><td>7</td><td class="stock-code">300420</td><td>五洋自控</td><td class="red">9.0</td><td class="red">+15.68%</td><td>2417856283.25</td></tr><tr><td>8</td><td class="stock-code">301265</td><td>华新科技</td><td class="red">31.84</td><td class="red">+14.53%</td><td>629707423.47</td></tr><tr><td>9</td><td class="stock-code">300195</td><td>长荣股份</td><td class="red">7.51</td><td class="red">+13.79%</td><td>676463194.79</td></tr><tr><td>10</td><td class="stock-code">301051</td><td>信濠光电</td><td class="red">17.47</td><td class="red">+13.52%</td><td>315302225.22</td></tr><tr><td>11</td><td class="stock-code">301392</td><td>汇成真空</td><td class="red">227.01</td><td class="red">+13.51%</td><td>2126988203.38</td></tr><tr><td>12</td><td class="stock-code">301013</td><td>利和兴</td><td class="red">84.91</td><td class="red">+13.29%</td><td>4347648100.85</td></tr><tr><td>13</td><td class="stock-code">300136</td><td>信维通信</td><td class="red">116.73</td><td class="red">+13.20%</td><td>17088370273.64</td></tr><tr><td>14</td><td class="stock-code">300909</td><td>汇创达</td><td class="red">64.11</td><td class="red">+12.95%</td><td>719220751.49</td></tr><tr><td>15</td><td class="stock-code">300408</td><td>三环集团</td><td class="red">163.62</td><td class="red">+12.64%</td><td>13914663993.96</td></tr><tr><td>16</td><td class="stock-code">300077</td><td>国民技术</td><td class="red">29.03</td><td class="red">+12.61%</td><td>4356806972.99</td></tr><tr><td>17</td><td class="stock-code">300120</td><td>经纬辉开</td><td class="red">11.02</td><td class="red">+12.45%</td><td>1358976675.1</td></tr><tr><td>18</td><td class="stock-code">300105</td><td>龙源技术</td><td class="red">7.66</td><td class="red">+12.15%</td><td>361557588.32</td></tr><tr><td>19</td><td class="stock-code">300747</td><td>锐科激光</td><td class="red">59.18</td><td class="red">+12.02%</td><td>3223880204.62</td></tr><tr><td>20</td><td class="stock-code">301678</td><td>新恒汇</td><td class="red">67.38</td><td class="red">+11.83%</td><td>1029989828.09</td></tr><tr><td>21</td><td class="stock-code">300323</td><td>华灿光电</td><td class="red">18.32</td><td class="red">+11.57%</td><td>3451990399.5</td></tr><tr><td>22</td><td class="stock-code">300057</td><td>万顺新材</td><td class="red">10.08</td><td class="red">+10.89%</td><td>1754940587.1</td></tr><tr><td>23</td><td class="stock-code">300401</td><td>花园生物</td><td class="red">22.1</td><td class="red">+10.89%</td><td>1385406832.52</td></tr><tr><td>24</td><td class="stock-code">301023</td><td>奕帆传动</td><td class="red">33.0</td><td class="red">+10.74%</td><td>277121443.77</td></tr><tr><td>25</td><td class="stock-code">301182</td><td>凯旺科技</td><td class="red">106.76</td><td class="red">+10.39%</td><td>671981820.9</td></tr><tr><td>26</td><td class="stock-code">300961</td><td>深水海纳</td><td class="red">14.57</td><td class="red">+10.38%</td><td>291148981.27</td></tr><tr><td>27</td><td class="stock-code">002303</td><td>美盈森</td><td class="red">4.25</td><td class="red">+10.10%</td><td>626450661.55</td></tr><tr><td>28</td><td class="stock-code">000100</td><td>TCL科技</td><td class="red">5.34</td><td class="red">+10.10%</td><td>11902149516.73</td></tr><tr><td>29</td><td class="stock-code">002141</td><td>贤丰控股</td><td class="red">5.24</td><td class="red">+10.08%</td><td>993023796.73</td></tr><tr><td>30</td><td class="stock-code">600516</td><td>方大炭素</td><td class="red">6.77</td><td class="red">+10.08%</td><td>1753256433.0</td></tr><tr><td>31</td><td class="stock-code">600500</td><td>中化国际</td><td class="red">8.64</td><td class="red">+10.06%</td><td>2259958424.0</td></tr><tr><td>32</td><td class="stock-code">002387</td><td>维信诺</td><td class="red">8.97</td><td class="red">+10.06%</td><td>366235470.24</td></tr><tr><td>33</td><td class="stock-code">600903</td><td>贵州燃气</td><td class="red">7.99</td><td class="red">+10.06%</td><td>334323466.0</td></tr></table></div>
-    <div class="section">
-        <div class="section-title"><span class="icon">🏆</span>十、连板梯队</div>
-        <div class="board-tiers">
-    
-            <div class="board-tier">
-                <div class="board-name">首板</div>
-                <div class="board-count red">33</div>
-                <div style="font-size:12px;color:#8899aa;margin-top:8px;">
-        太龙股份 (300650)<br>聚杰微纤 (300819)<br>北京君正 (300223)<br>斯迪克 (300806)<br>协昌科技 (301418)<br></div></div>
-        </div>
-    </div>
-    
-    <div class="section">
-        <div class="section-title"><span class="icon">⚠️</span>十一、跌停风险监控（前30只·关注标的）</div>
-    <p style="text-align:center;color:#666;padding:20px;">暂无符合筛选条件的跌停股</p>
-        </div>
-    
-        <div style="text-align:center;color:#555;font-size:12px;padding:20px;">
-            <p>⚠️ 本报告由 WorkBuddy AI 自动生成 | 数据来源：腾讯自选股 & 东方财富</p>
-            <p>仅供参考，不构成投资建议。股市有风险，投资需谨慎。</p>
-        </div>
-    </div>
+<!-- 大盘指数 -->
+<div class="section">
+<h2>一、大盘指数</h2>
+<div class="grid">
+<div class="card">
+<div class="card-title">上证指数</div>
+<div class="card-value">4120.28</div>
+<div class="card-change red">+0.23% ▲</div>
+<div style="font-size:12px;color:#8b949d;margin-top:8px;">成交量：67046万手<br>成交额：16190亿<br>内盘：34403万手 | 外盘：32643万手</div>
+</div>
+<div class="card">
+<div class="card-title">深证成指</div>
+<div class="card-value">16344.08</div>
+<div class="card-change red">+1.82% ▲</div>
+<div style="font-size:12px;color:#8b949d;margin-top:8px;">成交量：83096万手<br>成交额：19753亿<br>内盘：42486万手 | 外盘：40610万手</div>
+</div>
+<div class="card">
+<div class="card-title">创业板指</div>
+<div class="card-value">4371.99</div>
+<div class="card-change red">+2.84% ▲</div>
+<div style="font-size:12px;color:#8b949d;margin-top:8px;">成交量：25784万手<br>成交额：9831亿<br>内盘：13276万手 | 外盘：12508万手</div>
+</div>
+</div>
+</div>
+
+<!-- 涨停板块 -->
+<div class="section">
+<h2>二、涨停板块（92只）</h2>
+<h3>🔥 最高连板：7板（泰和新材）</h3>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="stock-row" style="color:#8b949d;font-size:12px;border-bottom:2px solid #2d333b;">
+<span style="width:80px;">代码</span><span style="flex:1;margin:0 15px;">名称</span><span style="width:80px;text-align:right;">价格</span><span style="width:60px;text-align:center;">连板</span><span style="flex:2;">涨停原因</span>
+</div>
+<div class="stock-row"><span class="stock-code">002674</span><span class="stock-name">兴业科技</span><span class="stock-price">26.21</span><span class="stock-boards">5板</span><span class="stock-reason">医疗器械+磷化铟衬底</span></div>
+<div class="stock-row"><span class="stock-code">600667</span><span class="stock-name">太极实业</span><span class="stock-price">25.31</span><span class="stock-boards">3板</span><span class="stock-reason">存储芯片+DRAM封装</span></div>
+<div class="stock-row"><span class="stock-code">600584</span><span class="stock-name">长电科技</span><span class="stock-price">104.17</span><span class="stock-boards">3板</span><span class="stock-reason">芯片+先进封装</span></div>
+<div class="stock-row"><span class="stock-code">300223</span><span class="stock-name">北京君正</span><span class="stock-price">237.36</span><span class="stock-boards">1板</span><span class="stock-reason">半导体+存储芯片</span></div>
+<div class="stock-row"><span class="stock-code">002484</span><span class="stock-name">江海股份</span><span class="stock-price">111.02</span><span class="stock-boards">1板</span><span class="stock-reason">电容器+机器人概念</span></div>
+<div class="stock-row"><span class="stock-code">000100</span><span class="stock-name">TCL科技</span><span class="stock-price">5.34</span><span class="stock-boards">1板</span><span class="stock-reason">玻璃基板+TGV技术</span></div>
+<div class="stock-row"><span class="stock-code">603678</span><span class="stock-name">火炬电子</span><span class="stock-price">75.13</span><span class="stock-boards">2板</span><span class="stock-reason">MLCC+军工电子</span></div>
+<div class="stock-row"><span class="stock-code">600228</span><span class="stock-name">返利科技</span><span class="stock-price">9.81</span><span class="stock-boards">2板</span><span class="stock-reason">AI导购+股权转让</span></div>
+<div class="stock-row"><span class="stock-code">002080</span><span class="stock-name">中材科技</span><span class="stock-price">92.93</span><span class="stock-boards">6板</span><span class="stock-reason">电子布+AI服务器PCB</span></div>
+<div class="stock-row"><span class="stock-code">000823</span><span class="stock-name">超声电子</span><span class="stock-price">25.87</span><span class="stock-boards">5板</span><span class="stock-reason">覆铜板+高速PCB</span></div>
+</div>
+</div>
+
+<!-- 跌停板块 -->
+<div class="section">
+<h2>三、跌停板块（79只）</h2>
+<h3>⚠️ 调整板块：ST板块、个股调整</h3>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="stock-row" style="color:#8b949d;font-size:12px;border-bottom:2px solid #2d333b;">
+<span style="width:80px;">代码</span><span style="flex:1;margin:0 15px;">名称</span><span style="width:80px;text-align:right;">价格</span><span style="flex:2;">跌停原因</span>
+</div>
+<div class="stock-row"><span class="stock-code">002217</span><span class="stock-name">ST合力泰</span><span class="stock-price" style="color:#00aa00;">2.17</span><span class="stock-reason">个股调整</span></div>
+<div class="stock-row"><span class="stock-code">688639</span><span class="stock-name">华恒生物</span><span class="stock-price" style="color:#00aa00;">17.12</span><span class="stock-reason">实控人被刑拘</span></div>
+<div class="stock-row"><span class="stock-code">002667</span><span class="stock-name">*ST威领</span><span class="stock-price" style="color:#00aa00;">12.53</span><span class="stock-reason">个股调整</span></div>
+<div class="stock-row"><span class="stock-code">002856</span><span class="stock-name">*ST美芝</span><span class="stock-price" style="color:#00aa00;">17.66</span><span class="stock-reason">个股调整</span></div>
+<div class="stock-row"><span class="stock-code">002514</span><span class="stock-name">*ST宝馨</span><span class="stock-price" style="color:#00aa00;">2.37</span><span class="stock-reason">个股调整</span></div>
+</div>
+</div>
+
+<!-- 主力净流入 -->
+<div class="section">
+<h2>四、主力净流入 TOP10（暂无数据）</h2>
+<div style="background:#1c2128;border-radius:6px;padding:20px;margin:15px 0;text-align:center;color:#8b949d;">
+<p>⚠️ 今日主力净流入数据查询暂无结果。</p>
+</div>
+</div>
+
+<!-- 五大主线 -->
+<div class="section">
+<h2>五、今日五大主线</h2>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="theme-row"><span class="theme-name">🔴 芯片半导体</span><span class="theme-count">涨停25只</span><span class="theme-stocks">太极实业、长电科技、北京君正、中科曙光、火炬电子</span></div>
+<div class="theme-row"><span class="theme-name">🔵 光通信/CPO/液冷</span><span class="theme-count">涨停18只</span><span class="theme-stocks">天通股份、华盛昌、法狮龙、聚石化学、帝奥微</span></div>
+<div class="theme-row"><span class="theme-name">🤖 人形机器人</span><span class="theme-count">涨停15只</span><span class="theme-stocks">祥鑫科技、聚杰微纤、兴业科技、中材科技、江海股份</span></div>
+<div class="theme-row"><span class="theme-name">💎 电子材料/元器件</span><span class="theme-count">涨停20只</span><span class="theme-stocks">风华高科、艾华集团、宏柏新材、海星股份、美埃科技</span></div>
+<div class="theme-row"><span class="theme-name">💊 国企改革/一带一路</span><span class="theme-count">涨停14只</span><span class="theme-stocks">中化国际、五矿发展、国投中鲁、新疆众和、蓝科高新</span></div>
+</div>
+</div>
+
+<!-- 情绪总结 -->
+<div class="section">
+<h2>六、市场情绪总结</h2>
+<div class="summary">
+<p><strong>💹 赚钱效应评级：<span style="color:#d29922;">中高</span></strong></p>
+<p>市场整体走强，创业板指涨2.84%，科技成长板块（芯片、机器人、光通信）表现强势，赚钱效应较好。</p>
+<p>📊 <strong>涨跌停比：</strong>涨停92只 vs 跌停79只，多头占优，涨停数量较多。</p>
+<p>🔥 <strong>连板高度：</strong>最高7板（泰和新材），连板16只（已过滤科创板/北交所/ST），资金聚焦主线龙头。</p>
+<p>💰 <strong>成交金额：</strong>沪深两市成交额45974亿，创业板活跃度较高。</p>
+<p>⚠️ <strong>风险提示：</strong>ST板块跌停较多（79只跌停中多只ST），短期谨慎ST板块。</p>
+</div>
+</div>
+
+<!-- 关注标的 -->
+<div class="section">
+<h2>七、连板关注标的（已过滤科创板/北交所/ST）</h2>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="pick-row"><span class="pick-code">002254</span><span class="pick-name">泰和新材</span><span class="pick-reason">7板高度，芳纶+光通信，关注开板后走势</span></div>
+<div class="pick-row"><span class="pick-code">002080</span><span class="pick-name">中材科技</span><span class="pick-reason">6板，电子布龙头，AI服务器PCB受益</span></div>
+<div class="pick-row"><span class="pick-code">603989</span><span class="pick-name">艾华集团</span><span class="pick-reason">6板，铝电解电容龙头，AI算力供电核心</span></div>
+<div class="pick-row"><span class="pick-code">002674</span><span class="pick-name">兴业科技</span><span class="pick-reason">5板，磷化铟衬底，光通信材料新秀</span></div>
+<div class="pick-row"><span class="pick-code">000823</span><span class="pick-name">超声电子</span><span class="pick-reason">5板，覆铜板+M7/M8级高速PCB</span></div>
+</div>
+</div>
+
+<!-- 催化剂 -->
+<div class="section">
+<h2>八、今日盘中动态</h2>
+<div style="background:#1c2128;border-radius:6px;padding:10px;margin:15px 0;">
+<div class="event-row"><span class="event-time">06-25 09:25</span><span class="event-desc">兴业科技、太极实业、返利科技一字涨停，连板股强势开盘</span></div>
+<div class="event-row"><span class="event-time">06-25 09:32</span><span class="event-desc">超声电子、航锦科技快速涨停，存储芯片板块走强</span></div>
+<div class="event-row"><span class="event-time">06-25 13:00</span><span class="event-desc">创业板指涨超2.8%，科技成长股全面开花</span></div>
+<div class="event-row"><span class="event-time">06-25 14:50</span><span class="event-desc">尾盘连板股持续强势，泰和新材、中材科技封板</span></div>
+</div>
+</div>
+
+<!-- 免责声明 -->
+<div class="section" style="background:#1a1f2b;border-left:4px solid #d29922;">
+<h2 style="color:#d29922;">⚠️ 免责声明</h2>
+<p style="font-size:13px;line-height:1.8;">本报告仅供参考，不构成个人投资建议。股市有风险，投资需谨慎。数据来源：通达信MCP、公开市场数据。报告生成时间：2026-06-25 18:42。</p>
+</div>
+
+<div class="footer">
+<p>📈 热点板块盯盘系统 | 生成时间：2026-06-25 18:42 | 数据来源：通达信MCP</p>
+</div>
+
+</div>
 </body>
 </html>
