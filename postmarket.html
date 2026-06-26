@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2追涨 · 盘后总结</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:#0a0e27;color:#e1e5f2;padding:12px;min-height:100vh;line-height:1.5}
+@media(min-width:768px){body{padding:20px}}
+.nav{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.nav a{display:inline-block;padding:8px 16px;border-radius:8px;text-decoration:none;color:#8892b0;font-size:13px;border:1px solid #2d3561;background:#1a1f3a;transition:.2s}
+.nav a:hover,.nav a.active{background:#2d3561;color:#00d4ff;border-color:#00d4ff}
+.nav a.pm:hover,.nav a.pm.active{color:#a855f7;border-color:#a855f7}
+.hdr{text-align:center;padding:16px 12px;background:linear-gradient(135deg,#1a1f3a,#2d3561);border-radius:12px;margin-bottom:14px;border:1px solid #3d4663}
+.hdr h1{font-size:20px;color:#a855f7;margin-bottom:4px}
+@media(min-width:768px){.hdr h1{font-size:26px}}
+.hdr .sub{color:#8892b0;font-size:12px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:linear-gradient(135deg,#151929,#1a1f3a);border-radius:10px;margin-bottom:14px;border:1px solid #2d3561;flex-wrap:wrap;gap:8px}
+.bar .item{font-size:12px}
+.card{background:linear-gradient(135deg,#1a1f3a,#151929);border-radius:12px;padding:14px;border:1px solid #2d3561;margin-bottom:14px}
+.card h2{font-size:14px;color:#a855f7;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2d3561;display:flex;align-items:center;gap:6px}
+.metric{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a1f3a;font-size:13px}
+.metric:last-child{border-bottom:none}
+.m-lbl{color:#8892b0}
+.m-val{font-weight:bold;font-family:'Consolas',monospace}
+.c-pos{color:#ff4d4f}.c-neg{color:#52c41a}.c-neu{color:#e1e5f2}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.sum-item{background:#151929;border-radius:10px;padding:14px;text-align:center;border:1px solid #2d3561}
+.sum-val{font-size:26px;font-weight:bold;font-family:'Consolas',monospace}
+.sum-lbl{font-size:11px;color:#8892b0;margin-top:4px}
+.stock-table{width:100%;border-collapse:collapse;margin:10px 0}
+.stock-table th{background:#161b22;color:#8892b0;padding:8px 10px;text-align:left;font-size:12px;border-bottom:1px solid #2d3561}
+.stock-table td{padding:8px 10px;border-bottom:1px solid #1a1f3a;font-size:13px}
+.stock-table tr:hover{background:#12172a}
+.stock-name{color:#ccd6f2;font-weight:bold}
+.chg-up{color:#ff4d4f}.chg-dn{color:#52c41a}
+.sec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0}
+.sec-card{background:#0f1629;border-radius:8px;padding:10px;border-left:3px solid #a855f7}
+.sec-name{font-size:13px;font-weight:bold;color:#ccd6f2}
+.sec-detail{font-size:11px;color:#8892b0;margin-top:4px;line-height:1.6}
+.report-link{display:block;background:linear-gradient(135deg,#1a1f3a,#151929);border:1px dashed #a855f7;border-radius:10px;padding:16px;text-align:center;color:#a855f7;text-decoration:none;font-size:14px;margin:14px 0;transition:.2s}
+.report-link:hover{background:#1f1640}
+.empty{text-align:center;padding:24px;color:#5a6380;font-size:13px}
+.spinner{display:inline-block;width:18px;height:18px;border:3px solid #2d3561;border-top-color:#a855f7;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#3d4663;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="index.html">🟢 湖北池 (18只)</a>
+  <a href="index_yangkai.html" style="color:#ff9f43;border-color:#ff9f43">🔶 杨凯池 (24板块)</a>
+  <a href="#" class="pm active">📊 盘后总结</a>
+</div>
+
+<div class="hdr">
+  <h1>📊 V2追涨策略 · 盘后总结</h1>
+  <div class="sub">每日15:30自动生成 · 湖北池+杨凯池收盘复盘</div>
+  <div id="updTime" style="color:#a855f7;font-size:11px;margin-top:4px"></div>
+</div>
+
+<!-- 收盘概览 -->
+<div class="bar">
+  <div class="item">📅 <span id="pmDate">--</span></div>
+  <div class="item">📡 数据源：<span id="srcLabel">--</span></div>
+  <div class="item">🔄 <button onclick="loadData()" style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;border:none;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px">刷新</button></div>
+</div>
+
+<div class="grid" id="sumBar"></div>
+
+<!-- 湖北池收盘表现 -->
+<div class="card">
+  <h2>🟢 湖北池收盘表现 (18只)</h2>
+  <table class="stock-table" id="hbTable">
+    <thead><tr><th>排名</th><th>股票</th><th>代码</th><th>价格</th><th>涨幅</th><th>板块</th><th>状态</th></tr></thead>
+    <tbody id="hbBody"><tr><td colspan="7" class="empty"><span class="spinner"></span> 加载中...</td></tr></tbody>
+  </table>
+</div>
+
+<!-- 板块涨跌统计 -->
+<div class="card">
+  <h2>📊 板块涨跌统计</h2>
+  <div class="sec-grid" id="secGrid"></div>
+</div>
+
+<!-- 杨凯池收盘 -->
+<div class="card">
+  <h2>🔶 杨凯24板块扫描 (东方财富数据)</h2>
+  <div id="ykBody"></div>
+</div>
+
+<!-- 历史报告 -->
+<div class="card">
+  <h2>📁 历史盘后报告</h2>
+  <div id="histReports"></div>
+  <a class="report-link" href="#" id="latestReportLink" target="_blank">📄 查看完整盘后总结报告 →</a>
+</div>
+
+<script>
+var D = null;
+function fmt(v){if(v===undefined||v===null) return '--'; return '¥'+(parseFloat(v)||0).toLocaleString('zh-CN',{maximumFractionDigits:0});}
+function esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'):'';}
+function chgCls(v){return v>0?'chg-up':v<0?'chg-dn':'c-neu';}
+
+function renderPM(){
+  if(!D) return;
+  var hb = D.hubei_pool || {};
+  var secs = hb.sector_performance || [];
+  var stocks = hb.all_stocks || [];
+  var yk = window.YK_DATA || {sectors_summary:{}, sector_details:{}};
+
+  // 时间
+  document.getElementById('updTime').textContent = '✅ ' + (D.last_update || '');
+  document.getElementById('srcLabel').textContent = (D.data_source || '未知');
+  var dStr = D.last_update || '';
+  document.getElementById('pmDate').textContent = dStr ? dStr.substring(0,10) : '';
+
+  // 概览
+  var upCount = stocks.filter(function(s){return s.change_pct > 0}).length;
+  var dnCount = stocks.filter(function(s){return s.change_pct <= 0}).length;
+  var maxChg = stocks.length ? Math.max.apply(null, stocks.map(function(s){return s.change_pct})) : 0;
+  var minChg = stocks.length ? Math.min.apply(null, stocks.map(function(s){return s.change_pct})) : 0;
+
+  document.getElementById('sumBar').innerHTML =
+    sm('🟢 上涨', upCount, 'c-pos') +
+    sm('🔴 下跌', dnCount, 'c-neg') +
+    sm('📈 最高涨幅', (maxChg>0?'+':'')+maxChg.toFixed(2)+'%', chgCls(maxChg)) +
+    sm('📉 最低涨幅', (minChg<0?'':'')+minChg.toFixed(2)+'%', chgCls(minChg)) +
+    sm('🎯 买入信号', (hb.buy_signals||[]).length, 'c-pos');
+
+  // 湖北池表格
+  if(stocks.length === 0){
+    document.getElementById('hbBody').innerHTML = '<tr><td colspan="7" class="empty">暂无数据</td></tr>';
+  } else {
+    document.getElementById('hbBody').innerHTML = stocks.map(function(s, i){
+      var chg = s.change_pct || 0;
+      var status = '';
+      if(chg > 5.5) status = '<span style="color:#ff4d4f;font-weight:bold">🟢 买入</span>';
+      else if(chg > 3) status = '<span style="color:#ffd93d">⚠️ 接近</span>';
+      else if(chg > 0) status = '<span style="#64ffda">📈 上涨</span>';
+      else status = '<span style="color:#52c41a">📉 下跌</span>';
+      return '<tr>' +
+        '<td>' + (i+1) + '</td>' +
+        '<td class="stock-name">' + esc(s.name) + '</td>' +
+        '<td style="color:#58a6f7">' + esc(s.code) + '</td>' +
+        '<td>' + (s.price||0).toFixed(2) + '</td>' +
+        '<td class="' + chgCls(chg) + '" style="font-weight:bold">' + (chg>0?'+':'') + chg.toFixed(2) + '%</td>' +
+        '<td>' + esc(s.sector||'-') + '</td>' +
+        '<td>' + status + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  // 板块统计
+  if(secs.length === 0){
+    document.getElementById('secGrid').innerHTML = '<div class="empty">暂无板块数据</div>';
+  } else {
+    document.getElementById('secGrid').innerHTML = secs.map(function(sec){
+      return '<div class="sec-card"><div class="sec-name">' + esc(sec.sector) +
+        ' <span class="' + chgCls(sec.change) + '" style="float:right;font-family:Consolas">' +
+        (sec.change>0?'+':'') + sec.change.toFixed(2) + '%</span></div>' +
+        '<div class="sec-detail">状态：' + sec.status + '</div></div>';
+    }).join('');
+  }
+
+  // 杨凯池
+  renderYK(yk);
+}
+
+function renderYK(yk){
+  var details = yk.sector_details || {};
+  var keys = Object.keys(details);
+  var el = document.getElementById('ykBody');
+  if(keys.length === 0){
+    el.innerHTML = '<div class="empty">杨凯池数据暂不可用（TDX离线时使用东方财富备用）<br>交易时段内刷新可获取最新数据</div>';
+    return;
+  }
+  // 有数据则渲染
+  el.innerHTML = '<table class="stock-table"><thead><tr><th>板块</th><th>强势股数</th><th>龙头股</th></tr></thead><tbody>' +
+    Object.keys(details).map(function(k){
+      var v = details[k];
+      return '<tr><td class="sec-name">'+esc(k)+'</td><td>'+v.count+'</td><td style="color:#ff9f43">'+esc(v.top_stock)+'</td></tr>';
+    }).join('') + '</tbody></table>';
+}
+
+function sm(lbl,val,cls){return '<div class="sum-item"><div class="sum-val '+cls+'">'+val+'</div><div class="sum-lbl">'+lbl+'</div></div>';}
+
+function loadData(){
+  // 加载湖北池数据
+  fetch('dashboard_data.json?t='+Date.now(),{cache:'no-cache'})
+    .then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(d){D=d;renderPM();})
+    .catch(function(){
+      fetch('https://lawrda.github.io/stock-watchboard/dashboard_data.json?t='+Date.now(),{cache:'no-cache'})
+        .then(function(r){if(!r.ok)throw 0;return r.json();})
+        .then(function(d){D=d;renderPM();})
+        .catch(function(){document.getElementById('hbBody').innerHTML='<tr><td colspan="7" class="empty">❌ 无法加载数据</td></tr>';});
+    });
+
+  // 加载杨凯池数据
+  fetch('dashboard_yangkai.json?t='+Date.now(),{cache:'no-cache'})
+    .then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(d){window.YK_DATA=d;renderYK(d);})
+    .catch(function(){
+      fetch('https://lawrda.github.io/stock-watchboard/dashboard_yangkai.json?t='+Date.now(),{cache:'no-cache'})
+        .then(function(r){if(!r.ok)throw 0;return r.json();})
+        .then(function(d){window.YK_DATA=d;renderYK(d);})
+        .catch(function(){});
+    });
+}
+
+// 加载历史报告列表
+function loadHistory(){
+  var reports = [
+    {date:'2026-06-26', file:'盘后总结报告_20260626.html'},
+    {date:'2026-06-25', file:'盘后总结报告_20260625.html'},
+    {date:'2026-06-24', file:'盘后总结报告_20260624.html'},
+  ];
+  var html = reports.map(function(r){
+    return '<a class="report-link" href="'+r.file+'" target="_blank" style="margin:6px 0;font-size:13px">'+
+      '📅 '+r.date+' ('+r.date.substring(5)+') →</a>';
+  }).join('');
+  document.getElementById('histReports').innerHTML = html;
+  // 最新报告链接
+  if(reports.length > 0){
+    document.getElementById('latestReportLink').href = reports[0].file;
+  }
+}
+
+loadData();
+loadHistory();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>
