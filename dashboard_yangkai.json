@@ -1,11 +1,215 @@
 {
-  "last_update": "2026-06-26 21:50:40",
+  "last_update": "2026-06-26 22:05:24",
+  "scan_time": "2026-06-26 22:05:24",
   "market_status": "收盘",
-  "current_time": "21:50",
+  "current_time": "22:05",
   "data_source": "Sina/EM",
+  "market_chg_pct": -0.52,
   "account": {
-    "yk_cash": 100000.0,
-    "yk_positions_count": 0
+    "total_assets": 500000.0,
+    "available_cash": 500000.0,
+    "yk_cash": 500000.0,
+    "hb_cash": 411500.46,
+    "positions": [],
+    "total_return": 0.0,
+    "return_pct": 0.0,
+    "initial_cash": 1000000
+  },
+  "yangkai_pool": {
+    "total_sectors": 24,
+    "scanned": 24,
+    "buy_signals": [
+      {
+        "code": "3650",
+        "name": "彤程新材",
+        "price": 85.83,
+        "change_pct": 10.0,
+        "sector": "光刻胶",
+        "sector_change": 6.46,
+        "suggestion": "光刻胶板块有异动",
+        "reason": "杨凯池光刻胶板块，个股涨幅10.00%，符合V2买入条件"
+      },
+      {
+        "code": "8037",
+        "name": "芯源微",
+        "price": 354.9,
+        "change_pct": 6.58,
+        "sector": "光刻胶",
+        "sector_change": 6.46,
+        "suggestion": "光刻胶板块有异动",
+        "reason": "杨凯池光刻胶板块，个股涨幅6.58%，符合V2买入条件"
+      }
+    ],
+    "near_threshold": [],
+    "all_stocks": [
+      {
+        "code": "3650",
+        "name": "彤程新材",
+        "price": 85.83,
+        "change_pct": 10.0,
+        "sector": "光刻胶",
+        "sector_change": 6.46,
+        "suggestion": "光刻胶板块有异动",
+        "reason": "杨凯池光刻胶板块，个股涨幅10.00%，符合V2买入条件"
+      },
+      {
+        "code": "8037",
+        "name": "芯源微",
+        "price": 354.9,
+        "change_pct": 6.58,
+        "sector": "光刻胶",
+        "sector_change": 6.46,
+        "suggestion": "光刻胶板块有异动",
+        "reason": "杨凯池光刻胶板块，个股涨幅6.58%，符合V2买入条件"
+      }
+    ],
+    "declining_stocks": [],
+    "sector_performance": [
+      {
+        "sector": "光刻胶",
+        "change": 6.46,
+        "count": 2,
+        "status": "强势"
+      },
+      {
+        "sector": "电子元器件",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "量子科技",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "光刻机",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "先进封装",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "人形机器人",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "华为概念",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "机器人物联网",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "芯片",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "半导体",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "消费电子",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "电子设备",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "软件服务",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "AI智能体",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "IT设备",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "新质生产力",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "人工智能",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "软件开发",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "AI应用",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "脑机接口",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "AIGC概念",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "算力芯片",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "算力租赁",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      },
+      {
+        "sector": "汽车零部件",
+        "change": 0,
+        "count": 0,
+        "status": "无信号"
+      }
+    ]
   },
   "positions": [],
   "trade_history": [],
@@ -18,6 +222,12 @@
     "avg_pnl": 0,
     "hb_positions_count": 1,
     "yk_positions_count": 0
+  },
+  "scan_summary": {
+    "total_scanned": 24,
+    "total_sectors": 24,
+    "yk_buy_signals": 2,
+    "sectors_with_signals": 1
   },
   "sectors_summary": {
     "total_sectors": 24,

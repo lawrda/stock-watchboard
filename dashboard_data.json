@@ -1,24 +1,24 @@
 {
-  "last_update": "2026-06-26 21:50:40",
-  "scan_time": "2026-06-26 21:50:40",
+  "last_update": "2026-06-26 22:05:24",
+  "scan_time": "2026-06-26 22:05:24",
   "market_status": "收盘",
-  "current_time": "21:50",
+  "current_time": "22:05",
   "data_source": "Sina/EM",
   "account": {
-    "total_assets": 199991.15,
-    "available_cash": 170500.15,
-    "hb_cash": 70500.15,
-    "yk_cash": 100000.0,
+    "total_assets": 999973.46,
+    "available_cash": 911500.46,
+    "hb_cash": 411500.46,
+    "yk_cash": 500000.0,
     "positions": [
       {
-        "id": "hb_603281_1782480751",
+        "id": "hb_603281_1782482088",
         "code": "603281",
         "name": "江瀚新材",
         "pool": "湖北池",
         "buy_price": 42.13,
-        "buy_qty": 700,
-        "buy_amount": 29491.0,
-        "buy_time": "2026-06-26 21:32:31",
+        "buy_qty": 2100,
+        "buy_amount": 88473.0,
+        "buy_time": "2026-06-26 21:54:48",
         "sector": "精细化工",
         "status": "holding",
         "current_price": 42.13,
@@ -35,7 +35,7 @@
     ],
     "total_return": 0.0,
     "return_pct": 0.0,
-    "initial_cash": 200000
+    "initial_cash": 1000000
   },
   "hubei_pool": {
     "total_stocks": 18,
@@ -295,14 +295,14 @@
   },
   "positions": [
     {
-      "id": "hb_603281_1782480751",
+      "id": "hb_603281_1782482088",
       "code": "603281",
       "name": "江瀚新材",
       "pool": "湖北池",
       "buy_price": 42.13,
-      "buy_qty": 700,
-      "buy_amount": 29491.0,
-      "buy_time": "2026-06-26 21:32:31",
+      "buy_qty": 2100,
+      "buy_amount": 88473.0,
+      "buy_time": "2026-06-26 21:54:48",
       "sector": "精细化工",
       "status": "holding",
       "current_price": 42.13,
@@ -319,17 +319,17 @@
   ],
   "trade_history": [
     {
-      "id": "hb_603281_1782480751",
+      "id": "hb_603281_1782482088",
       "type": "buy",
       "pool": "湖北池",
       "code": "603281",
       "name": "江瀚新材",
       "price": 42.13,
-      "qty": 700,
-      "amount": 29491.0,
-      "commission": 8.85,
-      "total_cost": 29499.85,
-      "time": "2026-06-26 21:32:31",
+      "qty": 2100,
+      "amount": 88473.0,
+      "commission": 26.54,
+      "total_cost": 88499.54,
+      "time": "2026-06-26 21:54:48",
       "reason": "精细化工板块，个股涨幅7.15%，符合V2买入条件（新浪数据）",
       "sector": "精细化工"
     }
