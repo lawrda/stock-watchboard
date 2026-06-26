@@ -6,15 +6,17 @@
 <title>V2盯盘 · 杨凯池（24科技板块）</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:#0a0e27;color:#e1e5f2;padding:12px;min-height:100vh}
+body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:#0a0e27;color:#e1e5f2;padding:12px;min-height:100vh;line-height:1.5}
 @media(min-width:768px){body{padding:20px}}
 .nav{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .nav a{display:inline-block;padding:8px 16px;border-radius:8px;text-decoration:none;color:#8892b0;font-size:13px;border:1px solid #2d3561;background:#1a1f3a;transition:.2s}
-.nav a:hover,.nav a.active{background:#2d3561;color:#ff9f43;border-color:#ff9f43}
+.nav a:hover,.nav a.active{background:#2d3561;color:#00d4ff;border-color:#00d4ff}
+.nav a.yk:hover,.nav a.yk.active{color:#ff9f43;border-color:#ff9f43;background:rgba(255,159,67,.08)}
 .hdr{text-align:center;padding:16px 12px;background:linear-gradient(135deg,#1a1f3a,#2d3561);border-radius:12px;margin-bottom:14px;border:1px solid #3d4663}
 .hdr h1{font-size:20px;color:#ff9f43;margin-bottom:4px}
 @media(min-width:768px){.hdr h1{font-size:26px}}
 .hdr .sub{color:#8892b0;font-size:12px}
+.hdr .src{color:#64ffda;font-size:11px;margin-top:4px}
 .bar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:linear-gradient(135deg,#151929,#1a1f3a);border-radius:10px;margin-bottom:14px;border:1px solid #2d3561;flex-wrap:wrap;gap:8px}
 .bar .item{display:flex;align-items:center;gap:6px;font-size:12px}
 .bar .dot{width:9px;height:9px;border-radius:50%;animation:pulse 2s infinite}
@@ -24,22 +26,81 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:#0a0e27;c
 .bar button{background:linear-gradient(135deg,#ff9f43,#e68a2e);color:#fff;border:none;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:bold}
 .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:14px}
 .sum-item{background:linear-gradient(135deg,#1a1f3a,#151929);border-radius:10px;padding:12px;text-align:center;border:1px solid #2d3561}
-.sum-val{font-size:24px;font-weight:bold;font-family:'Consolas',monospace;color:#ff9f43}
+.sum-val{font-size:24px;font-weight:bold;font-family:'Consolas',monospace}
+.sum-val.c-pos{color:#ff4d4f}.sum-val.c-neg{color:#52c41a}.sum-val.c-neu{color:#e1e5f2}.sum-val.c-yk{color:#ff9f43}
 .sum-lbl{font-size:11px;color:#8892b0;margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px}
+@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{background:linear-gradient(135deg,#1a1f3a,#151929);border-radius:12px;padding:14px;border:1px solid #2d3561}
+.card h2{font-size:13px;color:#8892b0;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2d3561}
+.metric{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1f3a;font-size:13px}
+.metric:last-child{border-bottom:none}
+.m-lbl{color:#8892b0}
+.m-val{font-weight:bold;font-family:'Consolas',monospace}
+.c-pos{color:#ff4d4f}.c-neg{color:#52c41a}.c-neu{color:#e1e5f2}.c-yk{color:#ff9f43}
 .sig-sec{margin-top:12px}
 .sig-card{background:linear-gradient(135deg,#1a1f3a,#151929);border-radius:12px;padding:14px;border:1px solid #2d3561;margin-bottom:12px}
-.sig-card h2{font-size:14px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2d3561;color:#ff9f43}
-.sig-item{background:linear-gradient(135deg,#0f1629,#141b33);border-radius:10px;padding:12px;margin-bottom:8px;border-left:4px solid #ff9f43}
+.sig-card h2{font-size:14px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2d3561}
+.sig-card.buy h2{color:#ff4d4f}
+.sig-card.sell h2{color:#52c41a}
+.sig-card.warn h2{color:#ffd93d}
+.sig-item{background:linear-gradient(135deg,#0f1629,#141b33);border-radius:10px;padding:12px;margin-bottom:8px;border-left:4px solid #ff9f43;transition:transform .2s}
+.sig-item:hover{transform:translateX(3px)}
+.sig-item.sell{border-left-color:#52c41a}
 .sig-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px}
-.sig-sec-name{font-size:15px;font-weight:bold;color:#ff9f43}
-.sig-avg{font-size:13px;color:#64ffda;font-family:Consolas;font-weight:bold}
-.sig-stock{font-size:12px;color:#ccd6f6;margin-top:6px;line-height:1.8}
-.sig-stock span{display:inline-block;background:rgba(255,159,67,.1);border:1px solid rgba(255,159,67,.3);border-radius:4px;padding:2px 8px;margin:2px 4px 2px 0;font-size:12px}
-.sec-table{width:100%;margin-top:12px;border-collapse:collapse}
-.sec-table th{text-align:left;font-size:11px;color:#8892b0;padding:6px 8px;border-bottom:1px solid #2d3561}
-.sec-table td{font-size:12px;padding:6px 8px;border-bottom:1px solid #1a1f3a}
-.sec-table tr:hover{background:#1a1f3a}
+.sig-name{font-size:15px;font-weight:bold;color:#fff}
+.sig-gain{padding:2px 10px;border-radius:6px;font-size:14px;font-weight:bold;font-family:'Consolas',monospace}
+.g-up{background:rgba(255,77,79,.12);color:#ff4d4f}
+.g-dn{background:rgba(82,196,26,.12);color:#52c41a}
+.g-yk{background:rgba(255,159,67,.12);color:#ff9f43}
+.sig-detail{font-size:12px;color:#8892b0;line-height:1.8}
+.sig-detail b{color:#ccd6f6;font-weight:normal}
+.sig-action{font-size:11px;color:#ff9f43;margin-top:6px;padding-top:6px;border-top:1px dashed #2d3561}
+.sig-item.sell .sig-action{color:#52c41a}
+.near-row{display:flex;justify-content:space-between;align-items:center;background:#0f1629;border-radius:8px;padding:8px 12px;margin-bottom:5px;border-left:3px solid #ffd93d}
+.near-name{font-size:13px;font-weight:bold;color:#ccd6f6}
+.near-gain{font-size:13px;font-weight:bold;color:#ffd93d;font-family:Consolas}
+.sec-list{max-height:280px;overflow-y:auto}
+.sec-item{background:#0f1629;border-radius:8px;padding:8px;margin-bottom:5px}
+.sec-row{display:flex;justify-content:space-between;align-items:center}
+.sec-name{font-size:12px;font-weight:bold;color:#ccd6f6}
+.sec-gain{font-size:12px;font-weight:bold;font-family:Consolas}
+.sec-tag{font-size:10px;padding:1px 6px;border-radius:4px;margin-left:5px}
+.tag-hot{background:rgba(255,77,79,.12);color:#ff4d4f}
+.tag-ok{background:rgba(136,146,176,.12);color:#8892b0}
+.tag-cold{background:rgba(82,196,26,.12);color:#52c41a}
+.tag-none{background:rgba(90,99,128,.12);color:#5a6380}
 .empty{text-align:center;padding:18px;color:#5a6380;font-size:12px}
+
+/* ── Tab 系统（持仓/历史/账户）── */
+.tabs{display:flex;gap:0;margin-bottom:12px;border-bottom:2px solid #2d3561;flex-wrap:wrap}
+.tab-btn{padding:10px 18px;background:transparent;border:none;color:#8892b0;font-size:13px;cursor:pointer;transition:.2s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:bold}
+.tab-btn:hover{color:#ff9f43}
+.tab-btn.active{color:#ff9f43;border-bottom-color:#ff9f43}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.pos-table{width:100%;border-collapse:collapse}
+.pos-table th{text-align:left;font-size:11px;color:#8892b0;padding:8px 6px;border-bottom:1px solid #2d3561;position:sticky;top:0;background:#1a1f3a}
+.pos-table td{font-size:12px;padding:8px 6px;border-bottom:1px solid #1a1f3a}
+.pos-table tr:hover{background:#1a1f3a}
+.hist-item{background:#0f1629;border-radius:8px;padding:10px 12px;margin-bottom:6px;border-left:3px solid #ff9f43}
+.hist-item.buy{border-left-color:#ff4d4f}
+.hist-item.sell{border-left-color:#52c41a}
+.hist-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.hist-name{font-size:13px;font-weight:bold;color:#fff}
+.hist-type{font-size:11px;padding:2px 8px;border-radius:4px}
+.hist-type.buy{background:rgba(255,77,79,.15);color:#ff4d4f}
+.hist-type.sell{background:rgba(82,196,26,.15);color:#52c41a}
+.hist-detail{font-size:11px;color:#8892b0;line-height:1.6}
+.acc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.acc-item{background:#0f1629;border-radius:8px;padding:12px;text-align:center}
+.acc-val{font-size:20px;font-weight:bold;font-family:'Consolas',monospace}
+.acc-lbl{font-size:11px;color:#8892b0;margin-top:4px}
+
+/* 非交易时段提示 */
+.offline-bar{background:linear-gradient(135deg,#3d3000,#2a2000);border:1px solid #ff9f43;color:#ffd93d;padding:8px 14px;border-radius:8px;margin-bottom:14px;font-size:12px;text-align:center}
+.offline-bar.red{background:linear-gradient(135deg,#300000,#200000);border-color:#ff4d4f;color:#ff4d4f}
+
 .toast{position:fixed;top:16px;right:16px;background:linear-gradient(135deg,#1a1f3a,#2d3561);color:#64ffda;padding:8px 16px;border-radius:8px;border:1px solid #64ffda;font-size:12px;opacity:0;transition:opacity .3s;z-index:999;pointer-events:none}
 .toast.show{opacity:1}
 ::-webkit-scrollbar{width:4px}
@@ -53,61 +114,305 @@ body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:#0a0e27;c
   <a href="#" class="active yk">🔶 杨凯池 (24板块)</a>
   <a href="postmarket.html">📊 盘后总结</a>
 </div>
+
 <div class="hdr">
-  <h1>🔶 杨凯池 · 24科技板块盯盘</h1>
-  <div class="sub">电子元器件 / 光刻胶 / 量子科技 / ... / 汽车零部件</div>
+  <h1>🔶 V2追涨策略 · 杨凯池盯盘</h1>
+  <div class="sub">杨凯24个科技板块 · 板块共振型短线追涨</div>
+  <div class="src" id="srcLabel"></div>
   <div style="color:#64ffda;font-size:11px;margin-top:4px;font-family:Consolas" id="updTime"></div>
 </div>
+
 <div class="bar">
   <div class="item"><div class="dot" id="stDot"></div><span id="stText">--</span></div>
-  <div class="item">信号板块：<span id="sigCount" style="color:#ff9f43;font-weight:bold">--</span></div>
-  <div class="item">强势个股：<span id="stockCount" style="color:#64ffda;font-weight:bold">--</span></div>
+  <div class="item">资产：<span id="stAsset" style="color:#ff9f43;font-weight:bold">--</span></div>
+  <div class="item">盈亏：<span id="stPnl" style="font-weight:bold">--</span></div>
   <button onclick="doRefresh()">🔄 刷新</button>
 </div>
-<div class="sum">
-  <div class="sum-item"><div class="sum-val" id="valSectors">0</div><div class="sum-lbl">📡 信号板块</div></div>
-  <div class="sum-item"><div class="sum-val" id="valStocks">0</div><div class="sum-lbl">🎯 强势个股</div></div>
-  <div class="sum-item"><div class="sum-val" id="valTop">0</div><div class="sum-lbl">🏆 TOP板块</div></div>
+
+<div id="offlineBar" style="display:none"></div>
+
+<div class="sum" id="sumBar"></div>
+
+<div class="grid">
+  <div class="card"><h2>💰 账户状态</h2><div id="accBody"></div></div>
+  <div class="card"><h2>📡 扫描统计</h2><div id="scanBody"></div></div>
+  <div class="card"><h2>📈 板块涨幅排行</h2><div class="sec-list" id="secList"></div></div>
+</div>
+
+<!-- 买入/卖出信号 -->
+<div class="sig-sec">
+  <div class="sig-card buy"><h2>🔶 买入信号 (Buy Signals)</h2><div id="buyList"></div></div>
+</div>
+<div class="sig-sec" id="nearSec" style="display:none">
+  <div class="sig-card warn"><h2>⚠️ 接近买入阈值 (&gt;3%)</h2><div id="nearList"></div></div>
 </div>
 <div class="sig-sec">
-  <div class="sig-card"><h2>🔶 杨凯池 — 板块买入信号</h2><div id="buyList"></div></div>
+  <div class="sig-card sell"><h2>🔴 卖出信号 (Sell Signals)</h2><div id="sellList"><div class="empty">暂无卖出信号</div></div></div>
 </div>
+
+<!-- Tab系统：持仓 / 交易历史 / 账户详情 -->
 <div class="sig-sec">
-  <div class="sig-card"><h2>📋 24板块扫描详情</h2>
-    <table class="sec-table" id="secTable">
-      <thead><tr><th>板块</th><th>涨幅>5.5%个股</th><th>领涨股</th></tr></thead>
-      <tbody id="secBody"></tbody>
-    </table>
+  <div class="sig-card" style="margin-bottom:0">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('pos')">💼 持仓</button>
+      <button class="tab-btn" onclick="switchTab('hist')">📋 交易历史</button>
+      <button class="tab-btn" onclick="switchTab('acc')">💰 账户详情</button>
+    </div>
+
+    <!-- 持仓面板 -->
+    <div class="tab-panel active" id="tabPos">
+      <div id="posList"></div>
+    </div>
+
+    <!-- 历史面板 -->
+    <div class="tab-panel" id="tabHist">
+      <div id="histList"></div>
+    </div>
+
+    <!-- 账户详情面板 -->
+    <div class="tab-panel" id="tabAcc">
+      <div id="accDetail"></div>
+    </div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
-var EMDED = {"last_update":"2026-06-26 20:23:00","market_status":"收盘","sector_details":{"电子元器件":{count:0,top_stock:"-"},"光刻胶":{count:0,top_stock:"-"},"量子科技":{count:0,top_stock:"-"},"光刻机":{count:0,top_stock:"-"},"先进封装":{count:0,top_stock:"-"},"人形机器人":{count:0,top_stock:"-"},"华为概念":{count:0,top_stock:"-"},"机器人物联网":{count:0,top_stock:"-"},"芯片":{count:0,top_stock:"-"},"半导体":{count:0,top_stock:"-"},"消费电子":{count:0,top_stock:"-"},"电子设备":{count:0,top_stock:"-"},"软件服务":{count:0,top_stock:"-"},"AI智能体":{count:0,top_stock:"-"},"IT设备":{count:0,top_stock:"-"},"新质生产力":{count:0,top_stock:"-"},"人工智能":{count:0,top_stock:"-"},"软件开发":{count:0,top_stock:"-"},"AI应用":{count:0,top_stock:"-"},"脑机接口":{count:0,top_stock:"-"},"AIGC概念":{count:0,top_stock:"-"},"算力芯片":{count:0,top_stock:"-"},"算力租赁":{count:0,top_stock:"-"},"汽车零部件":{count:0,top_stock:"-"}},"top_sectors":[],"sectors_summary":{"total_sectors":24,"sectors_with_signals":0}};
+var EMDED = {"last_update": "2026-06-26 22:05:24", "scan_time": "2026-06-26 22:05:24", "market_status": "收盘", "current_time": "22:05", "data_source": "Sina/EM", "market_chg_pct": -0.52, "account": {"total_assets": 500000.0, "available_cash": 500000.0, "yk_cash": 500000.0, "hb_cash": 411500.46, "positions": [], "total_return": 0.0, "return_pct": 0.0, "initial_cash": 1000000}, "yangkai_pool": {"total_sectors": 24, "scanned": 24, "buy_signals": [{"code": "3650", "name": "彤程新材", "price": 85.83, "change_pct": 10.0, "sector": "光刻胶", "sector_change": 6.46, "suggestion": "光刻胶板块有异动", "reason": "杨凯池光刻胶板块，个股涨幅10.00%，符合V2买入条件"}, {"code": "8037", "name": "芯源微", "price": 354.9, "change_pct": 6.58, "sector": "光刻胶", "sector_change": 6.46, "suggestion": "光刻胶板块有异动", "reason": "杨凯池光刻胶板块，个股涨幅6.58%，符合V2买入条件"}], "near_threshold": [], "all_stocks": [{"code": "3650", "name": "彤程新材", "price": 85.83, "change_pct": 10.0, "sector": "光刻胶", "sector_change": 6.46, "suggestion": "光刻胶板块有异动", "reason": "杨凯池光刻胶板块，个股涨幅10.00%，符合V2买入条件"}, {"code": "8037", "name": "芯源微", "price": 354.9, "change_pct": 6.58, "sector": "光刻胶", "sector_change": 6.46, "suggestion": "光刻胶板块有异动", "reason": "杨凯池光刻胶板块，个股涨幅6.58%，符合V2买入条件"}], "declining_stocks": [], "sector_performance": [{"sector": "光刻胶", "change": 6.46, "count": 2, "status": "强势"}, {"sector": "电子元器件", "change": 0, "count": 0, "status": "无信号"}, {"sector": "量子科技", "change": 0, "count": 0, "status": "无信号"}, {"sector": "光刻机", "change": 0, "count": 0, "status": "无信号"}, {"sector": "先进封装", "change": 0, "count": 0, "status": "无信号"}, {"sector": "人形机器人", "change": 0, "count": 0, "status": "无信号"}, {"sector": "华为概念", "change": 0, "count": 0, "status": "无信号"}, {"sector": "机器人物联网", "change": 0, "count": 0, "status": "无信号"}, {"sector": "芯片", "change": 0, "count": 0, "status": "无信号"}, {"sector": "半导体", "change": 0, "count": 0, "status": "无信号"}, {"sector": "消费电子", "change": 0, "count": 0, "status": "无信号"}, {"sector": "电子设备", "change": 0, "count": 0, "status": "无信号"}, {"sector": "软件服务", "change": 0, "count": 0, "status": "无信号"}, {"sector": "AI智能体", "change": 0, "count": 0, "status": "无信号"}, {"sector": "IT设备", "change": 0, "count": 0, "status": "无信号"}, {"sector": "新质生产力", "change": 0, "count": 0, "status": "无信号"}, {"sector": "人工智能", "change": 0, "count": 0, "status": "无信号"}, {"sector": "软件开发", "change": 0, "count": 0, "status": "无信号"}, {"sector": "AI应用", "change": 0, "count": 0, "status": "无信号"}, {"sector": "脑机接口", "change": 0, "count": 0, "status": "无信号"}, {"sector": "AIGC概念", "change": 0, "count": 0, "status": "无信号"}, {"sector": "算力芯片", "change": 0, "count": 0, "status": "无信号"}, {"sector": "算力租赁", "change": 0, "count": 0, "status": "无信号"}, {"sector": "汽车零部件", "change": 0, "count": 0, "status": "无信号"}]}, "positions": [], "trade_history": [], "trade_stats": {"total_trades": 0, "win_trades": 0, "loss_trades": 0, "win_rate": 0, "total_pnl": 0, "avg_pnl": 0, "hb_positions_count": 1, "yk_positions_count": 0}, "scan_summary": {"total_scanned": 24, "total_sectors": 24, "yk_buy_signals": 2, "sectors_with_signals": 1}, "sectors_summary": {"total_sectors": 24, "sectors_with_signals": 1}, "top_sectors": [{"name": "光刻胶", "count": 2, "stocks": ["彤程新材", "芯源微"]}], "sector_details": {"光刻胶": {"count": 2, "top_stock": "彤程新材(+10.0%)"}}};
 var D = EMDED;
+
+function fmt(v){if(v===undefined||v===null) return '¥--'; return '¥'+(parseFloat(v)||0).toLocaleString('zh-CN',{maximumFractionDigits:0});}
 function esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'):'';}
+
 function render(d){
   if(!d) return; D = d;
-  var ms = d.market_status||'';
-  document.getElementById('stDot').className = ms==='交易中'?'dot on':'dot off';
-  document.getElementById('stText').textContent = ms==='交易中'?'🔶 交易中':'⚫ '+ms;
-  document.getElementById('updTime').textContent = '✅ '+(d.last_update||'');
-  var yk = d.sector_details||{};
-  var buys = [], totalStocks = 0;
-  for(var sec in yk){ var info=yk[sec]; if(info.count>0){totalStocks+=info.count; buys.push({sector:sec,count:info.count,top:info.top_stock}); }}
-  document.getElementById('valSectors').textContent = Object.keys(yk).filter(function(k){return yk[k].count>0}).length;
-  document.getElementById('valStocks').textContent = totalStocks;
-  document.getElementById('valTop').textContent = (d.top_sectors||[]).length;
-  if(buys.length===0){ document.getElementById('buyList').innerHTML = '<div class="empty">暂无板块买入信号 · 等待板块共振 📈</div>'; }
-  else{ document.getElementById('buyList').innerHTML = buys.map(function(s){ return '<div class="sig-item"><div class="sig-hd"><div class="sig-sec-name">🔶 '+esc(s.sector)+'</div><div class="sig-avg">'+s.count+'只个股 >5.5%</div></div><div class="sig-stock">领涨：'+esc(s.top||'--')+'</div></div>'; }).join(''); }
-  var allSecs = ["电子元器件","光刻胶","量子科技","光刻机","先进封装","人形机器人","华为概念","机器人物联网","芯片","半导体","消费电子","电子设备","软件服务","AI智能体","IT设备","新质生产力","人工智能","软件开发","AI应用","脑机接口","AIGC概念","算力芯片","算力租赁","汽车零部件"];
-  document.getElementById('secBody').innerHTML = allSecs.map(function(sec){ var info=yk[sec]||{count:0,top_stock:'-'}; return '<tr><td style="color:#ff9f43;font-weight:bold">'+esc(sec)+'</td><td style="color:'+(info.count>0?'#64ffda':'#5a6380')+'">'+info.count+'只</td><td style="color:#ccd6f6">'+esc(info.top_stock||'-')+'</td></tr>'; }).join('');
+  var ms = d.market_status || '';
+  document.getElementById('stDot').className = ms === '交易中' ? 'dot on' : 'dot off';
+  document.getElementById('stText').textContent = ms === '交易中' ? '🟢 交易中' : '⚫ ' + ms;
+  document.getElementById('updTime').textContent = '✅ ' + (d.last_update || '');
+  document.getElementById('srcLabel').textContent = '📡 数据源：' + (d.data_source || '未知')
+    + (d.market_chg_pct !== undefined ? ' | 大盘 ' + (d.market_chg_pct >= 0 ? '+' : '') + d.market_chg_pct.toFixed(2) + '%' : '');
+
+  // 非交易时段提示
+  var offlineEl = document.getElementById('offlineBar');
+  if (ms !== '交易中') {
+    var upd = d.last_update || '';
+    var isCrossDay = !upd.startsWith(getTodayStr());
+    offlineEl.style.display = 'block';
+    if (isCrossDay) {
+      offlineEl.className = 'offline-bar red';
+      offlineEl.innerHTML = '🔴 非交易时段，数据来自 <b>' + upd.slice(0, 16) + '</b>，非实时。下次更新：周一 09:15';
+    } else {
+      offlineEl.className = 'offline-bar';
+      offlineEl.innerHTML = '🟡 非交易时段，数据已停止更新，展示最后可用数据（' + (upd.slice(11, 16) || '--:--') + '）';
+    }
+  } else {
+    offlineEl.style.display = 'none';
+  }
+
+  // 账户状态栏
+  var a = d.account || {};
+  document.getElementById('stAsset').textContent = fmt(a.total_assets);
+  var rp = a.return_pct || 0, tr = a.total_return || 0;
+  var pnlEl = document.getElementById('stPnl');
+  pnlEl.textContent = (tr >= 0 ? '+' : '') + '¥' + Math.abs(tr).toFixed(0);
+  pnlEl.style.color = tr >= 0 ? '#ff4d4f' : '#52c41a';
+
+  // 账户卡片
+  var posVal = (a.positions || []).reduce(function(s, p) { return s + (p.market_value || p.current_price * p.buy_qty || 0); }, 0);
+  document.getElementById('accBody').innerHTML =
+    m('总资产', fmt(a.total_assets), 'c-yk') +
+    m('可用现金', fmt(a.available_cash), 'c-neu') +
+    m('持仓市值', fmt(posVal), 'c-neu') +
+    m('收益率', (rp >= 0 ? '+' : '') + rp.toFixed(2) + '%', rp >= 0 ? 'c-pos' : 'c-neg');
+
+  // 杨凯池扫描统计
+  var yk = d.yangkai_pool || {};
+  var ss = d.scan_summary || {};
+  document.getElementById('scanBody').innerHTML =
+    m('已扫描板块', (ss.total_sectors || 24) + '/24') +
+    m('🔶 买入信号', ss.yk_buy_signals || 0, 'c-pos') +
+    m('🔴 卖出信号', '0', 'c-neg') +
+    m('⚠️ 接近阈值', (yk.near_threshold || []).length, 'c-neu');
+
+  // 顶部统计条
+  document.getElementById('sumBar').innerHTML =
+    sm('🎯 买入信号', ss.yk_buy_signals || 0, 'c-yk') +
+    sm('📡 已扫描板块', ss.sectors_with_signals || 0 + '/' + (ss.total_sectors || 24), 'c-neu') +
+    sm('📈 强势个股', (yk.all_stocks || []).length, 'c-pos') +
+    sm('⏰ 状态', ms === '交易中' ? '交易中' : '收盘', 'c-neu');
+
+  // 买入信号
+  var buys = yk.buy_signals || [];
+  document.getElementById('buyList').innerHTML = buys.length === 0 ?
+    '<div class="empty">暂无板块买入信号 · 等待板块共振 📈</div>' :
+    buys.map(function(s) {
+      var g = s.change_pct || 0, gc = g >= 0 ? 'g-up' : 'g-dn';
+      return '<div class="sig-item">' +
+        '<div class="sig-hd">' +
+          '<div class="sig-name">🔶 ' + esc(s.name) + ' (' + esc(s.code) + ')</div>' +
+          '<div class="sig-gain ' + gc + '">' + (g > 0 ? '+' : '') + g.toFixed(2) + '%</div>' +
+        '</div>' +
+        '<div class="sig-detail">💰 价格：<b>' + (s.price || 0).toFixed(2) + '</b> | 📊 板块：<b>' + esc(s.sector || '--') + '</b>(+' + (s.sector_change || 0).toFixed(2) + '%)</div>' +
+        '<div class="sig-action">💡 止盈 +5%~+10% · 止损 -5%</div>' +
+      '</div>';
+    }).join('');
+
+  // 接近阈值
+  var nears = yk.near_threshold || [];
+  var ns = document.getElementById('nearSec');
+  if (nears.length === 0) { ns.style.display = 'none'; }
+  else {
+    ns.style.display = 'block';
+    document.getElementById('nearList').innerHTML = nears.map(function(n) {
+      return '<div class="near-row"><div>' +
+        '<span class="near-name">' + esc(n.name) + ' (' + esc(n.code) + ')</span>' +
+        '<span style="color:#5a6380;font-size:11px;margin-left:6px">' + esc(n.note || '') + '</span>' +
+        '</div><span class="near-gain">' + (n.change_pct > 0 ? '+' : '') + n.change_pct.toFixed(2) + '%</span></div>';
+    }).join('');
+  }
+
+  // 板块涨幅排行
+  var secs = yk.sector_performance || [];
+  if (secs.length) {
+    document.getElementById('secList').innerHTML = secs.map(function(sc) {
+      var ch = sc.change || 0, cc = ch > 0 ? 'c-pos' : (ch < 0 ? 'c-neg' : 'c-neu');
+      var tc = sc.count > 0 && ch >= 5 ? 'tag-hot' : (sc.count > 0 && ch > 0 ? 'tag-ok' : (sc.count > 0 ? 'tag-cold' : 'tag-none'));
+      return '<div class="sec-item"><div class="sec-row">' +
+        '<div class="sec-name">' + esc(sc.sector) + ' <span class="sec-tag ' + tc + '">' + (sc.status || '-') + '(' + sc.count + ')</span></div>' +
+        '<div class="sec-gain ' + cc + '">' + (ch >= 0 ? '+' : '') + ch.toFixed(2) + '%</div>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  // ── Tab：持仓 ──
+  renderPositions(d);
+
+  // ── Tab：交易历史 ──
+  renderHistory(d);
+
+  // ── Tab：账户详情 ──
+  renderAccDetail(d);
 }
-function doRefresh(){
+
+function renderPositions(d) {
+  var posList = d.positions || [];
+  var el = document.getElementById('posList');
+  if (!posList.length) {
+    el.innerHTML = '<div class="empty">暂无持仓 · 等待买入信号触发 🔶</div>';
+    return;
+  }
+  el.innerHTML = '<table class="pos-table"><thead><tr><th>股票</th><th>数量</th><th>成本</th><th>现价</th><th>盈亏%</th><th>止损线</th><th>止盈线</th></tr></thead><tbody>' +
+    posList.map(function(p) {
+      var pnlPct = p.current_pnl_pct || 0;
+      var pnlCls = pnlPct >= 0 ? 'c-pos' : 'c-neg';
+      return '<tr>' +
+        '<td style="font-weight:bold;color:#ff9f43">' + esc(p.name) + '(' + esc(p.code) + ')</td>' +
+        '<td>' + p.buy_qty + '</td>' +
+        '<td>' + (p.buy_price || 0).toFixed(2) + '</td>' +
+        '<td>' + (p.current_price || 0).toFixed(2) + '</td>' +
+        '<td class="' + pnlCls + '" style="font-weight:bold">' + (pnlPct >= 0 ? '+' : '') + pnlPct.toFixed(2) + '%</td>' +
+        '<td style="color:#ff4d4f">' + (p.stop_loss_price || 0).toFixed(2) + '</td>' +
+        '<td style="color:#52c41a">' + (p.take_profit_price || 0).toFixed(2) + '</td>' +
+      '</tr>';
+    }).join('') + '</tbody></table>';
+}
+
+function renderHistory(d) {
+  var hist = d.trade_history || [];
+  var el = document.getElementById('histList');
+  if (!hist.length) {
+    el.innerHTML = '<div class="empty">暂无交易记录 · 自动买卖开启后会在此显示</div>';
+    return;
+  }
+  el.innerHTML = hist.reverse().map(function(h) {
+    var isBuy = h.action === '买入';
+    return '<div class="hist-item ' + (isBuy ? 'buy' : 'sell') + '">' +
+      '<div class="hist-hd">' +
+        '<span class="hist-name">' + (isBuy ? '🔶' : '🔴') + ' ' + esc(h.stock_name) + '(' + esc(h.code) + ')</span>' +
+        '<span class="hist-type ' + (isBuy ? 'buy' : 'sell') + '">' + h.action + '</span>' +
+      '</div>' +
+      '<div class="hist-detail">' +
+        (isBuy ?
+          '💰 价格：<b>' + (h.price || 0).toFixed(2) + '</b> | 📊 数量：<b>' + (h.qty || 0) + '</b>股 | 💵 金额：<b>¥' + ((h.amount || 0).toFixed(0)) + '</b>'
+          :
+          '💰 价格：<b>' + (h.price || 0).toFixed(2) + '</b> | 📊 盈亏：<b class="' + (h.pnl >= 0 ? 'c-pos' : 'c-neg') + '">' + (h.pnl >= 0 ? '+' : '') + (h.pnl || 0).toFixed(2) + '</b> | 📝 原因：' + esc(h.reason || '-')
+        ) +
+        '<br>⏰ ' + (h.time || '--') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderAccDetail(d) {
+  var a = d.account || {};
+  var ts = d.trade_stats || {};
+  var el = document.getElementById('accDetail');
+  var wr = ts.win_rate || 0;
+  el.innerHTML =
+    '<div class="acc-grid">' +
+      '<div class="acc-item"><div class="acc-val c-yk">' + fmt(a.total_assets) + '</div><div class="acc-lbl">总资产</div></div>' +
+      '<div class="acc-item"><div class="acc-val c-neu">' + fmt(a.available_cash) + '</div><div class="acc-lbl">可用现金</div></div>' +
+      '<div class="acc-item"><div class="acc-val c-neu">' + fmt(a.yk_cash) + '</div><div class="acc-lbl">杨凯池资金</div></div>' +
+      '<div class="acc-item"><div class="acc-val c-neu">' + fmt(a.hb_cash) + '</div><div class="acc-lbl">湖北池资金</div></div>' +
+      '<div class="acc-item"><div class="acc-val ' + (a.return_pct >= 0 ? 'c-pos' : 'c-neg') + '">' + (a.return_pct >= 0 ? '+' : '') + (a.return_pct || 0).toFixed(2) + '%</div><div class="acc-lbl">收益率</div></div>' +
+      '<div class="acc-item"><div class="acc-val ' + (a.total_return >= 0 ? 'c-pos' : 'c-neg') + '">' + (a.total_return >= 0 ? '+' : '') + fmt(Math.abs(a.total_return)) + '</div><div class="acc-lbl">总盈亏</div></div>' +
+      '<div class="acc-item"><div class="acc-val c-neu">' + fmt(a.initial_cash) + '</div><div class="acc-lbl">初始资金</div></div>' +
+      '<div class="acc-item"><div class="acc-val c-yk">' + (ts.total_trades || 0) + '</div><div class="acc-lbl">总交易次数</div></div>' +
+      '<div class="acc-item"><div class="acc-val ' + (wr >= 50 ? 'c-pos' : 'c-neg') + '">' + wr.toFixed(1) + '%</div><div class="acc-lbl">胜率</div></div>' +
+      '<div class="acc-item"><div class="acc-val ' + ((ts.total_pnl || 0) >= 0 ? 'c-pos' : 'c-neg') + '">' + ((ts.total_pnl || 0) >= 0 ? '+' : '') + (ts.total_pnl || 0).toFixed(0) + '</div><div class="acc-lbl">累计盈亏(元)</div></div>' +
+    '</div>';
+}
+
+// ── Tab切换 ──
+function switchTab(tabName) {
+  // 更新按钮状态
+  var btns = document.querySelectorAll('.tab-btn');
+  btns.forEach(function(b) { b.classList.remove('active'); });
+  event.target.classList.add('active');
+
+  // 切换面板
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  if (tabName === 'pos') document.getElementById('tabPos').classList.add('active');
+  else if (tabName === 'hist') document.getElementById('tabHist').classList.add('active');
+  else if (tabName === 'acc') document.getElementById('tabAcc').classList.add('active');
+}
+
+function getTodayStr() {
+  var now = new Date();
+  return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+}
+
+function m(lbl, val, cls) {
+  return '<div class="metric"><span class="m-lbl">' + lbl + '</span><span class="m-val ' + (cls || 'c-neu') + '">' + val + '</span></div>';
+}
+function sm(lbl, val, cls) {
+  return '<div class="sum-item"><div class="sum-val ' + (cls || 'c-neu') + '">' + val + '</div><div class="sum-lbl">' + lbl + '</div></div>';
+}
+
+function doRefresh() {
   showToast('正在刷新...');
-  fetch('https://lawrda.github.io/stock-watchboard/dashboard_yangkai.json?t='+Date.now(),{cache:'no-cache'}).then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(d){render(d);showToast('✅ 数据已更新！'); }).catch(function(){ fetch('dashboard_yangkai.json?t='+Date.now(),{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){render(d);showToast('✅ 本地数据已更新！');}).catch(function(){showToast('❌ 无法获取数据');}); });
+  fetch('https://lawrda.github.io/stock-watchboard/dashboard_yangkai.json?t=' + Date.now(), { cache: 'no-cache' })
+    .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function(d) { D = d; render(d); showToast('✅ 数据已更新！'); })
+    .catch(function() {
+      fetch('dashboard_yangkai.json?t=' + Date.now(), { cache: 'no-cache' })
+        .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function(d) { D = d; render(d); showToast('✅ 本地数据已更新！'); })
+        .catch(function() { showToast('❌ 无法获取最新数据'); });
+    });
 }
-function showToast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show')},2500); }
-render(D); doRefresh(); setInterval(doRefresh, 30000);
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+
+render(D);
+doRefresh();
+setInterval(doRefresh, 30000);
 </script>
 </body>
 </html>
