@@ -1,0 +1,51 @@
+{
+  "last_update": "2026-06-26 20:23:34",
+  "scan_time": "2026-06-26 20:23:34",
+  "market_status": "收盘",
+  "current_time": "20:23",
+  "data_source": "Sina",
+  "account": {
+    "total_assets": 261240.0,
+    "available_cash": 130000,
+    "positions": [],
+    "total_return": 7837.2,
+    "return_pct": 3.05
+  },
+  "hubei_pool": {
+    "total_stocks": 18,
+    "scanned": 16,
+    "buy_signals": [
+      {
+        "code": "603281",
+        "name": "江瀚新材",
+        "price": 42.13,
+        "change_pct": 7.15,
+        "sector": "精细化工",
+        "sector_change": 7.15,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "精细化工板块，个股涨幅7.15%，符合V2买入条件（新浪数据）"
+      }
+    ],
+    "near_threshold": [],
+    "all_stocks": [
+      {
+        "code": "603281",
+        "name": "江瀚新材",
+        "price": 42.13,
+        "change_pct": 7.15,
+        "sector": "精细化工"
+      },
+      {
+        "code": "600141",
+        "name": "兴发集团",
+        "price": 48.8,
+        "change_pct": 2.78,
+        "sector": "精细化工"
+      }
+    ]
+  },
+  "scan_summary": {
+    "total_scanned": 16,
+    "hubei_buy_signals": 1
+  }
+}

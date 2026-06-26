@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2盯盘 · 杨凯池（24科技板块）</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei','PingFang SC',sans-serif;background:#0a0e27;color:#e1e5f2;padding:12px;min-height:100vh}
+@media(min-width:768px){body{padding:20px}}
+.nav{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.nav a{display:inline-block;padding:8px 16px;border-radius:8px;text-decoration:none;color:#8892b0;font-size:13px;border:1px solid #2d3561;background:#1a1f3a;transition:.2s}
+.nav a:hover,.nav a.active{background:#2d3561;color:#ff9f43;border-color:#ff9f43}
+.hdr{text-align:center;padding:16px 12px;background:linear-gradient(135deg,#1a1f3a,#2d3561);border-radius:12px;margin-bottom:14px;border:1px solid #3d4663}
+.hdr h1{font-size:20px;color:#ff9f43;margin-bottom:4px}
+@media(min-width:768px){.hdr h1{font-size:26px}}
+.hdr .sub{color:#8892b0;font-size:12px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:linear-gradient(135deg,#151929,#1a1f3a);border-radius:10px;margin-bottom:14px;border:1px solid #2d3561;flex-wrap:wrap;gap:8px}
+.bar .item{display:flex;align-items:center;gap:6px;font-size:12px}
+.bar .dot{width:9px;height:9px;border-radius:50%;animation:pulse 2s infinite}
+.bar .dot.on{background:#64ffda;box-shadow:0 0 6px rgba(100,255,218,.4)}
+.bar .dot.off{background:#ff6b6b;animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.bar button{background:linear-gradient(135deg,#ff9f43,#e68a2e);color:#fff;border:none;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:bold}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:14px}
+.sum-item{background:linear-gradient(135deg,#1a1f3a,#151929);border-radius:10px;padding:12px;text-align:center;border:1px solid #2d3561}
+.sum-val{font-size:24px;font-weight:bold;font-family:'Consolas',monospace;color:#ff9f43}
+.sum-lbl{font-size:11px;color:#8892b0;margin-top:2px}
+.sig-sec{margin-top:12px}
+.sig-card{background:linear-gradient(135deg,#1a1f3a,#151929);border-radius:12px;padding:14px;border:1px solid #2d3561;margin-bottom:12px}
+.sig-card h2{font-size:14px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2d3561;color:#ff9f43}
+.sig-item{background:linear-gradient(135deg,#0f1629,#141b33);border-radius:10px;padding:12px;margin-bottom:8px;border-left:4px solid #ff9f43}
+.sig-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px}
+.sig-sec-name{font-size:15px;font-weight:bold;color:#ff9f43}
+.sig-avg{font-size:13px;color:#64ffda;font-family:Consolas;font-weight:bold}
+.sig-stock{font-size:12px;color:#ccd6f6;margin-top:6px;line-height:1.8}
+.sig-stock span{display:inline-block;background:rgba(255,159,67,.1);border:1px solid rgba(255,159,67,.3);border-radius:4px;padding:2px 8px;margin:2px 4px 2px 0;font-size:12px}
+.sec-table{width:100%;margin-top:12px;border-collapse:collapse}
+.sec-table th{text-align:left;font-size:11px;color:#8892b0;padding:6px 8px;border-bottom:1px solid #2d3561}
+.sec-table td{font-size:12px;padding:6px 8px;border-bottom:1px solid #1a1f3a}
+.sec-table tr:hover{background:#1a1f3a}
+.empty{text-align:center;padding:18px;color:#5a6380;font-size:12px}
+.toast{position:fixed;top:16px;right:16px;background:linear-gradient(135deg,#1a1f3a,#2d3561);color:#64ffda;padding:8px 16px;border-radius:8px;border:1px solid #64ffda;font-size:12px;opacity:0;transition:opacity .3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#3d4663;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="index.html">🟢 湖北池 (18只)</a>
+  <a href="#" class="active yk">🔶 杨凯池 (24板块)</a>
+  <a href="postmarket.html">📊 盘后总结</a>
+</div>
+<div class="hdr">
+  <h1>🔶 杨凯池 · 24科技板块盯盘</h1>
+  <div class="sub">电子元器件 / 光刻胶 / 量子科技 / ... / 汽车零部件</div>
+  <div style="color:#64ffda;font-size:11px;margin-top:4px;font-family:Consolas" id="updTime"></div>
+</div>
+<div class="bar">
+  <div class="item"><div class="dot" id="stDot"></div><span id="stText">--</span></div>
+  <div class="item">信号板块：<span id="sigCount" style="color:#ff9f43;font-weight:bold">--</span></div>
+  <div class="item">强势个股：<span id="stockCount" style="color:#64ffda;font-weight:bold">--</span></div>
+  <button onclick="doRefresh()">🔄 刷新</button>
+</div>
+<div class="sum">
+  <div class="sum-item"><div class="sum-val" id="valSectors">0</div><div class="sum-lbl">📡 信号板块</div></div>
+  <div class="sum-item"><div class="sum-val" id="valStocks">0</div><div class="sum-lbl">🎯 强势个股</div></div>
+  <div class="sum-item"><div class="sum-val" id="valTop">0</div><div class="sum-lbl">🏆 TOP板块</div></div>
+</div>
+<div class="sig-sec">
+  <div class="sig-card"><h2>🔶 杨凯池 — 板块买入信号</h2><div id="buyList"></div></div>
+</div>
+<div class="sig-sec">
+  <div class="sig-card"><h2>📋 24板块扫描详情</h2>
+    <table class="sec-table" id="secTable">
+      <thead><tr><th>板块</th><th>涨幅>5.5%个股</th><th>领涨股</th></tr></thead>
+      <tbody id="secBody"></tbody>
+    </table>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var EMDED = {"last_update":"2026-06-26 20:23:00","market_status":"收盘","sector_details":{"电子元器件":{count:0,top_stock:"-"},"光刻胶":{count:0,top_stock:"-"},"量子科技":{count:0,top_stock:"-"},"光刻机":{count:0,top_stock:"-"},"先进封装":{count:0,top_stock:"-"},"人形机器人":{count:0,top_stock:"-"},"华为概念":{count:0,top_stock:"-"},"机器人物联网":{count:0,top_stock:"-"},"芯片":{count:0,top_stock:"-"},"半导体":{count:0,top_stock:"-"},"消费电子":{count:0,top_stock:"-"},"电子设备":{count:0,top_stock:"-"},"软件服务":{count:0,top_stock:"-"},"AI智能体":{count:0,top_stock:"-"},"IT设备":{count:0,top_stock:"-"},"新质生产力":{count:0,top_stock:"-"},"人工智能":{count:0,top_stock:"-"},"软件开发":{count:0,top_stock:"-"},"AI应用":{count:0,top_stock:"-"},"脑机接口":{count:0,top_stock:"-"},"AIGC概念":{count:0,top_stock:"-"},"算力芯片":{count:0,top_stock:"-"},"算力租赁":{count:0,top_stock:"-"},"汽车零部件":{count:0,top_stock:"-"}},"top_sectors":[],"sectors_summary":{"total_sectors":24,"sectors_with_signals":0}};
+var D = EMDED;
+function esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'):'';}
+function render(d){
+  if(!d) return; D = d;
+  var ms = d.market_status||'';
+  document.getElementById('stDot').className = ms==='交易中'?'dot on':'dot off';
+  document.getElementById('stText').textContent = ms==='交易中'?'🔶 交易中':'⚫ '+ms;
+  document.getElementById('updTime').textContent = '✅ '+(d.last_update||'');
+  var yk = d.sector_details||{};
+  var buys = [], totalStocks = 0;
+  for(var sec in yk){ var info=yk[sec]; if(info.count>0){totalStocks+=info.count; buys.push({sector:sec,count:info.count,top:info.top_stock}); }}
+  document.getElementById('valSectors').textContent = Object.keys(yk).filter(function(k){return yk[k].count>0}).length;
+  document.getElementById('valStocks').textContent = totalStocks;
+  document.getElementById('valTop').textContent = (d.top_sectors||[]).length;
+  if(buys.length===0){ document.getElementById('buyList').innerHTML = '<div class="empty">暂无板块买入信号 · 等待板块共振 📈</div>'; }
+  else{ document.getElementById('buyList').innerHTML = buys.map(function(s){ return '<div class="sig-item"><div class="sig-hd"><div class="sig-sec-name">🔶 '+esc(s.sector)+'</div><div class="sig-avg">'+s.count+'只个股 >5.5%</div></div><div class="sig-stock">领涨：'+esc(s.top||'--')+'</div></div>'; }).join(''); }
+  var allSecs = ["电子元器件","光刻胶","量子科技","光刻机","先进封装","人形机器人","华为概念","机器人物联网","芯片","半导体","消费电子","电子设备","软件服务","AI智能体","IT设备","新质生产力","人工智能","软件开发","AI应用","脑机接口","AIGC概念","算力芯片","算力租赁","汽车零部件"];
+  document.getElementById('secBody').innerHTML = allSecs.map(function(sec){ var info=yk[sec]||{count:0,top_stock:'-'}; return '<tr><td style="color:#ff9f43;font-weight:bold">'+esc(sec)+'</td><td style="color:'+(info.count>0?'#64ffda':'#5a6380')+'">'+info.count+'只</td><td style="color:#ccd6f6">'+esc(info.top_stock||'-')+'</td></tr>'; }).join('');
+}
+function doRefresh(){
+  showToast('正在刷新...');
+  fetch('https://lawrda.github.io/stock-watchboard/dashboard_yangkai.json?t='+Date.now(),{cache:'no-cache'}).then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(d){render(d);showToast('✅ 数据已更新！'); }).catch(function(){ fetch('dashboard_yangkai.json?t='+Date.now(),{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){render(d);showToast('✅ 本地数据已更新！');}).catch(function(){showToast('❌ 无法获取数据');}); });
+}
+function showToast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show')},2500); }
+render(D); doRefresh(); setInterval(doRefresh, 30000);
+</script>
+</body>
+</html>
