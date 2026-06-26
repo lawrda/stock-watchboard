@@ -259,9 +259,10 @@
 
 <script>
 // ============================================================
-// 数据加载 — 优先JSON动态加载
+// 数据加载 — 内嵌完整数据，无需等待网络
 // ============================================================
 var currentData = null;
+var EMDED = {"last_update":"2026-06-26 22:49:35","scan_time":"2026-06-26 22:49:35","market_status":"收盘","current_time":"22:49","data_source":"Sina/EM","market_chg_pct":-2.26,"account":{"total_assets":999973.46,"available_cash":911500.46,"hb_cash":411500.46,"yk_cash":500000.0,"positions":[],"total_return":0,"return_pct":0,"initial_cash":1000000},"yangkai_pool":{"total_sectors":24,"scanned":24,"buy_signals":[],"near_threshold":[],"all_stocks":[],"declining_stocks":[],"sector_performance":[{"sector":"光刻胶","avg_gain":-0.00,"signal_count":0,"stock_count":9,"status":"平静","top_stock":"彤程新材(+10.00%)","rise_count":4,"fall_count":5,"data_source":"BK直连"},{"sector":"量子科技","avg_gain":0.01,"signal_count":0,"stock_count":22,"status":"平静","top_stock":"科大国创(+3.95%)","rise_count":11,"fall_count":11,"data_source":"BK直连"},{"sector":"先进封装","avg_gain":-0.46,"signal_count":0,"stock_count":57,"status":"下跌","top_stock":"大港股份(+4.93%)","rise_count":20,"fall_count":37,"data_source":"BK直连"},{"sector":"机器人物联网","avg_gain":0.05,"signal_count":0,"stock_count":2,"status":"平静","top_stock":"雷赛智能(+1.88%)","rise_count":1,"fall_count":1,"data_source":"fallback"},{"sector":"脑机接口","avg_gain":-0.53,"signal_count":0,"stock_count":162,"status":"下跌","top_stock":"冠昊生物(+8.82%)","rise_count":54,"fall_count":108,"data_source":"BK直连"},{"sector":"人工智能","avg_gain":-0.68,"signal_count":0,"stock_count":136,"status":"下跌","top_stock":"鼎捷软件(+7.33%)","rise_count":44,"fall_count":92,"data_source":"BK直连"},{"sector":"消费电子","avg_gain":-0.87,"signal_count":0,"stock_count":3,"status":"下跌","top_stock":"传音控股(-0.10%)","rise_count":1,"fall_count":2,"data_source":"fallback"},{"sector":"AIGC概念","avg_gain":-0.97,"signal_count":0,"stock_count":98,"status":"下跌","top_stock":"吉宏股份(+5.23%)","rise_count":31,"fall_count":67,"data_source":"BK直连"},{"sector":"软件开发","avg_gain":-1.12,"signal_count":0,"stock_count":174,"status":"下跌","top_stock":"迪普信安(+16.32%)","rise_count":52,"fall_count":122,"data_source":"BK直连"},{"sector":"电子元器件","avg_gain":-1.30,"signal_count":0,"stock_count":3,"status":"下跌","top_stock："东材科技(-0.35%)","rise_count":1,"fall_count":2,"data_source":"fallback"},{"sector":"AI应用","avg_gain":-1.39,"signal_count":0,"stock_count":124,"status":"下跌","top_stock":"华塑控股(+10.04%)","rise_count":36,"fall_count":88,"data_source":"BK直连"},{"sector":"IT设备","avg_gain":-1.74,"signal_count":0,"stock_count":3,"status":"下跌","top_stock":"春秋电子(-0.56%)","rise_count":1,"fall_count":2,"data_source":"fallback"},{"sector":"算力租赁","avg_gain":-1.86,"signal_count":0,"stock_count":75,"status":"下跌","top_stock":"奥雅股份(+6.15%)","rise_count":21,"fall_count":54,"data_source":"BK直连"},{"sector":"芯片","avg_gain":-2.02,"signal_count":0,"stock_count":162,"status":"下跌","top_stock":"锴威特(+16.80%)","rise_count":40,"fall_count":122,"data_source":"BK直连"},{"sector":"新质生产力","avg_gain":-2.05,"signal_count":0,"stock_count":349,"status":"下跌","top_stock":"百邦股份(+14.29%)","rise_count":99,"fall_count":250,"data_source":"BK直连"},{"sector":"汽车零部件","avg_gain":-2.09,"signal_count":0,"stock_count":3,"status":"下跌","top_stock":"金鸿实业(-1.27%)","rise_count":1,"fall_count":2,"data_source":"fallback"},{"sector":"华为概念","avg_gain":-2.17,"signal_count":0,"stock_count":3,"status":"下跌","top_stock":"深天马A(-2.48%)","rise_count":0,"fall_count":3,"data_source":"fallback"},{"sector":"人形机器人","avg_gain":-2.36,"signal_count":0,"stock_count":139,"status":"下跌","top股":"伟时电子(+5.51%)","rise_count":38,"fall_count":101,"data_source":"BK直连"},{"sector":"半导体","avg_gain":-2.89,"signal_count":0,"stock_count":177,"status":"下跌","top_stock":"富瀚微(+9.98%)","rise_count":47,"fall_count":130,"data_source":"BK直连"},{"sector":"光刻机","avg_gain":-3.05,"signal_count":0,"stock_count":37,"status":"下跌","top_stock":"蓝英装备(+4.07%)","rise_count":10,"fall_count":27,"data_source":"BK直连"},{"sector":"软件服务","avg_gain":-3.19,"signal_count":0,"stock_count":216,"status":"下跌","top_stock":"国子软件(+11.76%)","rise_count":55,"fall_count":161,"data_source":"BK直连"},{"sector":"AI智能体","avg_gain":-3.38,"signal_count":0,"stock_count":50,"status":"下跌","top_stock":"天娱数科(+4.08%)","rise_count":13,"fall_count":37,"data_source":"BK直连"},{"sector":"算力芯片","avg_gain":-3.69,"signal_count":0,"stock_count":66,"status":"下跌","top股票":"景嘉微(+3.01%)","rise_count":16,"fall_count":50,"data_source":"BK直连"},{"sector":"电子设备","avg_gain":-6.57,"signal_count":0,"stock_count":3,"status":"下跌","top_stock":"捷荣技术(-4.81%)","rise_count":0,"fall_count":3,"data_source":"fallback"}]},"positions":[],"trade_history":[],"trade_stats":{"total_trades":0,"win_trades":0,"loss_trades":0,"win_rate":0,"total_pnl":0,"avg_pnl":0,"hb_positions_count":1,"yk_positions_count":0},"scan_summary":{"total_scanned":24,"hubei_buy_signals":0,"positions_count":0}};
 
 function doRefresh() {
     showToast('🔄 正在刷新数据...');
@@ -273,8 +274,7 @@ function doRefresh() {
         render(d);
         showToast('✅ 数据已更新 ' + (d.last_update||''));
     }, function() {
-        showToast('⚠️ 使用本地缓存');
-        render(currentData || null);
+        showToast('⚠️ 使用内嵌数据');
     });
 }
 
@@ -289,11 +289,14 @@ function tryLoadJson(paths, okCb, failCb) {
     next(0);
 }
 
-// 启动时自动加载
+// 启动时立即使用内嵌数据渲染（无需等待网络）
+currentData = EMDED;
+render(EMDED);
+// 后台尝试获取最新数据（静默更新）
 tryLoadJson(
     ['dashboard_yangkai.json?t=' + Date.now(), '../data/dashboard_yangkai.json?t=' + Date.now()],
     function(d) { currentData = d; render(d); },
-    function() { /* keep empty state */ }
+    function() { /* 使用内嵌数据即可 */ }
 );
 
 // 每30秒静默刷新
