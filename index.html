@@ -413,7 +413,7 @@ function render(d) {
     document.getElementById('sellList').innerHTML = '<div class="empty">暂无卖出信号</div>';
 
     // ===== 板块排行 =====
-    renderSectorList('secList', secs, 'change');
+    renderSectorList('secList', secs, 'avg_gain');
 
     // ===== 持仓 =====
     renderPositions(positions);
@@ -442,11 +442,16 @@ function renderSectorList(elId, secs, gainField) {
         sh += '<span class="sec-rank '+rn+'">'+(k+1)+'</span>';
         sh += '<span class="sec-sname">'+esc(sc.sector)+'</span>';
         sh += '</div>';
-        sh += '<div style="display:flex;align-items:center;gap:6px;">';
+        sh += '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">';
         sh += '<span class="sec-gain '+cc+'">'+(ch>=0?'+':'')+ch.toFixed(2)+'%</span>';
         sh += '<span class="sec-tag '+tc+'">'+esc(sc.status||'-')+'</span>';
         if (sc.signal_count > 0) {
             sh += '<span style="color:#ff4d4f;font-size:11px;">买入('+sc.signal_count+')</span>';
+        }
+        var sCnt = sc.stock_count || 0;
+        if (sCnt > 0) { sh += '<span style="color:#5a6380;font-size:10px;">'+sCnt+'只</span>'; }
+        if (sc.top_stock && sc.top_stock !== '-') {
+            sh += '<span style="color:#00d4ff;font-size:10px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">⚡'+esc(sc.top_stock)+'</span>';
         }
         sh += '</div></div></div>';
     }
