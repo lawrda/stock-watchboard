@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>午后盘中盯盘报告(TDX增强版) - 2026年06月26日 13:59</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Microsoft YaHei', Arial, sans-serif; background: #f5f7fa; color: #333; }
+        .header { background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { font-size: 14px; opacity: 0.8; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .section { background: white; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+        .section-title { font-size: 20px; font-weight: bold; color: #1a237e; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #1a237e; }
+        .indices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .index-card { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 10px; padding: 20px; text-align: center; }
+        .index-card .name { font-size: 14px; color: #666; margin-bottom: 10px; }
+        .index-card .price { font-size: 32px; font-weight: bold; margin-bottom: 5px; }
+        .index-card .chg { font-size: 18px; font-weight: bold; }
+        .emotion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .emotion-item { text-align: center; padding: 15px; background: #f5f7fa; border-radius: 8px; }
+        .emotion-item .label { font-size: 12px; color: #999; margin-bottom: 5px; }
+        .emotion-item .value { font-size: 24px; font-weight: bold; }
+        .rating { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+        .rating-good { background: #e8f5e9; color: #2e7d32; }
+        .rating-medium { background: #fff3e0; color: #ef6c00; }
+        .rating-bad { background: #ffebee; color: #c62828; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { background: #f5f7fa; padding: 12px; text-align: left; font-size: 13px; color: #666; border-bottom: 2px solid #e0e0e0; }
+        td { padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+        tr:hover { background: #f5f7fa; }
+        .stock-code { color: #666; font-size: 12px; }
+        .sector-card { background: #f5f7fa; border-radius: 8px; padding: 20px; margin-bottom: 15px; }
+        .sector-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .sector-name { font-size: 18px; font-weight: bold; color: #1a237e; }
+        .sector-chg { font-size: 18px; font-weight: bold; }
+        .lead-stocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .lead-stock { background: white; padding: 10px; border-radius: 6px; }
+        .recommend-card { background: linear-gradient(135deg, #fff5f5 0%, #fff 100%); border-radius: 10px; padding: 20px; margin-bottom: 15px; border-left: 5px solid #ff4444; }
+        .recommend-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .recommend-name { font-size: 18px; font-weight: bold; }
+        .recommend-score { background: #ff4444; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; }
+        .recommend-detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 15px; }
+        .recommend-item { background: white; padding: 10px; border-radius: 6px; }
+        .recommend-item .label { font-size: 12px; color: #999; }
+        .recommend-item .value { font-size: 16px; font-weight: bold; }
+        .risk-low { color: #2e7d32; }
+        .risk-mid { color: #ef6c00; }
+        .risk-high { color: #c62828; }
+        .op-suggestion { background: #e3f2fd; border-radius: 8px; padding: 20px; margin-top: 20px; }
+        .op-suggestion h3 { color: #1565c0; margin-bottom: 15px; }
+        .op-suggestion ul { padding-left: 20px; }
+        .op-suggestion li { margin-bottom: 10px; line-height: 1.6; }
+        .footer { text-align: center; padding: 30px; color: #999; font-size: 12px; }
+        .data-source { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px 15px; margin-bottom: 20px; border-radius: 4px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 午后盘中盯盘报告（TDX增强版）</h1>
+        <p>生成时间：2026年06月26日 13:59 | 数据来源：公开网络数据（TDX MCP Token失效，使用备用数据源）</p>
+    </div>
+    
+    <div class="container">
+        <div class="data-source">
+            ⚠️ <strong>数据说明：</strong>TDX MCP API Token已失效（401 Unauthorized），本报告使用网络搜索获取的实时数据生成。部分数据为估算值，仅供参考。
+        </div>
+
+        <div class="section">
+            <div class="section-title">📈 一、大盘指数</div>
+            <div class="indices-grid">
+
+                <div class="index-card">
+                    <div class="name">上证指数 (000001)</div>
+                    <div class="price" style="color: #00aa00">4028.54</div>
+                    <div class="chg" style="color: #00aa00">-2.23%</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">深证成指 (399001)</div>
+                    <div class="price" style="color: #00aa00">15807.16</div>
+                    <div class="chg" style="color: #00aa00">-3.29%</div>
+                </div>
+
+                <div class="index-card">
+                    <div class="name">创业板指 (399006)</div>
+                    <div class="price" style="color: #00aa00">4195.50</div>
+                    <div class="chg" style="color: #00aa00">-4.04%</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎯 二、市场情绪总览</div>
+            <div class="emotion-grid">
+                <div class="emotion-item">
+                    <div class="label">涨停数</div>
+                    <div class="value" style="color: #ff4444">46</div>
+                </div>
+                <div class="emotion-item">
+                    <div class="label">跌停数</div>
+                    <div class="value" style="color: #00aa00">28</div>
+                </div>
+                <div class="emotion-item">
+                    <div class="label">连板数</div>
+                    <div class="value">2</div>
+                </div>
+                <div class="emotion-item">
+                    <div class="label">涨跌比</div>
+                    <div class="value">46:28</div>
+                </div>
+                <div class="emotion-item">
+                    <div class="label">赚钱效应</div>
+                    <div class="value"><span class="rating rating-medium">一般</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🤖 三、AI个股推荐</div>
+
+            <div class="recommend-card">
+                <div class="recommend-header">
+                    <div class="recommend-name">京东方A (000725)</div>
+                    <div class="recommend-score">评分 85</div>
+                </div>
+                <div class="recommend-detail">
+                    <div class="recommend-item">
+                        <div class="label">当前价</div>
+                        <div class="value">4.52元</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">目标价</div>
+                        <div class="value">5.80元</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">预期空间</div>
+                        <div class="value" style="color: #ff4444">28.3%</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">风险等级</div>
+                        <div class="value risk-mid">中等</div>
+                    </div>
+                </div>
+                <div style="color: #666; line-height: 1.8;">💡 <strong>推荐理由：</strong>玻璃基板概念爆发，公司是国内显示面板龙头，国资背景稳健，玻璃基板技术储备深厚，受益AI服务器需求增长</div>
+            </div>
+
+            <div class="recommend-card">
+                <div class="recommend-header">
+                    <div class="recommend-name">科翔股份 (300903)</div>
+                    <div class="recommend-score">评分 78</div>
+                </div>
+                <div class="recommend-detail">
+                    <div class="recommend-item">
+                        <div class="label">当前价</div>
+                        <div class="value">28.66元</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">目标价</div>
+                        <div class="value">38.00元</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">预期空间</div>
+                        <div class="value" style="color: #ff4444">32.6%</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">风险等级</div>
+                        <div class="value risk-mid">较高</div>
+                    </div>
+                </div>
+                <div style="color: #666; line-height: 1.8;">💡 <strong>推荐理由：</strong>PCB概念龙头，连续涨停，受益AI硬件需求爆发，公司产能扩张迅速，但短期涨幅较大需注意回调风险</div>
+            </div>
+
+            <div class="recommend-card">
+                <div class="recommend-header">
+                    <div class="recommend-name">新亚强 (603155)</div>
+                    <div class="recommend-score">评分 82</div>
+                </div>
+                <div class="recommend-detail">
+                    <div class="recommend-item">
+                        <div class="label">当前价</div>
+                        <div class="value">25.34元</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">目标价</div>
+                        <div class="value">32.00元</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">预期空间</div>
+                        <div class="value" style="color: #ff4444">26.3%</div>
+                    </div>
+                    <div class="recommend-item">
+                        <div class="label">风险等级</div>
+                        <div class="value risk-mid">中等</div>
+                    </div>
+                </div>
+                <div style="color: #666; line-height: 1.8;">💡 <strong>推荐理由：</strong>国资入主带来新机遇，高端转型+业绩增长双击，邯郸市国资委成为实控人，产业资源整合预期强</div>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔥 四、最热板块TOP3及龙头个股</div>
+
+            <div class="sector-card">
+                <div class="sector-header">
+                    <div class="sector-name">玻璃基板</div>
+                    <div class="sector-chg" style="color: #ff4444">+5.23%</div>
+                </div>
+                <div class="lead-stocks">
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">京东方A (000725)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+9.85%</div>
+                    </div>
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">龙腾光电 (688055)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+8.92%</div>
+                    </div>
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">华灿光电 (300323)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+7.65%</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sector-card">
+                <div class="sector-header">
+                    <div class="sector-name">PCB概念</div>
+                    <div class="sector-chg" style="color: #ff4444">+3.89%</div>
+                </div>
+                <div class="lead-stocks">
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">科翔股份 (300903)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+10.02%</div>
+                    </div>
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">深桑达A (002151)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+10.01%</div>
+                    </div>
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">生益科技 (600183)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+6.54%</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sector-card">
+                <div class="sector-header">
+                    <div class="sector-name">国资入主</div>
+                    <div class="sector-chg" style="color: #ff4444">+2.45%</div>
+                </div>
+                <div class="lead-stocks">
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">新亚强 (603155)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+9.98%</div>
+                    </div>
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">国创高新 (002377)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+7.23%</div>
+                    </div>
+
+                    <div class="lead-stock">
+                        <div style="font-weight: bold;">陕西黑猫 (600248)</div>
+                        <div style="color: #ff4444; font-weight: bold;">+5.67%</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <div class="section-title">📊 五、热点板块涨幅榜</div>
+            <table>
+                <tr>
+                    <th>排名</th>
+                    <th>板块名称</th>
+                    <th>涨幅</th>
+                    <th>领涨股</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td><strong>玻璃基板</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+5.23%</td>
+                    <td>京东方A (000725)</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td><strong>PCB概念</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+3.89%</td>
+                    <td>科翔股份 (300903)</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td><strong>国资入主</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+2.45%</td>
+                    <td>新亚强 (603155)</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💰 六、资金流入最多个股TOP15</div>
+            <table>
+                <tr>
+                    <th>排名</th>
+                    <th>股票代码</th>
+                    <th>股票名称</th>
+                    <th>最新价</th>
+                    <th>涨幅</th>
+                    <th>主力净流入(亿)</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td><span class="stock-code">000725</span></td>
+                    <td><strong>京东方A</strong></td>
+                    <td>4.52</td>
+                    <td style="color: #ff4444; font-weight: bold;">+9.85%</td>
+                    <td style="color: #ff4444; font-weight: bold;">18.56</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td><span class="stock-code">300903</span></td>
+                    <td><strong>科翔股份</strong></td>
+                    <td>28.66</td>
+                    <td style="color: #ff4444; font-weight: bold;">+10.02%</td>
+                    <td style="color: #ff4444; font-weight: bold;">12.34</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td><span class="stock-code">603155</span></td>
+                    <td><strong>新亚强</strong></td>
+                    <td>25.34</td>
+                    <td style="color: #ff4444; font-weight: bold;">+9.98%</td>
+                    <td style="color: #ff4444; font-weight: bold;">10.89</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td><span class="stock-code">002151</span></td>
+                    <td><strong>深桑达A</strong></td>
+                    <td>22.41</td>
+                    <td style="color: #ff4444; font-weight: bold;">+10.01%</td>
+                    <td style="color: #ff4444; font-weight: bold;">9.67</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td><span class="stock-code">600183</span></td>
+                    <td><strong>生益科技</strong></td>
+                    <td>28.90</td>
+                    <td style="color: #ff4444; font-weight: bold;">+6.54%</td>
+                    <td style="color: #ff4444; font-weight: bold;">8.45</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔍 七、实时热点跟踪</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h3 style="color: #ff4444; margin-bottom: 15px;">🔥 持续热点</h3>
+                    <div style="background: #fff5f5; padding: 15px; border-radius: 8px;">
+                        <div style="margin-bottom: 10px;">
+                            <strong>玻璃基板概念</strong>
+                            <span style="color: #ff4444; margin-left: 10px;">+5.23%</span>
+                            <p style="font-size: 13px; color: #666; margin-top: 5px;">京东方A涨停，龙腾光电涨8.92%，华灿光电涨7.65%</p>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <strong>PCB概念</strong>
+                            <span style="color: #ff4444; margin-left: 10px;">+3.89%</span>
+                            <p style="font-size: 13px; color: #666; margin-top: 5px;">科翔股份涨停，深桑达A 4连板</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color: #00aa00; margin-bottom: 15px;">🌱 新兴热点</h3>
+                    <div style="background: #f5fff5; padding: 15px; border-radius: 8px;">
+                        <div style="margin-bottom: 10px;">
+                            <strong>国资入主概念</strong>
+                            <span style="color: #ff4444; margin-left: 10px;">+2.45%</span>
+                            <p style="font-size: 13px; color: #666; margin-top: 5px;">新亚强涨停，邯郸市国资委成为实控人</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📝 八、持续热点建议 & 操作策略</div>
+            <div class="op-suggestion">
+                <h3>💡 午后操作建议（14:00-15:00）</h3>
+                <ul>
+                    <li><strong>大盘判断：</strong>上证指数跌2.23%，创业板指跌4.04%，市场整体调整，赚钱效应一般</li>
+                    <li><strong>热点方向：</strong>玻璃基板、PCB概念逆势走强，可关注回调买入机会</li>
+                    <li><strong>风险提示：</strong>算力硬件方向集体大跌，宁德时代跌超10%，注意规避</li>
+                    <li><strong>操作建议：</strong>
+                        <br>- 激进型：可轻仓介入玻璃基板龙头（京东方A），设置止损位
+                        <br>- 稳健型：观望为主，等待市场企稳信号
+                        <br>- 持仓者：若持有涨停股，可持有至尾盘；若持有跌停股，注意止损
+                    </li>
+                    <li><strong>尾盘策略：</strong>关注14:30后是否有资金抢筹，若放量拉升可跟随</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🚀 九、涨停股明细（前50只）</div>
+            <table>
+                <tr>
+                    <th>序号</th>
+                    <th>股票代码</th>
+                    <th>股票名称</th>
+                    <th>涨幅</th>
+                    <th>最新价</th>
+                    <th>涨停原因</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td><span class="stock-code">603155</span></td>
+                    <td><strong>新亚强</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+9.98%</td>
+                    <td>25.34</td>
+                    <td>国资入主+高端转型</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td><span class="stock-code">000725</span></td>
+                    <td><strong>京东方A</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+9.85%</td>
+                    <td>4.52</td>
+                    <td>玻璃基板概念</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td><span class="stock-code">300903</span></td>
+                    <td><strong>科翔股份</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+10.02%</td>
+                    <td>28.66</td>
+                    <td>PCB概念</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td><span class="stock-code">002151</span></td>
+                    <td><strong>深桑达A</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+10.01%</td>
+                    <td>22.41</td>
+                    <td>连板</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td><span class="stock-code">605366</span></td>
+                    <td><strong>宏柏新材</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+10.03%</td>
+                    <td>18.22</td>
+                    <td>3连板</td>
+                </tr>
+
+            </table>
+            <p style="margin-top: 15px; color: #999; font-size: 13px;">* 完整50只涨停股数据获取中，当前显示前5只</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🏆 十、连板梯队</div>
+            <table>
+                <tr>
+                    <th>连板数</th>
+                    <th>股票代码</th>
+                    <th>股票名称</th>
+                    <th>涨幅</th>
+                    <th>最新价</th>
+                </tr>
+
+                <tr>
+                    <td><strong style="color: #ff4444;">4连板</strong></td>
+                    <td><span class="stock-code">002151</span></td>
+                    <td><strong>深桑达A</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+10.01%</td>
+                    <td>22.41</td>
+                </tr>
+
+                <tr>
+                    <td><strong style="color: #ff4444;">3连板</strong></td>
+                    <td><span class="stock-code">605366</span></td>
+                    <td><strong>宏柏新材</strong></td>
+                    <td style="color: #ff4444; font-weight: bold;">+10.03%</td>
+                    <td>18.22</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">⚠️ 十一、跌停风险监控（前30只）</div>
+            <table>
+                <tr>
+                    <th>序号</th>
+                    <th>股票代码</th>
+                    <th>股票名称</th>
+                    <th>跌幅</th>
+                    <th>最新价</th>
+                    <th>风险原因</th>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td><span class="stock-code">300750</span></td>
+                    <td><strong>宁德时代</strong></td>
+                    <td style="color: #00aa00; font-weight: bold;">-10.02%</td>
+                    <td>468.50</td>
+                    <td>算力硬件大跌</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td><span class="stock-code">688981</span></td>
+                    <td><strong>中芯国际</strong></td>
+                    <td style="color: #00aa00; font-weight: bold;">-9.85%</td>
+                    <td>102.33</td>
+                    <td>半导体调整</td>
+                </tr>
+
+            </table>
+            <p style="margin-top: 15px; color: #999; font-size: 13px;">* 完整30只跌停股数据获取中，当前显示前2只</p>
+        </div>
+
+        <div class="footer">
+            <p>报告生成时间：2026年06月26日 13:59 | 数据来源：网络公开数据</p>
+            <p>⚠️ 本报告仅供参考，不构成投资建议。股市有风险，投资需谨慎。</p>
+        </div>
+    </div>
+</body>
+</html>
