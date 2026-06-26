@@ -1,8 +1,8 @@
 {
-  "last_update": "2026-06-26 22:05:24",
-  "scan_time": "2026-06-26 22:05:24",
+  "last_update": "2026-06-26 22:33:03",
+  "scan_time": "2026-06-26 22:33:03",
   "market_status": "收盘",
-  "current_time": "22:05",
+  "current_time": "22:33",
   "data_source": "Sina/EM",
   "account": {
     "total_assets": 999973.46,
@@ -263,33 +263,51 @@
     "sector_performance": [
       {
         "sector": "精细化工",
-        "change": -1.43,
-        "status": "下跌"
+        "avg_gain": -1.43,
+        "stock_count": 4,
+        "signal_count": 1,
+        "status": "下跌",
+        "top_stock": "-"
       },
       {
         "sector": "生物医药",
-        "change": -3.21,
-        "status": "下跌"
+        "avg_gain": -3.21,
+        "stock_count": 2,
+        "signal_count": 0,
+        "status": "下跌",
+        "top_stock": "-"
       },
       {
         "sector": "绿色船舶",
-        "change": -4.22,
-        "status": "下跌"
+        "avg_gain": -4.22,
+        "stock_count": 3,
+        "signal_count": 0,
+        "status": "下跌",
+        "top_stock": "-"
       },
       {
         "sector": "长江航运",
-        "change": -4.29,
-        "status": "下跌"
+        "avg_gain": -4.29,
+        "stock_count": 2,
+        "signal_count": 0,
+        "status": "下跌",
+        "top_stock": "-"
       },
       {
         "sector": "无人驾驶",
-        "change": -5.7,
-        "status": "下跌"
+        "avg_gain": -5.7,
+        "stock_count": 2,
+        "signal_count": 0,
+        "status": "下跌",
+        "top_stock": "-"
       },
       {
         "sector": "动力电池",
-        "change": -7.3,
-        "status": "下跌"
+        "avg_gain": -7.3,
+        "stock_count": 3,
+        "signal_count": 0,
+        "status": "下跌",
+        "top_stock": "-"
       }
     ]
   },
