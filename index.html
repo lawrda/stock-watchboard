@@ -16,6 +16,8 @@ th, td { padding: 10px; text-align: left; border-bottom: 1px solid #21262d; }
 .metric { display: inline-block; margin: 10px; padding: 10px; background: #21262d; border-radius: 6px; }
 .label { color: #8b949e; font-size: 12px; }
 .value { color: #f0f6fc; font-size: 20px; font-weight: bold; }
+.stock-row:hover { background: #1c2333; }
+.section-title { display: flex; align-items: center; gap: 8px; }
 </style>
 </head>
 <body>
@@ -26,7 +28,13 @@ th, td { padding: 10px; text-align: left; border-bottom: 1px solid #21262d; }
 var DATA_B64 = "eyJsYXN0X3VwZGF0ZSI6ICIyMDI2LTA2LTI2IDIzOjE5OjM0IiwgInNjYW5fdGltZSI6ICIyMDI2LTA2LTI2IDIzOjE5OjM0IiwgIm1hcmtldF9zdGF0dXMiOiAi5pS255uYIiwgImN1cnJlbnRfdGltZSI6ICIyMzoxOSIsICJkYXRhX3NvdXJjZSI6ICJTaW5hL0VNIiwgIm1hcmtldF9jaGdfcGN0IjogLTIuMjYsICJhY2NvdW50IjogeyJ0b3RhbF9hc3NldHMiOiA5OTk5NzMuNDYsICJhdmFpbGFibGVfY2FzaCI6IDkxMTUwMC40NiwgImhiX2Nhc2giOiA0MTE1MDAuNDYsICJ5a19jYXNoIjogNTAwMDAwLjAsICJwb3NpdGlvbnMiOiBbeyJpZCI6ICJoYl82MDMyODFfMTc4MjQ4MjA4OCIsICJjb2RlIjogIjYwMzI4MSIsICJuYW1lIjogIuaxn+eAmuaWsOadkCIsICJwb29sIjogIua5luWMl+axoCIsICJidXlfcHJpY2UiOiA0Mi4xMywgImJ1eV9xdHkiOiAyMTAwLCAiYnV5X2Ftb3VudCI6IDg4NDczLjAsICJidXlfdGltZSI6ICIyMDI2LTA2LTI2IDIxOjU0OjQ4IiwgInNlY3RvciI6ICLnsr7nu4bljJblt6UiLCAic3RhdHVzIjogImhvbGRpbmciLCAiY3VycmVudF9wcmljZSI6IDQyLjEzLCAiY3VycmVudF9wbmwiOiAwLjAsICJjdXJyZW50X3BubF9wY3QiOiAwLjAsICJzdG9wX2xvc3NfcHJpY2UiOiA0MC4wMiwgInRha2VfcHJvZml0X3ByaWNlIjogNDYuMzQsICJtYXhfcHJvZml0X3BjdCI6IDAuMCwgIm1pbl9wcm9maXRfcGN0IjogMC4wLCAic2VsbF90aW1lIjogbnVsbCwgInNlbGxfcHJpY2UiOiBudWxsLCAic2VsbF9yZWFzb24iOiBudWxsfV0sICJ0b3RhbF9yZXR1cm4iOiAwLjAsICJyZXR1cm5fcGN0IjogMC4wLCAiaW5pdGlhbF9jYXNoIjogMTAwMDAwMH0sICJodWJlaV9wb29sIjogeyJ0b3RhbF9zdG9ja3MiOiAxOCwgInNjYW5uZWQiOiAxNiwgImJ1eV9zaWduYWxzIjogW3siY29kZSI6ICI2MDMyODEiLCAibmFtZSI6ICLmsZ/ngJrmlrDmnZAiLCAicHJpY2UiOiA0Mi4xMywgImNoYW5nZV9wY3QiOiA3LjE1LCAic2VjdG9yIjogIueyvue7huWMluW3pSIsICJzZWN0b3JfY2hhbmdlIjogNy4xNSwgInN1Z2dlc3Rpb24iOiAi5p2/5Z2X5YWx5oyv5by65Yq/77yM5bu66K6uNTAl5LuT5L2N5YWz5rOoIiwgInJlYXNvbiI6ICLnsr7nu4bljJblt6Xmnb/lnZfvvIzkuKrogqHmtqjluYU3LjE1Je+8jOespuWQiFYy5Lmw5YWl5p2h5Lu277yI5paw5rWq5pWw5o2u77yJIn1dLCAibmVhcl90aHJlc2hvbGQiOiBbXSwgImFsbF9zdG9ja3MiOiBbeyJjb2RlIjogIjYwMzI4MSIsICJuYW1lIjogIuaxn+eAmuaWsOadkCIsICJwcmljZSI6IDQyLjEzLCAiY2hhbmdlX3BjdCI6IDcuMTUsICJzZWN0b3IiOiAi57K+57uG5YyW5belIn0sIHsiY29kZSI6ICI2MDAxNDEiLCAibmFtZSI6ICLlhbTlj5Hpm4blm6IiLCAicHJpY2UiOiA0OC44LCAiY2hhbmdlX3BjdCI6IDIuNzgsICJzZWN0b3IiOiAi57K+57uG5YyW5belIn0sIHsiY29kZSI6ICI4NzIzNTEiLCAibmFtZSI6ICLljY7lhYnmupDmtbciLCAicHJpY2UiOiAwLjAsICJjaGFuZ2VfcGN0IjogMCwgInNlY3RvciI6ICLplb/msZ/oiKrov5AifSwgeyJjb2RlIjogIjAwMDUyMCIsICJuYW1lIjogIuWHpOWHsOiIqui/kCIsICJwcmljZSI6IDMuODEsICJjaGFuZ2VfcGN0IjogLTEuMywgInNlY3RvciI6ICLnu7/oibLoiLnoiLYifSwgeyJjb2RlIjogIjYwMDA3OSIsICJuYW1lIjogIlNU5Lq656aPIiwgInByaWNlIjogMTYuMzcsICJjaGFuZ2VfcGN0IjogLTEuNSwgInNlY3RvciI6ICLnlJ/nianljLvoja8ifSwgeyJjb2RlIjogIjMwMDAwOCIsICJuYW1lIjogIuWkqea1t+mYsuWKoSIsICJwcmljZSI6IDYuMTksICJjaGFuZ2VfcGN0IjogLTMuNzMsICJzZWN0b3IiOiAi57u/6Imy6Ii56Ii2In0sIHsiY29kZSI6ICIwMDA5ODEiLCAibmFtZSI6ICLlsbHlrZDpq5jnp5EiLCAicHJpY2UiOiAyLjg2LCAiY2hhbmdlX3BjdCI6IC00LjY3LCAic2VjdG9yIjogIuaXoOS6uumpvumptiJ9LCB7ImNvZGUiOiAiNjg4NzY1IiwgIm5hbWUiOiAi56a+5YWD55Sf54mpIiwgInByaWNlIjogNDIuOTYsICJjaGFuZ2VfcGN0IjogLTQuOTEsICJzZWN0b3IiOiAi55Sf54mp5Yy76I2vIn0sIHsiY29kZSI6ICIwMDIzNDAiLCAibmFtZSI6ICLmoLzmnpfnvo4iLCAicHJpY2UiOiA2LjY5LCAiY2hhbmdlX3BjdCI6IC02LjE3LCAic2VjdG9yIjogIuWKqOWKm+eUteaxoCJ9LCB7ImNvZGUiOiAiMzAwNTU3IiwgIm5hbWUiOiAi55CG5bel5YWJ56eRIiwgInByaWNlIjogMzMuMzMsICJjaGFuZ2VfcGN0IjogLTYuNzIsICJzZWN0b3IiOiAi5peg5Lq66am+6am2In0sIHsiY29kZSI6ICIzMDAwMTQiLCAibmFtZSI6ICLkur/nuqzplILog70iLCAicHJpY2UiOiA2Mi4yMSwgImNoYW5nZV9wY3QiOiAtNi44OSwgInNlY3RvciI6ICLliqjlipvnlLXmsaAifSwgeyJjb2RlIjogIjYwMDQ4MiIsICJuYW1lIjogIuS4reWbveWKqOWKmyIsICJwcmljZSI6IDMwLjExLCAiY2hhbmdlX3BjdCI6IC03LjY0LCAic2VjdG9yIjogIue7v+iJsuiIueiItiJ9LCB7ImNvZGUiOiAiMDAwNDIyIiwgIm5hbWUiOiAi5rmW5YyX5a6c5YyWIiwgInByaWNlIjogMTMuMjYsICJjaGFuZ2VfcGN0IjogLTcuNzksICJzZWN0b3IiOiAi57K+57uG5YyW5belIn0sIHsiY29kZSI6ICI2MDMwNjciLCAibmFtZSI6ICLmjK/ljY7ogqHku70iLCAicHJpY2UiOiA0Mi43NCwgImNoYW5nZV9wY3QiOiAtNy44NSwgInNlY3RvciI6ICLnsr7nu4bljJblt6UifSwgeyJjb2RlIjogIjYwMTk3NSIsICJuYW1lIjogIuaLm+WVhuWNl+ayuSIsICJwcmljZSI6IDQuMTYsICJjaGFuZ2VfcGN0IjogLTguNTcsICJzZWN0b3IiOiAi6ZW/5rGf6Iiq6L+QIn0sIHsiY29kZSI6ICI2ODgyNzUiLCAibmFtZSI6ICLkuIfmtqbmlrDog70iLCAicHJpY2UiOiAxMjMuNjUsICJjaGFuZ2VfcGN0IjogLTguODMsICJzZWN0b3IiOiAi5Yqo5Yqb55S15rGgIn1dLCAiZGVjbGluaW5nX3N0b2NrcyI6IFt7ImNvZGUiOiAiNjAwMDc5IiwgIm5hbWUiOiAiU1Tkurrnpo8iLCAicHJpY2UiOiAxNi4zNywgImNoYW5nZV9wY3QiOiAtMS41LCAic2VjdG9yIjogIueUn+eJqeWMu+iNryJ9LCB7ImNvZGUiOiAiNjg4NzY1IiwgIm5hbWUiOiAi56a+5YWD55Sf54mpIiwgInByaWNlIjogNDIuOTYsICJjaGFuZ2VfcGN0IjogLTQuOTEsICJzZWN0b3IiOiAi55Sf54mp5Yy76I2vIn0sIHsiY29kZSI6ICIzMDAwMDgiLCAibmFtZSI6ICLlpKnmtbfpmLLliqEiLCAicHJpY2UiOiA2LjE5LCAiY2hhbmdlX3BjdCI6IC0zLjczLCAic2VjdG9yIjogIue7v+iJsuiIueiItiJ9LCB7ImNvZGUiOiAiMDAwNTIwIiwgIm5hbWUiOiAi5Yek5Yew6Iiq6L+QIiwgInByaWNlIjogMy44MSwgImNoYW5nZV9wY3QiOiAtMS4zLCAic2VjdG9yIjogIue7v+iJsuiIueiItiJ9LCB7ImNvZGUiOiAiNjAwNDgyIiwgIm5hbWUiOiAi5Lit5Zu95Yqo5YqbIiwgInByaWNlIjogMzAuMTEsICJjaGFuZ2VfcGN0IjogLTcuNjQsICJzZWN0b3IiOiAi57u/6Imy6Ii56Ii2In0sIHsiY29kZSI6ICIwMDA5ODEiLCAibmFtZSI6ICLlsbHlrZDpq5jnp5EiLCAicHJpY2UiOiAyLjg2LCAiY2hhbmdlX3BjdCI6IC00LjY3LCAic2VjdG9yIjogIuaXoOS6uumpvumptiJ9LCB7ImNvZGUiOiAiMzAwNTU3IiwgIm5hbWUiOiAi55CG5bel5YWJ56eRIiwgInByaWNlIjogMzMuMzMsICJjaGFuZ2VfcGN0IjogLTYuNzIsICJzZWN0b3IiOiAi5peg5Lq66am+6am2In0sIHsiY29kZSI6ICI2MDMwNjciLCAibmFtZSI6ICLmjK/ljY7ogqHku70iLCAicHJpY2UiOiA0Mi43NCwgImNoYW5nZV9wY3QiOiAtNy44NSwgInNlY3RvciI6ICLnsr7nu4bljJblt6UifSwgeyJjb2RlIjogIjAwMDQyMiIsICJuYW1lIjogIua5luWMl+WunOWMliIsICJwcmljZSI6IDEzLjI2LCAiY2hhbmdlX3BjdCI6IC03Ljc5LCAic2VjdG9yIjogIueyvue7huWMluW3pSJ9LCB7ImNvZGUiOiAiMzAwMDE0IiwgIm5hbWUiOiAi5Lq/57qs6ZSC6IO9IiwgInByaWNlIjogNjIuMjEsICJjaGFuZ2VfcGN0IjogLTYuODksICJzZWN0b3IiOiAi5Yqo5Yqb55S15rGgIn0sIHsiY29kZSI6ICI2ODgyNzUiLCAibmFtZSI6ICLkuIfmtqbmlrDog70iLCAicHJpY2UiOiAxMjMuNjUsICJjaGFuZ2VfcGN0IjogLTguODMsICJzZWN0b3IiOiAi5Yqo5Yqb55S15rGgIn0sIHsiY29kZSI6ICIwMDIzNDAiLCAibmFtZSI6ICLmoLzmnpfnvo4iLCAicHJpY2UiOiA2LjY5LCAiY2hhbmdlX3BjdCI6IC02LjE3LCAic2VjdG9yIjogIuWKqOWKm+eUteaxoCJ9LCB7ImNvZGUiOiAiNjAxOTc1IiwgIm5hbWUiOiAi5oub5ZWG5Y2X5rK5IiwgInByaWNlIjogNC4xNiwgImNoYW5nZV9wY3QiOiAtOC41NywgInNlY3RvciI6ICLplb/msZ/oiKrov5AifV0sICJzZWN0b3JfcGVyZm9ybWFuY2UiOiBbeyJzZWN0b3IiOiAi57K+57uG5YyW5belIiwgImF2Z19nYWluIjogLTEuNDMsICJzdG9ja19jb3VudCI6IDQsICJzaWduYWxfY291bnQiOiAxLCAic3RhdHVzIjogIuS4i+i3jCIsICJ0b3Bfc3RvY2siOiAiLSJ9LCB7InNlY3RvciI6ICLnlJ/nianljLvoja8iLCAiYXZnX2dhaW4iOiAtMy4yMSwgInN0b2NrX2NvdW50IjogMiwgInNpZ25hbF9jb3VudCI6IDAsICJzdGF0dXMiOiAi5LiL6LeMIiwgInRvcF9zdG9jayI6ICItIn0sIHsic2VjdG9yIjogIue7v+iJsuiIueiItiIsICJhdmdfZ2FpbiI6IC00LjIyLCAic3RvY2tfY291bnQiOiAzLCAic2lnbmFsX2NvdW50IjogMCwgInN0YXR1cyI6ICLkuIvot4wiLCAidG9wX3N0b2NrIjogIi0ifSwgeyJzZWN0b3IiOiAi6ZW/5rGf6Iiq6L+QIiwgImF2Z19nYWluIjogLTQuMjksICJzdG9ja19jb3VudCI6IDIsICJzaWduYWxfY291bnQiOiAwLCAic3RhdHVzIjogIuS4i+i3jCIsICJ0b3Bfc3RvY2siOiAiLSJ9LCB7InNlY3RvciI6ICLml6Dkurrpqb7pqbYiLCAiYXZnX2dhaW4iOiAtNS43LCAic3RvY2tfY291bnQiOiAyLCAic2lnbmFsX2NvdW50IjogMCwgInN0YXR1cyI6ICLkuIvot4wiLCAidG9wX3N0b2NrIjogIi0ifSwgeyJzZWN0b3IiOiAi5Yqo5Yqb55S15rGgIiwgImF2Z19nYWluIjogLTcuMywgInN0b2NrX2NvdW50IjogMywgInNpZ25hbF9jb3VudCI6IDAsICJzdGF0dXMiOiAi5LiL6LeMIiwgInRvcF9zdG9jayI6ICItIn1dfSwgInBvc2l0aW9ucyI6IFt7ImlkIjogImhiXzYwMzI4MV8xNzgyNDgyMDg4IiwgImNvZGUiOiAiNjAzMjgxIiwgIm5hbWUiOiAi5rGf54Ca5paw5p2QIiwgInBvb2wiOiAi5rmW5YyX5rGgIiwgImJ1eV9wcmljZSI6IDQyLjEzLCAiYnV5X3F0eSI6IDIxMDAsICJidXlfYW1vdW50IjogODg0NzMuMCwgImJ1eV90aW1lIjogIjIwMjYtMDYtMjYgMjE6NTQ6NDgiLCAic2VjdG9yIjogIueyvue7huWMluW3pSIsICJzdGF0dXMiOiAiaG9sZGluZyIsICJjdXJyZW50X3ByaWNlIjogNDIuMTMsICJjdXJyZW50X3BubCI6IDAuMCwgImN1cnJlbnRfcG5sX3BjdCI6IDAuMCwgInN0b3BfbG9zc19wcmljZSI6IDQwLjAyLCAidGFrZV9wcm9maXRfcHJpY2UiOiA0Ni4zNCwgIm1heF9wcm9maXRfcGN0IjogMC4wLCAibWluX3Byb2ZpdF9wY3QiOiAwLjAsICJzZWxsX3RpbWUiOiBudWxsLCAic2VsbF9wcmljZSI6IG51bGwsICJzZWxsX3JlYXNvbiI6IG51bGx9XSwgInRyYWRlX2hpc3RvcnkiOiBbeyJpZCI6ICJoYl82MDMyODFfMTc4MjQ4MjA4OCIsICJ0eXBlIjogImJ1eSIsICJwb29sIjogIua5luWMl+axoCIsICJjb2RlIjogIjYwMzI4MSIsICJuYW1lIjogIuaxn+eAmuaWsOadkCIsICJwcmljZSI6IDQyLjEzLCAicXR5IjogMjEwMCwgImFtb3VudCI6IDg4NDczLjAsICJjb21taXNzaW9uIjogMjYuNTQsICJ0b3RhbF9jb3N0IjogODg0OTkuNTQsICJ0aW1lIjogIjIwMjYtMDYtMjYgMjE6NTQ6NDgiLCAicmVhc29uIjogIueyvue7huWMluW3peadv+Wdl++8jOS4quiCoea2qOW5hTcuMTUl77yM56ym5ZCIVjLkubDlhaXmnaHku7bvvIjmlrDmtarmlbDmja7vvIkiLCAic2VjdG9yIjogIueyvue7huWMluW3pSJ9XSwgInRyYWRlX3N0YXRzIjogeyJ0b3RhbF90cmFkZXMiOiAwLCAid2luX3RyYWRlcyI6IDAsICJsb3NzX3RyYWRlcyI6IDAsICJ3aW5fcmF0ZSI6IDAsICJ0b3RhbF9wbmwiOiAwLCAiYXZnX3BubCI6IDAsICJoYl9wb3NpdGlvbnNfY291bnQiOiAxLCAieWtfcG9zaXRpb25zX2NvdW50IjogMH0sICJzY2FuX3N1bW1hcnkiOiB7InRvdGFsX3NjYW5uZWQiOiAxNiwgImh1YmVpX2J1eV9zaWduYWxzIjogMSwgInBvc2l0aW9uc19jb3VudCI6IDF9fQ==";
 var DATA = null;
 try {
-    DATA = JSON.parse(atob(DATA_B64));
+    function decodeB64Utf8(b64) {
+        var bin = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+        return new TextDecoder("utf-8").decode(bytes);
+    }
+    DATA = JSON.parse(decodeB64Utf8(DATA_B64));
     console.log("数据加载成功", DATA.last_update);
     render(DATA);
 } catch(e) {
@@ -36,33 +44,72 @@ try {
 
 function render(d) {
     var h = "";
-    h += '<div class="card"><h2>账户: ¥' + (d.account.total_assets||0).toFixed(0) + ' | 收益: <span class="' + ((d.account.return_pct||0)>=0?"up":"dn") + '">' + ((d.account.return_pct||0)>=0?"+":"") + (d.account.return_pct||0).toFixed(2) + '%</span></h2></div>';
-    h += '<div class="card"><h2>大盘: <span class="' + (d.market_chg_pct>=0?"up":"dn") + '">' + (d.market_chg_pct>=0?"+":"") + (d.market_chg_pct||0).toFixed(2) + '%</span> | ' + (d.last_update||"") + '</h2></div>';
     
+    // 账户
+    h += '<div class="card"><h2>账户概览</h2>';
+    h += '<div class="metric"><div class="label">总资产</div><div class="value">¥' + (d.account.total_assets||0).toFixed(0) + '</div></div>';
+    h += '<div class="metric"><div class="label">可用</div><div class="value">¥' + (d.account.available_cash||0).toFixed(0) + '</div></div>';
+    h += '<div class="metric"><div class="label">收益</div><div class="value ' + ((d.account.return_pct||0)>=0?"up":"dn") + '">' + ((d.account.return_pct||0)>=0?"+":"") + (d.account.return_pct||0).toFixed(2) + '%</div></div>';
+    h += '</div>';
+    
+    // 大盘
+    h += '<div class="card"><h2>大盘: <span class="' + (d.market_chg_pct>=0?"up":"dn") + '">' + (d.market_chg_pct>=0?"+":"") + (d.market_chg_pct||0).toFixed(2) + '%</span></h2>';
+    h += '<p>更新: ' + (d.last_update||"--") + '</p></div>';
+    
+    // 买入信号
     var buys = d.hubei_pool.buy_signals || [];
-    h += '<div class="card"><h2>买入信号 (' + buys.length + '个)</h2><table><tr><th>名称</th><th>涨幅</th><th>板块</th></tr>';
-    for (var i=0; i<buys.length; i++) {
-        var s = buys[i];
-        h += '<tr><td>' + s.name + '</td><td class="' + (s.change_pct>=0?"up":"dn") + '">' + (s.change_pct>=0?"+":"") + s.change_pct.toFixed(2) + '%</td><td>' + s.sector + '</td></tr>';
+    h += '<div class="card"><h2>买入信号 (' + buys.length + '个)</h2>';
+    if (buys.length > 0) {
+        h += '<table><tr><th>名称</th><th>涨幅</th><th>板块</th></tr>';
+        for (var i=0; i<buys.length; i++) {
+            var s = buys[i];
+            h += '<tr><td>' + s.name + '</td><td class="' + (s.change_pct>=0?"up":"dn") + '">' + (s.change_pct>=0?"+":"") + s.change_pct.toFixed(2) + '%</td><td>' + s.sector + '</td></tr>';
+        }
+        h += '</table>';
+    } else {
+        h += '<p>无信号</p>';
     }
-    h += '</table></div>';
+    h += '</div>';
     
+    // 持仓
     var positions = d.positions || [];
-    h += '<div class="card"><h2>持仓 (' + positions.length + '个)</h2><table><tr><th>名称</th><th>买入价</th><th>当前价</th><th>盈亏</th></tr>';
-    for (var i=0; i<positions.length; i++) {
-        var p = positions[i];
-        h += '<tr><td>' + p.name + '</td><td>¥' + p.buy_price.toFixed(2) + '</td><td>¥' + p.current_price.toFixed(2) + '</td><td class="' + (p.current_pnl>=0?"up":"dn") + '">' + (p.current_pnl>=0?"+":"") + p.current_pnl.toFixed(2) + '</td></tr>';
+    h += '<div class="card"><h2>持仓 (' + positions.length + '个)</h2>';
+    if (positions.length > 0) {
+        h += '<table><tr><th>名称</th><th>买入价</th><th>当前价</th><th>盈亏</th></tr>';
+        for (var i=0; i<positions.length; i++) {
+            var p = positions[i];
+            h += '<tr><td>' + p.name + '</td><td>¥' + p.buy_price.toFixed(2) + '</td><td>¥' + p.current_price.toFixed(2) + '</td><td class="' + (p.current_pnl>=0?"up":"dn") + '">' + (p.current_pnl>=0?"+":"") + p.current_pnl.toFixed(2) + '</td></tr>';
+        }
+        h += '</table>';
     }
-    h += '</table></div>';
+    h += '</div>';
     
+    // 板块
     var secs = d.hubei_pool.sector_performance || [];
-    h += '<div class="card"><h2>板块 (' + secs.length + '个)</h2><table><tr><th>板块</th><th>涨幅</th><th>个股数</th></tr>';
+    h += '<div class="card"><h2>板块 (' + secs.length + '个)</h2>';
+    h += '<table><tr><th>板块</th><th>涨幅</th><th>个股数</th></tr>';
     for (var i=0; i<secs.length; i++) {
         var sec = secs[i];
         h += '<tr><td>' + sec.sector + '</td><td class="' + (sec.avg_gain>=0?"up":"dn") + '">' + (sec.avg_gain>=0?"+":"") + sec.avg_gain.toFixed(2) + '%</td><td>' + sec.stock_count + '</td></tr>';
     }
     h += '</table></div>';
     
+    // 全部个股行情
+    var allStocks = d.hubei_pool.all_stocks || [];
+    h += '<div class="card"><div class="section-title"><h2>湖北池个股 (' + allStocks.length + '/' + (d.hubei_pool.total_stocks||18) + '只)</h2></div>';
+    if (allStocks.length > 0) {
+        h += '<table><thead><tr><th>名称</th><th>代码</th><th>现价</th><th>涨幅</th><th>板块</th></tr></thead><tbody>';
+        var sortedAll = allStocks.slice().sort(function(a,b){ return b.change_pct - a.change_pct; });
+        for (var i=0; i<sortedAll.length; i++) {
+            var s = sortedAll[i];
+            h += '<tr class="stock-row"><td><b>' + s.name + '</b></td><td>' + s.code + '</td><td>¥' + (s.price||0).toFixed(2) + '</td><td class="' + (s.change_pct>=0?"up":"dn") + '">' + (s.change_pct>=0?"+":"") + (s.change_pct||0).toFixed(2) + '%</td><td>' + (s.sector||"-") + '</td></tr>';
+        }
+        h += '</tbody></table>';
+    } else {
+        h += '<p style="color:#8b949e;">暂无数据</p>';
+    }
+    h += '</div>';
+
     document.getElementById("app").innerHTML = h;
 }
 </script>
