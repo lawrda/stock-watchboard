@@ -1,12 +1,26 @@
 {
-  "last_update": "2026-06-26 20:23:34",
+  "last_update": "2026-06-26 20:39:21",
   "market_status": "收盘",
-  "current_time": "20:23",
-  "data_source": "Sina",
+  "current_time": "20:39",
+  "data_source": "Sina/EM",
   "sectors_summary": {
     "total_sectors": 24,
-    "sectors_with_signals": 0
+    "sectors_with_signals": 1
   },
-  "top_sectors": [],
-  "sector_details": {}
+  "top_sectors": [
+    {
+      "name": "光刻胶",
+      "count": 2,
+      "stocks": [
+        "彤程新材",
+        "芯源微"
+      ]
+    }
+  ],
+  "sector_details": {
+    "光刻胶": {
+      "count": 2,
+      "top_stock": "彤程新材(+10.0%)"
+    }
+  }
 }
