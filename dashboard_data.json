@@ -1,15 +1,41 @@
 {
-  "last_update": "2026-06-26 20:39:21",
-  "scan_time": "2026-06-26 20:39:21",
+  "last_update": "2026-06-26 21:49:46",
+  "scan_time": "2026-06-26 21:49:46",
   "market_status": "收盘",
-  "current_time": "20:39",
+  "current_time": "21:49",
   "data_source": "Sina/EM",
   "account": {
-    "total_assets": 261240.0,
-    "available_cash": 130000,
-    "positions": [],
-    "total_return": 7837.2,
-    "return_pct": 3.05
+    "total_assets": 199991.15,
+    "available_cash": 170500.15,
+    "hb_cash": 70500.15,
+    "yk_cash": 100000.0,
+    "positions": [
+      {
+        "id": "hb_603281_1782480751",
+        "code": "603281",
+        "name": "江瀚新材",
+        "pool": "湖北池",
+        "buy_price": 42.13,
+        "buy_qty": 700,
+        "buy_amount": 29491.0,
+        "buy_time": "2026-06-26 21:32:31",
+        "sector": "精细化工",
+        "status": "holding",
+        "current_price": 42.13,
+        "current_pnl": 0.0,
+        "current_pnl_pct": 0.0,
+        "stop_loss_price": 40.02,
+        "take_profit_price": 46.34,
+        "max_profit_pct": 0.0,
+        "min_profit_pct": 0.0,
+        "sell_time": null,
+        "sell_price": null,
+        "sell_reason": null
+      }
+    ],
+    "total_return": 0.0,
+    "return_pct": 0.0,
+    "initial_cash": 200000
   },
   "hubei_pool": {
     "total_stocks": 18,
@@ -267,8 +293,60 @@
       }
     ]
   },
+  "positions": [
+    {
+      "id": "hb_603281_1782480751",
+      "code": "603281",
+      "name": "江瀚新材",
+      "pool": "湖北池",
+      "buy_price": 42.13,
+      "buy_qty": 700,
+      "buy_amount": 29491.0,
+      "buy_time": "2026-06-26 21:32:31",
+      "sector": "精细化工",
+      "status": "holding",
+      "current_price": 42.13,
+      "current_pnl": 0.0,
+      "current_pnl_pct": 0.0,
+      "stop_loss_price": 40.02,
+      "take_profit_price": 46.34,
+      "max_profit_pct": 0.0,
+      "min_profit_pct": 0.0,
+      "sell_time": null,
+      "sell_price": null,
+      "sell_reason": null
+    }
+  ],
+  "trade_history": [
+    {
+      "id": "hb_603281_1782480751",
+      "type": "buy",
+      "pool": "湖北池",
+      "code": "603281",
+      "name": "江瀚新材",
+      "price": 42.13,
+      "qty": 700,
+      "amount": 29491.0,
+      "commission": 8.85,
+      "total_cost": 29499.85,
+      "time": "2026-06-26 21:32:31",
+      "reason": "精细化工板块，个股涨幅7.15%，符合V2买入条件（新浪数据）",
+      "sector": "精细化工"
+    }
+  ],
+  "trade_stats": {
+    "total_trades": 0,
+    "win_trades": 0,
+    "loss_trades": 0,
+    "win_rate": 0,
+    "total_pnl": 0,
+    "avg_pnl": 0,
+    "hb_positions_count": 1,
+    "yk_positions_count": 0
+  },
   "scan_summary": {
     "total_scanned": 16,
-    "hubei_buy_signals": 1
+    "hubei_buy_signals": 1,
+    "positions_count": 1
   }
 }
