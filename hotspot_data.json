@@ -1,9 +1,76 @@
 {
-  "update_time": "2026-06-29 21:33:03",
+  "update_time": "2026-06-29 21:34:35",
   "date": "2026-06-29",
-  "time_slot": "21:33",
+  "time_slot": "21:34",
   "data_source": "东方财富",
-  "hot_sectors": [],
+  "hot_sectors": [
+    {
+      "code": "BK1596",
+      "name": "其他生物制品",
+      "price": 7314.38,
+      "change_pct": 0.09,
+      "volume": 676682784.0,
+      "amount": 4.61,
+      "capital_inflow": 488689936.0,
+      "leader_stock": "百利天恒",
+      "leader_change": 6885.06
+    },
+    {
+      "code": "BK1600",
+      "name": "医疗研发外包",
+      "price": 7003.82,
+      "change_pct": 0.09,
+      "volume": 1814224128.0,
+      "amount": 5.9,
+      "capital_inflow": 1074260992.0,
+      "leader_stock": "药明康德",
+      "leader_change": 6032.59
+    },
+    {
+      "code": "BK1326",
+      "name": "半导体设备",
+      "price": 67919.24,
+      "change_pct": 0.07,
+      "volume": 3381423616.0,
+      "amount": 3.97,
+      "capital_inflow": -229886464.0,
+      "leader_stock": "中微公司",
+      "leader_change": 6880.12
+    },
+    {
+      "code": "BK1044",
+      "name": "生物制品",
+      "price": 922.74,
+      "change_pct": 0.07,
+      "volume": 781174352.0,
+      "amount": 3.97,
+      "capital_inflow": 500771408.0,
+      "leader_stock": "百利天恒",
+      "leader_change": 6885.06
+    },
+    {
+      "code": "BK1325",
+      "name": "半导体材料",
+      "price": 18962.43,
+      "change_pct": 0.07,
+      "volume": -1743139584.0,
+      "amount": -1.56,
+      "capital_inflow": -1669485568.0,
+      "leader_stock": "珂玛科技",
+      "leader_change": 3016.11
+    },
+    {
+      "code": "BK1594",
+      "name": "化学制剂",
+      "price": 3552.4,
+      "change_pct": 0.06,
+      "volume": 2555290880.0,
+      "amount": 5.4,
+      "capital_inflow": 2134902528.0,
+      "leader_stock": "恒瑞医药",
+      "leader_change": 6002.76
+    }
+  ],
   "hot_stocks": [
     {
       "code": "000988",
@@ -106,11 +173,214 @@
       "turnover": 0.07
     }
   ],
-  "sector_stocks": {},
+  "sector_stocks": {
+    "其他生物制品": [
+      {
+        "code": "688336",
+        "name": "三生国健",
+        "price": 49.75,
+        "change_pct": 0.2,
+        "volume": 143814747.0,
+        "amount": 15.37,
+        "capital_inflow": 206036457.0,
+        "turnover": 0.22
+      },
+      {
+        "code": "688506",
+        "name": "百利天恒",
+        "price": 297.01,
+        "change_pct": 0.13,
+        "volume": 208673132.0,
+        "amount": 17.49,
+        "capital_inflow": 108604972.0,
+        "turnover": 0.09
+      },
+      {
+        "code": "600867",
+        "name": "通化东宝",
+        "price": 8.17,
+        "change_pct": 0.1,
+        "volume": 106931081.0,
+        "amount": 23.35,
+        "capital_inflow": 72397058.0,
+        "turnover": 0.16
+      },
+      {
+        "code": "688331",
+        "name": "荣昌生物",
+        "price": 131.58,
+        "change_pct": 0.16,
+        "volume": 7189392.0,
+        "amount": 0.3,
+        "capital_inflow": 46510464.0,
+        "turnover": 0.02
+      },
+      {
+        "code": "688765",
+        "name": "禾元生物-U",
+        "price": 51.55,
+        "change_pct": 0.2,
+        "volume": 46574994.0,
+        "amount": 18.24,
+        "capital_inflow": 29605415.0,
+        "turnover": 0.12
+      }
+    ],
+    "医疗研发外包": [
+      {
+        "code": "603259",
+        "name": "药明康德",
+        "price": 126.17,
+        "change_pct": 0.07,
+        "volume": 800562448.0,
+        "amount": 6.28,
+        "capital_inflow": 551612464.0,
+        "turnover": 0.04
+      },
+      {
+        "code": "002821",
+        "name": "凯莱英",
+        "price": 167.75,
+        "change_pct": 0.1,
+        "volume": 163055248.0,
+        "amount": 9.59,
+        "capital_inflow": 250953936.0,
+        "turnover": 0.15
+      },
+      {
+        "code": "300347",
+        "name": "泰格医药",
+        "price": 49.16,
+        "change_pct": 0.09,
+        "volume": 176828003.0,
+        "amount": 9.33,
+        "capital_inflow": 69291491.0,
+        "turnover": 0.04
+      },
+      {
+        "code": "300759",
+        "name": "康龙化成",
+        "price": 28.8,
+        "change_pct": 0.09,
+        "volume": 164155264.0,
+        "amount": 4.94,
+        "capital_inflow": 53913312.0,
+        "turnover": 0.02
+      },
+      {
+        "code": "603127",
+        "name": "昭衍新药",
+        "price": 39.6,
+        "change_pct": 0.07,
+        "volume": 45726460.0,
+        "amount": 2.82,
+        "capital_inflow": 29092652.0,
+        "turnover": 0.02
+      }
+    ],
+    "半导体设备": [
+      {
+        "code": "688120",
+        "name": "华海清科",
+        "price": 316.32,
+        "change_pct": 0.2,
+        "volume": 331685184.0,
+        "amount": 6.31,
+        "capital_inflow": 260679680.0,
+        "turnover": 0.05
+      },
+      {
+        "code": "688652",
+        "name": "京仪装备",
+        "price": 196.01,
+        "change_pct": 0.15,
+        "volume": 161242864.0,
+        "amount": 7.22,
+        "capital_inflow": 157523584.0,
+        "turnover": 0.07
+      },
+      {
+        "code": "688037",
+        "name": "芯源微",
+        "price": 399.64,
+        "change_pct": 0.13,
+        "volume": 49644832.0,
+        "amount": 1.2,
+        "capital_inflow": 126106784.0,
+        "turnover": 0.03
+      },
+      {
+        "code": "603061",
+        "name": "金海通",
+        "price": 456.56,
+        "change_pct": 0.1,
+        "volume": 162078176.0,
+        "amount": 9.33,
+        "capital_inflow": 109402080.0,
+        "turnover": 0.06
+      },
+      {
+        "code": "300604",
+        "name": "长川科技",
+        "price": 337.9,
+        "change_pct": 0.07,
+        "volume": 383315984.0,
+        "amount": 3.28,
+        "capital_inflow": 105074224.0,
+        "turnover": 0.01
+      }
+    ]
+  },
   "analysis": {
     "sustained_hot": [],
-    "capital_inflow_sectors": [],
-    "new_hot": [],
+    "capital_inflow_sectors": [
+      {
+        "code": "BK1512",
+        "name": "生猪养殖",
+        "price": 3581.23,
+        "change_pct": 0.04,
+        "volume": 868705232.0,
+        "amount": 9.87,
+        "capital_inflow": 419540944.0,
+        "leader_stock": "牧原股份",
+        "leader_change": 27.14
+      },
+      {
+        "code": "BK1623",
+        "name": "钼",
+        "price": 1857.76,
+        "change_pct": 0.05,
+        "volume": 447249264.0,
+        "amount": 7.76,
+        "capital_inflow": 89152976.0,
+        "leader_stock": "金钼股份",
+        "leader_change": 6019.58
+      }
+    ],
+    "new_hot": [
+      {
+        "code": "BK1596",
+        "name": "其他生物制品",
+        "price": 7314.38,
+        "change_pct": 0.09,
+        "volume": 676682784.0,
+        "amount": 4.61,
+        "capital_inflow": 488689936.0,
+        "leader_stock": "百利天恒",
+        "leader_change": 6885.06
+      },
+      {
+        "code": "BK1600",
+        "name": "医疗研发外包",
+        "price": 7003.82,
+        "change_pct": 0.09,
+        "volume": 1814224128.0,
+        "amount": 5.9,
+        "capital_inflow": 1074260992.0,
+        "leader_stock": "药明康德",
+        "leader_change": 6032.59
+      }
+    ],
     "capital_inflow_stocks": [
       {
         "code": "000988",
@@ -215,8 +485,49 @@
     ],
     "risk_warnings": [],
     "prediction": {
-      "predicted_sectors": [],
-      "predicted_stocks": []
+      "predicted_sectors": [
+        {
+          "name": "其他生物制品",
+          "code": "BK1596",
+          "reason": "当前涨幅0.09%，资金流入0.00亿，动量强劲",
+          "confidence": "中"
+        },
+        {
+          "name": "医疗研发外包",
+          "code": "BK1600",
+          "reason": "当前涨幅0.09%，资金流入0.00亿，动量强劲",
+          "confidence": "中"
+        },
+        {
+          "name": "半导体设备",
+          "code": "BK1326",
+          "reason": "当前涨幅0.07%，资金流入0.00亿，动量强劲",
+          "confidence": "中"
+        }
+      ],
+      "predicted_stocks": [
+        {
+          "name": "三生国健",
+          "code": "688336",
+          "sector": "其他生物制品",
+          "reason": "其他生物制品板块领涨股，当前涨幅0.2%",
+          "confidence": "中"
+        },
+        {
+          "name": "百利天恒",
+          "code": "688506",
+          "sector": "其他生物制品",
+          "reason": "其他生物制品板块领涨股，当前涨幅0.13%",
+          "confidence": "中"
+        },
+        {
+          "name": "通化东宝",
+          "code": "600867",
+          "sector": "其他生物制品",
+          "reason": "其他生物制品板块领涨股，当前涨幅0.1%",
+          "confidence": "中"
+        }
+      ]
     }
   }
 }
