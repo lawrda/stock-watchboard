@@ -1,545 +1,117 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V2追涨策略 - 实时盯盘</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #0d1117;
-            color: #e6edf3;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        
-        .container { max-width: 1200px; margin: 0 auto; }
-        
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #21262d;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .header h1 { font-size: 24px; color: #58a6ff; }
-        
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        .status-dot.trading { background: #3fb950; }
-        .status-dot.closed { background: #f85149; }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .update-time {
-            color: #8b949e;
-            font-size: 14px;
-        }
-        
-        .refresh-btn {
-            background: #238636;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        .refresh-btn:hover { background: #2ea043; }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: #161b22;
-            border: 1px solid #21262d;
-            border-radius: 8px;
-            padding: 15px;
-        }
-        
-        .stat-label {
-            color: #8b949e;
-            font-size: 12px;
-            margin-bottom: 5px;
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .section {
-            background: #161b22;
-            border: 1px solid #21262d;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #58a6ff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .pool-badge {
-            background: #238636;
-            color: white;
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        
-        .position-item, .signal-item {
-            background: #0d1117;
-            border: 1px solid #21262d;
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 10px;
-        }
-        
-        .position-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-        
-        .stock-name { font-weight: bold; }
-        .stock-code { color: #8b949e; margin-left: 8px; }
-        
-        .pnl-positive { color: #f85149; }
-        .pnl-negative { color: #3fb950; }
-        
-        .position-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 8px;
-            font-size: 13px;
-            color: #8b949e;
-        }
-        
-        /* 双列布局 */
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        @media (max-width: 900px) {
-            .two-col { grid-template-columns: 1fr; }
-        }
-        
-        /* 股票网格 */
-        .pool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 10px;
-        }
-        
-        .pool-item {
-            background: #0d1117;
-            border: 1px solid #21262d;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 13px;
-            transition: transform 0.2s;
-        }
-        
-        .pool-item:hover {
-            transform: translateY(-2px);
-            border-color: #30363d;
-        }
-        
-        /* 板块表现 */
-        .sector-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 10px;
-        }
-        
-        .sector-card {
-            background: #0d1117;
-            border: 1px solid #21262d;
-            border-radius: 6px;
-            padding: 12px;
-        }
-        
-        .sector-name { font-weight: bold; margin-bottom: 5px; }
-        
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #8b949e;
-        }
-        
-        .error {
-            background: #161b22;
-            border: 1px solid #f85149;
-            border-radius: 8px;
-            padding: 20px;
-            color: #f85149;
-            text-align: center;
-        }
-        
-        .auto-refresh {
-            color: #8b949e;
-            font-size: 12px;
-            text-align: center;
-            margin-top: 20px;
-            padding-bottom: 30px;
-        }
-        
-        .tab-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .tab {
-            background: #21262d;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            color: #8b949e;
-            font-size: 14px;
-        }
-        
-        .tab.active {
-            background: #238636;
-            color: white;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2盯盘 - 湖北池</title>
+<style>
+body { background: #0d1117; color: #e6edf3; font-family: Arial; padding: 20px; }
+.card { background: #161b22; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #30363d; }
+h1 { color: #58a6ff; }
+h2 { color: #d2a8ff; margin-top: 0; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+th, td { padding: 10px; text-align: left; border-bottom: 1px solid #21262d; }
+.up { color: #ff4d4f; }
+.dn { color: #52c41a; }
+.metric { display: inline-block; margin: 10px; padding: 10px; background: #21262d; border-radius: 6px; }
+.label { color: #8b949e; font-size: 12px; }
+.value { color: #f0f6fc; font-size: 20px; font-weight: bold; }
+.stock-row:hover { background: #1c2333; }
+.section-title { display: flex; align-items: center; gap: 8px; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📈 V2追涨策略 · 实时盯盘</h1>
-            <div class="status">
-                <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">加载中...</span>
-                <span class="update-time" id="updateTime"></span>
-                <button class="refresh-btn" onclick="loadAllData()">🔄 刷新</button>
-            </div>
-        </div>
-        
-        <!-- 账户概览 -->
-        <div id="accountStats"></div>
-        
-        <!-- 当前持仓 -->
-        <div id="positions"></div>
-        
-        <!-- 双栏：湖北池 + 杨凯池 -->
-        <div class="two-col">
-            <div id="hubeiPool"></div>
-            <div id="yangkaiPool"></div>
-        </div>
-        
-        <div class="auto-refresh">
-            自动刷新间隔：5分钟 | 最后更新：<span id="lastUpdate">--</span> | 
-            数据来源：<span id="dataSource">--</span>
-        </div>
-    </div>
+<h1>V2追涨策略盯盘系统</h1>
+<div id="app">加载中...</div>
+
+<script>
+var DATA_B64 = "eyJsYXN0X3VwZGF0ZSI6ICIyMDI2LTA2LTMwIDA4OjE0OjAzIiwgInNjYW5fdGltZSI6ICIyMDI2LTA2LTMwIDA4OjE0OjAzIiwgIm1hcmtldF9zdGF0dXMiOiAi5pS255uYIiwgImN1cnJlbnRfdGltZSI6ICIwODoxNCIsICJkYXRhX3NvdXJjZSI6ICLmlrDmtaov5Lic5pa56LSi5a+MIiwgImFjY291bnQiOiB7InRvdGFsX2Fzc2V0cyI6IDk5OTk3My40NiwgImF2YWlsYWJsZV9jYXNoIjogOTExNTAwLjQ2LCAiaGJfY2FzaCI6IDQxMTUwMC40NiwgInlrX2Nhc2giOiA1MDAwMDAuMCwgInBvc2l0aW9ucyI6IFtdLCAidG90YWxfcmV0dXJuIjogMC4wLCAicmV0dXJuX3BjdCI6IDAuMCwgImluaXRpYWxfY2FzaCI6IDEwMDAwMDB9LCAiaHViZWlfcG9vbCI6IHsidG90YWxfc3RvY2tzIjogMTgsICJzY2FubmVkIjogMTYsICJidXlfc2lnbmFscyI6IFt7ImNvZGUiOiAiNjg4NzY1IiwgIm5hbWUiOiAi56a+5YWD55Sf54mpIiwgInByaWNlIjogNTEuNTUsICJjaGFuZ2VfcGN0IjogMjAuMCwgInNlY3RvciI6ICLnlJ/nianljLvoja8ifV0sICJhbGxfc3RvY2tzIjogW3siY29kZSI6ICI2MDAwNzkiLCAibmFtZSI6ICJTVOS6uuemjyIsICJwcmljZSI6IDE2LjgsICJjaGFuZ2VfcGN0IjogMi42MywgInNlY3RvciI6ICLnlJ/nianljLvoja8ifSwgeyJjb2RlIjogIjY4ODc2NSIsICJuYW1lIjogIuemvuWFg+eUn+eJqSIsICJwcmljZSI6IDUxLjU1LCAiY2hhbmdlX3BjdCI6IDIwLjAsICJzZWN0b3IiOiAi55Sf54mp5Yy76I2vIn0sIHsiY29kZSI6ICIzMDAwMDgiLCAibmFtZSI6ICLlpKnmtbfpmLLliqEiLCAicHJpY2UiOiA2LjAzLCAiY2hhbmdlX3BjdCI6IC0yLjU4LCAic2VjdG9yIjogIue7v+iJsuiIueiItiJ9LCB7ImNvZGUiOiAiMDAwNTIwIiwgIm5hbWUiOiAi5Yek5Yew6Iiq6L+QIiwgInByaWNlIjogMy42NSwgImNoYW5nZV9wY3QiOiAtNC4yLCAic2VjdG9yIjogIue7v+iJsuiIueiItiJ9LCB7ImNvZGUiOiAiNjAwNDgyIiwgIm5hbWUiOiAi5Lit5Zu95Yqo5YqbIiwgInByaWNlIjogMzEuMDcsICJjaGFuZ2VfcGN0IjogMy4xOSwgInNlY3RvciI6ICLnu7/oibLoiLnoiLYifSwgeyJjb2RlIjogIjAwMDk4MSIsICJuYW1lIjogIuWxseWtkOmrmOenkSIsICJwcmljZSI6IDIuODMsICJjaGFuZ2VfcGN0IjogLTEuMDUsICJzZWN0b3IiOiAi5peg5Lq66am+6am2In0sIHsiY29kZSI6ICIzMDA1NTciLCAibmFtZSI6ICLnkIblt6XlhYnnp5EiLCAicHJpY2UiOiAzMy43MSwgImNoYW5nZV9wY3QiOiAxLjE0LCAic2VjdG9yIjogIuaXoOS6uumpvumptiJ9LCB7ImNvZGUiOiAiNjAwMTQxIiwgIm5hbWUiOiAi5YW05Y+R6ZuG5ZuiIiwgInByaWNlIjogNDcuODgsICJjaGFuZ2VfcGN0IjogLTEuODksICJzZWN0b3IiOiAi57K+57uG5YyW5belIn0sIHsiY29kZSI6ICI2MDMyODEiLCAibmFtZSI6ICLmsZ/ngJrmlrDmnZAiLCAicHJpY2UiOiA0MS45LCAiY2hhbmdlX3BjdCI6IC0wLjU1LCAic2VjdG9yIjogIueyvue7huWMluW3pSJ9LCB7ImNvZGUiOiAiNjAzMDY3IiwgIm5hbWUiOiAi5oyv5Y2O6IKh5Lu9IiwgInByaWNlIjogNDIuMDgsICJjaGFuZ2VfcGN0IjogLTEuNTQsICJzZWN0b3IiOiAi57K+57uG5YyW5belIn0sIHsiY29kZSI6ICIwMDA0MjIiLCAibmFtZSI6ICLmuZbljJflrpzljJYiLCAicHJpY2UiOiAxMy41OCwgImNoYW5nZV9wY3QiOiAyLjQxLCAic2VjdG9yIjogIueyvue7huWMluW3pSJ9LCB7ImNvZGUiOiAiMzAwMDE0IiwgIm5hbWUiOiAi5Lq/57qs6ZSC6IO9IiwgInByaWNlIjogNjQuNiwgImNoYW5nZV9wY3QiOiAzLjg0LCAic2VjdG9yIjogIuWKqOWKm+eUteaxoCJ9LCB7ImNvZGUiOiAiNjg4Mjc1IiwgIm5hbWUiOiAi5LiH5ram5paw6IO9IiwgInByaWNlIjogMTIyLjI5LCAiY2hhbmdlX3BjdCI6IC0xLjEsICJzZWN0b3IiOiAi5Yqo5Yqb55S15rGgIn0sIHsiY29kZSI6ICIwMDIzNDAiLCAibmFtZSI6ICLmoLzmnpfnvo4iLCAicHJpY2UiOiA2LjU4LCAiY2hhbmdlX3BjdCI6IC0xLjY0LCAic2VjdG9yIjogIuWKqOWKm+eUteaxoCJ9LCB7ImNvZGUiOiAiNjAxOTc1IiwgIm5hbWUiOiAi5oub5ZWG5Y2X5rK5IiwgInByaWNlIjogMy45OCwgImNoYW5nZV9wY3QiOiAtNC4zMywgInNlY3RvciI6ICLplb/msZ/oiKrov5AifSwgeyJjb2RlIjogIjg3MjM1MSIsICJuYW1lIjogIuWNjuWFiea6kOa1tyIsICJwcmljZSI6IDAuMCwgImNoYW5nZV9wY3QiOiAwLCAic2VjdG9yIjogIumVv+axn+iIqui/kCJ9XX0sICJwb3NpdGlvbnMiOiBbXSwgInRyYWRlX2hpc3RvcnkiOiBbXSwgInNjYW5fc3VtbWFyeSI6IHsiaGJfc2Nhbm5lZCI6IDE2LCAiaGJfYnV5IjogMSwgInlrX3NjYW5uZWQiOiAyNCwgInlrX2J1eSI6IDE0LCAic3Ryb25nX3N0b2Nrc190b3RhbCI6IDE0fSwgIm1hcmtldF9jaGdfcGN0IjogMS4xNn0=";
+var DATA = null;
+try {
+    function decodeB64Utf8(b64) {
+        var bin = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+        return new TextDecoder("utf-8").decode(bytes);
+    }
+    DATA = JSON.parse(decodeB64Utf8(DATA_B64));
+    console.log("数据加载成功", DATA.last_update);
+    render(DATA);
+} catch(e) {
+    document.getElementById("app").innerHTML = "数据解析错误: " + e;
+    console.error(e);
+}
+
+function render(d) {
+    var h = "";
     
-    <script>
-        const DATA_URL = 'dashboard_data.json';
-        const YANGKAI_URL = 'dashboard_yangkai.json';
-        const REFRESH_INTERVAL = 5 * 60 * 1000; // 5分钟
-        
-        let refreshTimer = null;
-        let mainData = null;
-        let yangkaiData = null;
-        
-        // 判断是否在交易时段
-        function isTradingTime() {
-            const now = new Date();
-            const day = now.getDay();
-            if (day === 0 || day === 6) return false; // 周末
-            
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-            const time = hour * 100 + minute;
-            
-            return (time >= 915 && time <= 1130) || (time >= 1300 && time <= 1500);
+    // 账户
+    h += '<div class="card"><h2>账户概览</h2>';
+    h += '<div class="metric"><div class="label">总资产</div><div class="value">¥' + (d.account.total_assets||0).toFixed(0) + '</div></div>';
+    h += '<div class="metric"><div class="label">可用</div><div class="value">¥' + (d.account.available_cash||0).toFixed(0) + '</div></div>';
+    h += '<div class="metric"><div class="label">收益</div><div class="value ' + ((d.account.return_pct||0)>=0?"up":"dn") + '">' + ((d.account.return_pct||0)>=0?"+":"") + (d.account.return_pct||0).toFixed(2) + '%</div></div>';
+    h += '</div>';
+    
+    // 大盘
+    h += '<div class="card"><h2>大盘: <span class="' + (d.market_chg_pct>=0?"up":"dn") + '">' + (d.market_chg_pct>=0?"+":"") + (d.market_chg_pct||0).toFixed(2) + '%</span></h2>';
+    h += '<p>更新: ' + (d.last_update||"--") + '</p></div>';
+    
+    // 买入信号
+    var buys = d.hubei_pool.buy_signals || [];
+    h += '<div class="card"><h2>买入信号 (' + buys.length + '个)</h2>';
+    if (buys.length > 0) {
+        h += '<table><tr><th>名称</th><th>涨幅</th><th>板块</th></tr>';
+        for (var i=0; i<buys.length; i++) {
+            var s = buys[i];
+            h += '<tr><td>' + s.name + '</td><td class="' + (s.change_pct>=0?"up":"dn") + '">' + (s.change_pct>=0?"+":"") + s.change_pct.toFixed(2) + '%</td><td>' + s.sector + '</td></tr>';
         }
-        
-        function formatPct(val) {
-            if (val === null || val === undefined) return '--';
-            const v = parseFloat(val);
-            const sign = v >= 0 ? '+' : '';
-            return `${sign}${v.toFixed(2)}%`;
+        h += '</table>';
+    } else {
+        h += '<p>无信号</p>';
+    }
+    h += '</div>';
+    
+    // 持仓
+    var positions = d.positions || [];
+    h += '<div class="card"><h2>持仓 (' + positions.length + '个)</h2>';
+    if (positions.length > 0) {
+        h += '<table><tr><th>名称</th><th>买入价</th><th>当前价</th><th>盈亏</th></tr>';
+        for (var i=0; i<positions.length; i++) {
+            var p = positions[i];
+            h += '<tr><td>' + p.name + '</td><td>¥' + p.buy_price.toFixed(2) + '</td><td>¥' + p.current_price.toFixed(2) + '</td><td class="' + (p.current_pnl>=0?"up":"dn") + '">' + (p.current_pnl>=0?"+":"") + p.current_pnl.toFixed(2) + '</td></tr>';
         }
-        
-        function formatMoney(val) {
-            if (val === null || val === undefined) return '--';
-            return parseFloat(val).toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        h += '</table>';
+    }
+    h += '</div>';
+    
+    // 板块
+    var secs = d.hubei_pool.sector_performance || [];
+    h += '<div class="card"><h2>板块 (' + secs.length + '个)</h2>';
+    h += '<table><tr><th>板块</th><th>涨幅</th><th>个股数</th></tr>';
+    for (var i=0; i<secs.length; i++) {
+        var sec = secs[i];
+        h += '<tr><td>' + sec.sector + '</td><td class="' + (sec.avg_gain>=0?"up":"dn") + '">' + (sec.avg_gain>=0?"+":"") + sec.avg_gain.toFixed(2) + '%</td><td>' + sec.stock_count + '</td></tr>';
+    }
+    h += '</table></div>';
+    
+    // 全部个股行情
+    var allStocks = d.hubei_pool.all_stocks || [];
+    h += '<div class="card"><div class="section-title"><h2>湖北池个股 (' + allStocks.length + '/' + (d.hubei_pool.total_stocks||18) + '只)</h2></div>';
+    if (allStocks.length > 0) {
+        h += '<table><thead><tr><th>名称</th><th>代码</th><th>现价</th><th>涨幅</th><th>板块</th></tr></thead><tbody>';
+        var sortedAll = allStocks.slice().sort(function(a,b){ return b.change_pct - a.change_pct; });
+        for (var i=0; i<sortedAll.length; i++) {
+            var s = sortedAll[i];
+            h += '<tr class="stock-row"><td><b>' + s.name + '</b></td><td>' + s.code + '</td><td>¥' + (s.price||0).toFixed(2) + '</td><td class="' + (s.change_pct>=0?"up":"dn") + '">' + (s.change_pct>=0?"+":"") + (s.change_pct||0).toFixed(2) + '%</td><td>' + (s.sector||"-") + '</td></tr>';
         }
-        
-        async function loadJSON(url) {
-            try {
-                const response = await fetch(`${url}?t=${new Date().getTime()}`);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                return await response.json();
-            } catch (err) {
-                console.warn(`加载 ${url} 失败:`, err.message);
-                return null;
-            }
-        }
-        
-        async function loadAllData() {
-            // 同时加载两个数据源
-            const [dataMain, dataYangkai] = await Promise.all([
-                loadJSON(DATA_URL),
-                loadJSON(YANGKAI_URL)
-            ]);
-            
-            if (!dataMain && !dataYangkai) {
-                showError('所有数据源均无法访问，请稍后重试');
-                return;
-            }
-            
-            mainData = dataMain;
-            yangkaiData = dataYangkai;
-            
-            renderAccount(dataMain);
-            renderPositions(dataMain);
-            renderHubeiPool(dataMain);
-            renderYangkaiPool(dataYangkai);
-            updateStatus(dataMain);
-        }
-        
-        function updateStatus(data) {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-            const time = document.getElementById('updateTime');
-            const lastUpdate = document.getElementById('lastUpdate');
-            const source = document.getElementById('dataSource');
-            
-            const trading = isTradingTime();
-            dot.className = `status-dot ${trading ? 'trading' : 'closed'}`;
-            text.textContent = trading ? '🟢 交易中' : '🔴 已收盘';
-            
-            if (data?.last_update) {
-                time.textContent = data.last_update;
-                lastUpdate.textContent = data.last_update;
-            }
-            if (data?.data_source) {
-                source.textContent = data.data_source;
-            }
-        }
-        
-        // 渲染账户概览
-        function renderAccount(data) {
-            if (!data?.account) return;
-            
-            const acct = data.account;
-            const totalMktValue = (acct.positions || []).reduce((sum, p) => 
-                sum + ((p.current_price || 0) * (p.buy_qty || 0)), 0);
-            
-            document.getElementById('accountStats').innerHTML = `
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">总资产</div>
-                        <div class="stat-value">¥${formatMoney(acct.total_assets)}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">可用资金</div>
-                        <div class="stat-value">¥${formatMoney(acct.available_cash)}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">持仓市值</div>
-                        <div class="stat-value">¥${formatMoney(totalMktValue)}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">已实现盈亏</div>
-                        <div class="stat-value ${acct.return_pct >= 0 ? 'pnl-positive' : 'pnl-negative'}">
-                            ${formatPct(acct.return_pct)}
-                        </div>
-                    </div>
-                    ${data.market_chg_pct !== undefined ? `
-                    <div class="stat-card">
-                        <div class="stat-label">大盘涨跌</div>
-                        <div class="stat-value ${data.market_chg_pct >= 0 ? 'pnl-positive' : 'pnl-negative'}">
-                            ${formatPct(data.market_chg_pct)}
-                        </div>
-                    </div>` : ''}
-                </div>
-            `;
-        }
-        
-        // 渲染当前持仓
-        function renderPositions(data) {
-            if (!data?.account?.positions) return;
-            
-            const positions = data.account.positions;
-            
-            let html = '<div class="section"><div class="section-title">📊 当前持仓</div>';
-            
-            if (positions.length === 0) {
-                html += '<div style="color: #8b949e; padding: 20px;">当前无持仓</div>';
-            } else {
-                positions.forEach(pos => {
-                    const pnlClass = pos.current_pnl >= 0 ? 'pnl-positive' : 'pnl-negative';
-                    html += `
-                        <div class="position-item">
-                            <div class="position-header">
-                                <div>
-                                    <span class="stock-name">${pos.name}</span>
-                                    <span class="stock-code">${pos.code}</span>
-                                    <span class="pool-badge">${pos.pool}</span>
-                                </div>
-                                <div class="${pnlClass}" style="font-weight: bold;">
-                                    ${formatPct(pos.current_pnl_pct)}
-                                </div>
-                            </div>
-                            <div class="position-details">
-                                <div>成本: ¥${(pos.buy_price || 0).toFixed(2)}</div>
-                                <div>现价: ¥${(pos.current_price || 0).toFixed(2)}</div>
-                                <div>数量: ${pos.buy_qty}股</div>
-                                <div>止损: ¥${(pos.stop_loss_price || 0).toFixed(2)}</div>
-                                <div>止盈: ¥${(pos.take_profit_price || 0).toFixed(2)}</div>
-                                <div>板块: ${pos.sector}</div>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-            html += '</div>';
-            document.getElementById('positions').innerHTML = html;
-        }
-        
-        // 渲染湖北池
-        function renderHubeiPool(data) {
-            if (!data?.hubei_pool) {
-                document.getElementById('hubeiPool').innerHTML = '<div class="section"><div class="section-title">🏠 湖北池</div><div style="color:#8b949e;padding:20px;">暂无数据</div></div>';
-                return;
-            }
-            
-            const pool = data.hubei_pool;
-            const stocks = pool.all_stocks || [];
-            
-            let html = '<div class="section"><div class="section-title">🏠 湖北池 (' + stocks.length + '只)</div>';
-            
-            if (stocks.length === 0) {
-                html += '<div style="color: #8b949e; padding: 20px;">暂无数据</div>';
-            } else {
-                // 按涨幅排序
-                stocks.sort((a, b) => (b.change_pct || 0) - (a.change_pct || 0));
-                
-                html += '<div class="pool-grid">';
-                stocks.forEach(stock => {
-                    const chg = stock.change_pct || 0;
-                    const chgClass = chg >= 0 ? 'pnl-positive' : 'pnl-negative';
-                    html += `
-                        <div class="pool-item">
-                            <div style="font-weight:bold;">${stock.name} <span style="color:#8b949e;font-size:11px;">${stock.code}</span></div>
-                            <div style="margin-top:4px;display:flex;justify-content:space-between;">
-                                <span>¥${(stock.price || 0).toFixed(2)}</span>
-                                <span class="${chgClass}" style="font-weight:bold;">${formatPct(chg)}</span>
-                            </div>
-                            <div style="margin-top:4px;color:#8b949e;font-size:11px;">${stock.sector}</div>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-            }
-            html += '</div>';
-            document.getElementById('hubeiPool').innerHTML = html;
-        }
-        
-        // 渲染杨凯池
-        function renderYangkaiPool(data) {
-            if (!data?.yangkai_pool) {
-                document.getElementById('yangkaiPool').innerHTML = '<div class="section"><div class="section-title">⚡ 杨凯池</div><div style="color:#8b949e;padding:20px;">暂无数据</div></div>';
-                return;
-            }
-            
-            const pool = data.yangkai_pool;
-            const sectors = pool.sector_performance || [];
-            
-            let html = '<div class="section"><div class="section-title">⚡ 杨凯池 (24板块)</div>';
-            
-            // 板块排行
-            html += '<div style="margin-bottom:15px;"><strong style="font-size:14px;color:#c9d1d9;">📊 板块涨幅排行：</strong><br/>';
-            const sortedSectors = [...sectors].sort((a, b) => (b.avg_gain || 0) - (a.avg_gain || 0));
-            
-            sortedSectors.slice(0, 10).forEach(sec => {
-                const cls = sec.avg_gain >= 0 ? 'pnl-positive' : 'pnl-negative';
-                html += `<span style="display:inline-block;margin:3px 6px 3px 0;padding:2px 8px;background:#0d1117;border-radius:4px;font-size:12px;">
-                    ${sec.sector}: <span class="${cls}" style="font-weight:bold;">${formatPct(sec.avg_gain)}</span>
-                    (${sec.stock_count}只)
-                </span>`;
-            });
-            html += '</div>';
-            
-            // 买入信号
-            if (pool.buy_signals && pool.buy_signals.length > 0) {
-                html += '<div style="margin-top:15px;"><strong style="color:#3fb950;">🟢 买入信号：</strong><br/>';
-                pool.buy_signals.forEach(sig => {
-                    html += `<div class="signal-item" style="margin-top:5px;padding:8px;">
-                        <strong>${sig.name}(${sig.code})</strong> 
-                        涨幅:${formatPct(sig.change_pct)} | 板块:${sig.sector}
-                    </div>`;
-                });
-                html += '</div>';
-            } else {
-                html += '<div style="margin-top:10px;color:#8b949e;font-size:13px;">当前无买入信号</div>';
-            }
-            
-            html += '</div>';
-            document.getElementById('yangkaiPool').innerHTML = html;
-        }
-        
-        function showError(msg) {
-            document.getElementById('content') && (document.getElementById('content').innerHTML = `
-                <div class="error">
-                    <h3>⚠️ 数据加载失败</h3>
-                    <p>${msg}</p>
-                </div>
-            `);
-        }
-        
-        // 初始化
-        function init() {
-            loadAllData();
-            refreshTimer = setInterval(loadAllData, REFRESH_INTERVAL);
-            console.log('V2盯盘系统已启动 | 刷新间隔:', REFRESH_INTERVAL / 1000, '秒');
-        }
-        
-        window.addEventListener('DOMContentLoaded', init);
-    </script>
+        h += '</tbody></table>';
+    } else {
+        h += '<p style="color:#8b949e;">暂无数据</p>';
+    }
+    h += '</div>';
+
+    document.getElementById("app").innerHTML = h;
+}
+</script>
 </body>
 </html>

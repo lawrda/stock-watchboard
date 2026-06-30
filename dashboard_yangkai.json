@@ -1,292 +1,514 @@
 {
-  "last_update": "2026-06-26 23:19:34",
-  "scan_time": "2026-06-26 23:19:34",
+  "last_update": "2026-06-30 08:14:03",
+  "scan_time": "2026-06-30 08:14:03",
   "market_status": "收盘",
-  "current_time": "23:19",
-  "data_source": "Sina/EM",
-  "market_chg_pct": -2.26,
+  "current_time": "08:14",
+  "data_source": "新浪/东方财富",
+  "market_chg_pct": 1.16,
   "account": {
     "total_assets": 500000.0,
     "available_cash": 500000.0,
     "yk_cash": 500000.0,
-    "hb_cash": 411500.46,
+    "hb_cash": 0,
     "positions": [],
     "total_return": 0.0,
     "return_pct": 0.0,
-    "initial_cash": 1000000
+    "initial_cash": 500000
   },
   "yangkai_pool": {
     "total_sectors": 24,
     "scanned": 24,
-    "buy_signals": [],
-    "near_threshold": [],
-    "all_stocks": [],
-    "declining_stocks": [],
-    "sector_performance": [
+    "buy_signals": [
       {
-        "sector": "机器人物联网",
-        "avg_gain": 0.05,
-        "signal_count": 0,
-        "stock_count": 2,
-        "rise_count": 2,
-        "fall_count": 0,
-        "status": "上涨",
-        "top_stock": "彤程新材(+0.10%)"
+        "code": "0024",
+        "name": "机器人",
+        "price": 18.1,
+        "change_pct": 18.92,
+        "sector": "人形机器人",
+        "sector_change": 7.91,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "人形机器人板块均涨+7.91%，个股涨幅18.92%，符合V2买入条件（东方财富数据）"
       },
       {
-        "sector": "量子科技",
-        "avg_gain": 0.01,
+        "code": "8008",
+        "name": "澜起科技",
+        "price": 296.06,
+        "change_pct": 13.08,
+        "sector": "半导体",
+        "sector_change": 5.41,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "半导体板块均涨+5.41%，个股涨幅13.08%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "8037",
+        "name": "芯源微",
+        "price": 399.64,
+        "change_pct": 12.61,
+        "sector": "光刻胶",
+        "sector_change": 10.97,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "光刻胶板块均涨+10.97%，个股涨幅12.61%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "1211",
+        "name": "亨迪药业",
+        "price": 11.78,
+        "change_pct": 11.98,
+        "sector": "脑机接口",
+        "sector_change": 5.44,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "脑机接口板块均涨+5.44%，个股涨幅11.98%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "0236",
+        "name": "上海新阳",
+        "price": 128.77,
+        "change_pct": 10.29,
+        "sector": "光刻胶",
+        "sector_change": 10.97,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "光刻胶板块均涨+10.97%，个股涨幅10.29%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "3650",
+        "name": "彤程新材",
+        "price": 94.41,
+        "change_pct": 10.0,
+        "sector": "光刻胶",
+        "sector_change": 10.97,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "光刻胶板块均涨+10.97%，个股涨幅10.00%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "0828",
+        "name": "锐新科技",
+        "price": 20.3,
+        "change_pct": 9.14,
+        "sector": "算力租赁",
+        "sector_change": 3.56,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "算力租赁板块均涨+3.56%，个股涨幅9.14%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "3986",
+        "name": "兆易创新",
+        "price": 840.0,
+        "change_pct": 9.09,
+        "sector": "华为概念",
+        "sector_change": 2.78,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "华为概念板块均涨+2.78%，个股涨幅9.09%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "新质生产力",
+        "sector_change": 4.14,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "新质生产力板块均涨+4.14%，个股涨幅6.95%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "人工智能",
+        "sector_change": 2.66,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "人工智能板块均涨+2.66%，个股涨幅6.95%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "AI应用",
+        "sector_change": 2.35,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "AI应用板块均涨+2.35%，个股涨幅6.95%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "AIGC概念",
+        "sector_change": 1.25,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "AIGC概念板块均涨+1.25%，个股涨幅6.95%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "2173",
+        "name": "创新医疗",
+        "price": 17.08,
+        "change_pct": 5.82,
+        "sector": "脑机接口",
+        "sector_change": 5.44,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "脑机接口板块均涨+5.44%，个股涨幅5.82%，符合V2买入条件（东方财富数据）"
+      },
+      {
+        "code": "2371",
+        "name": "北方华创",
+        "price": 860.19,
+        "change_pct": 5.76,
+        "sector": "芯片",
+        "sector_change": 3.38,
+        "suggestion": "板块共振强势，建议50%仓位关注",
+        "reason": "芯片板块均涨+3.38%，个股涨幅5.76%，符合V2买入条件（东方财富数据）"
+      }
+    ],
+    "all_stocks": [
+      {
+        "code": "0024",
+        "name": "机器人",
+        "price": 18.1,
+        "change_pct": 18.92,
+        "sector": "人形机器人"
+      },
+      {
+        "code": "8008",
+        "name": "澜起科技",
+        "price": 296.06,
+        "change_pct": 13.08,
+        "sector": "半导体"
+      },
+      {
+        "code": "8037",
+        "name": "芯源微",
+        "price": 399.64,
+        "change_pct": 12.61,
+        "sector": "光刻胶"
+      },
+      {
+        "code": "1211",
+        "name": "亨迪药业",
+        "price": 11.78,
+        "change_pct": 11.98,
+        "sector": "脑机接口"
+      },
+      {
+        "code": "0236",
+        "name": "上海新阳",
+        "price": 128.77,
+        "change_pct": 10.29,
+        "sector": "光刻胶"
+      },
+      {
+        "code": "3650",
+        "name": "彤程新材",
+        "price": 94.41,
+        "change_pct": 10.0,
+        "sector": "光刻胶"
+      },
+      {
+        "code": "0828",
+        "name": "锐新科技",
+        "price": 20.3,
+        "change_pct": 9.14,
+        "sector": "算力租赁"
+      },
+      {
+        "code": "3986",
+        "name": "兆易创新",
+        "price": 840.0,
+        "change_pct": 9.09,
+        "sector": "华为概念"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "新质生产力"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "人工智能"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "AI应用"
+      },
+      {
+        "code": "8111",
+        "name": "金山办公",
+        "price": 213.93,
+        "change_pct": 6.95,
+        "sector": "AIGC概念"
+      },
+      {
+        "code": "2173",
+        "name": "创新医疗",
+        "price": 17.08,
+        "change_pct": 5.82,
+        "sector": "脑机接口"
+      },
+      {
+        "code": "2371",
+        "name": "北方华创",
+        "price": 860.19,
+        "change_pct": 5.76,
+        "sector": "芯片"
+      }
+    ],
+    "sector_performance": [
+      {
+        "sector": "电子元器件",
+        "avg_gain": 0.61,
+        "stock_count": 3,
         "signal_count": 0,
-        "stock_count": 22,
-        "rise_count": 11,
-        "fall_count": 11,
-        "status": "上涨",
-        "top_stock": "神农集团(+0.10%)"
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "紫光国微(+1.63%)"
       },
       {
         "sector": "光刻胶",
-        "avg_gain": -0.0,
-        "signal_count": 0,
-        "stock_count": 9,
+        "avg_gain": 10.97,
+        "stock_count": 3,
+        "signal_count": 3,
         "rise_count": 3,
-        "fall_count": 6,
-        "status": "平静",
-        "top_stock": "同大股份(+0.09%)"
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "芯源微(+12.61%)"
       },
       {
-        "sector": "脑机接口",
-        "avg_gain": -0.0,
+        "sector": "量子科技",
+        "avg_gain": 0.22,
+        "stock_count": 3,
         "signal_count": 0,
-        "stock_count": 162,
-        "rise_count": 31,
-        "fall_count": 67,
-        "status": "平静",
-        "top_stock": "杰恩股份(+0.16%)"
-      },
-      {
-        "sector": "华为概念",
-        "avg_gain": -0.02,
-        "signal_count": 0,
-        "stock_count": 39,
-        "rise_count": 7,
-        "fall_count": 32,
-        "status": "下跌",
-        "top_stock": "中胤时尚(+0.06%)"
-      },
-      {
-        "sector": "芯片",
-        "avg_gain": -0.02,
-        "signal_count": 0,
-        "stock_count": 30,
-        "rise_count": 9,
-        "fall_count": 21,
-        "status": "下跌",
-        "top_stock": "骄成超声(+0.13%)"
-      },
-      {
-        "sector": "新质生产力",
-        "avg_gain": -0.02,
-        "signal_count": 0,
-        "stock_count": 8,
-        "rise_count": 2,
-        "fall_count": 6,
-        "status": "下跌",
-        "top_stock": "*ST准油(+0.02%)"
+        "rise_count": 1,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "激智科技(+3.40%)"
       },
       {
         "sector": "光刻机",
-        "avg_gain": -0.03,
+        "avg_gain": -2.54,
+        "stock_count": 3,
         "signal_count": 0,
-        "stock_count": 2,
         "rise_count": 0,
-        "fall_count": 2,
-        "status": "下跌",
-        "top_stock": "-"
-      },
-      {
-        "sector": "人工智能",
-        "avg_gain": -0.03,
-        "signal_count": 0,
-        "stock_count": 136,
-        "rise_count": 10,
-        "fall_count": 89,
-        "status": "下跌",
-        "top_stock": "佳创视讯(+0.20%)"
-      },
-      {
-        "sector": "AIGC概念",
-        "avg_gain": -0.03,
-        "signal_count": 0,
-        "stock_count": 21,
-        "rise_count": 1,
-        "fall_count": 20,
-        "status": "下跌",
-        "top_stock": "宁波中百(+0.03%)"
+        "fall_count": 3,
+        "status": "观望",
+        "top_stock": "志特新材(-0.46%)"
       },
       {
         "sector": "先进封装",
-        "avg_gain": -0.04,
-        "signal_count": 0,
-        "stock_count": 9,
-        "rise_count": 0,
-        "fall_count": 9,
-        "status": "下跌",
-        "top_stock": "-"
-      },
-      {
-        "sector": "电子设备",
-        "avg_gain": -0.63,
-        "signal_count": 0,
+        "avg_gain": 1.79,
         "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "蓝思科技(-0.23%)"
-      },
-      {
-        "sector": "算力芯片",
-        "avg_gain": -3.8,
         "signal_count": 0,
-        "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "寒武纪(-3.12%)"
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "长电科技(+2.34%)"
       },
       {
         "sector": "人形机器人",
-        "avg_gain": -4.13,
-        "signal_count": 0,
+        "avg_gain": 7.91,
         "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "ST远智(-2.38%)"
+        "signal_count": 1,
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "机器人(+18.92%)"
       },
       {
-        "sector": "算力租赁",
-        "avg_gain": -4.34,
-        "signal_count": 0,
+        "sector": "华为概念",
+        "avg_gain": 2.78,
         "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "锐新科技(-3.93%)"
+        "signal_count": 1,
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "兆易创新(+9.09%)"
       },
       {
-        "sector": "软件开发",
-        "avg_gain": -4.46,
-        "signal_count": 0,
+        "sector": "机器人物联网",
+        "avg_gain": -0.64,
         "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "中科创达(-4.39%)"
+        "signal_count": 0,
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "观望",
+        "top_stock": "汇川技术(+3.08%)"
       },
       {
-        "sector": "电子元器件",
-        "avg_gain": -4.67,
-        "signal_count": 0,
+        "sector": "芯片",
+        "avg_gain": 3.38,
         "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "法拉电子(-0.67%)"
-      },
-      {
-        "sector": "汽车零部件",
-        "avg_gain": -4.68,
-        "signal_count": 0,
-        "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "江铃汽车(-3.00%)"
+        "signal_count": 1,
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "北方华创(+5.76%)"
       },
       {
         "sector": "半导体",
-        "avg_gain": -5.13,
-        "signal_count": 0,
+        "avg_gain": 5.41,
         "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "紫光国微(-4.02%)"
-      },
-      {
-        "sector": "软件服务",
-        "avg_gain": -5.18,
-        "signal_count": 0,
-        "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "中科创达(-4.39%)"
-      },
-      {
-        "sector": "AI智能体",
-        "avg_gain": -5.76,
-        "signal_count": 0,
-        "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "万兴科技(-5.15%)"
-      },
-      {
-        "sector": "AI应用",
-        "avg_gain": -5.81,
-        "signal_count": 0,
-        "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "万兴科技(-5.15%)"
-      },
-      {
-        "sector": "IT设备",
-        "avg_gain": -6.57,
-        "signal_count": 0,
-        "stock_count": 3,
-        "rise_count": 0,
-        "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "东方国信(-4.54%)"
+        "signal_count": 1,
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "澜起科技(+13.08%)"
       },
       {
         "sector": "消费电子",
-        "avg_gain": -6.86,
-        "signal_count": 0,
+        "avg_gain": -1.87,
         "stock_count": 3,
+        "signal_count": 0,
+        "rise_count": 1,
+        "fall_count": 2,
+        "status": "观望",
+        "top_stock": "福昕软件(+2.38%)"
+      },
+      {
+        "sector": "电子设备",
+        "avg_gain": -4.36,
+        "stock_count": 3,
+        "signal_count": 0,
+        "rise_count": 1,
+        "fall_count": 2,
+        "status": "观望",
+        "top_stock": "法拉电子(+0.34%)"
+      },
+      {
+        "sector": "软件服务",
+        "avg_gain": -0.9,
+        "stock_count": 3,
+        "signal_count": 0,
         "rise_count": 0,
         "fall_count": 3,
-        "status": "下跌",
-        "top_stock": "福昕软件(-5.98%)"
+        "status": "观望",
+        "top_stock": "中国软件(-0.18%)"
+      },
+      {
+        "sector": "AI智能体",
+        "avg_gain": 0.83,
+        "stock_count": 3,
+        "signal_count": 0,
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "福昕软件(+2.38%)"
+      },
+      {
+        "sector": "IT设备",
+        "avg_gain": 0.06,
+        "stock_count": 3,
+        "signal_count": 0,
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "用友网络(+2.63%)"
+      },
+      {
+        "sector": "新质生产力",
+        "avg_gain": 4.14,
+        "stock_count": 3,
+        "signal_count": 1,
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "金山办公(+6.95%)"
+      },
+      {
+        "sector": "人工智能",
+        "avg_gain": 2.66,
+        "stock_count": 3,
+        "signal_count": 1,
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "金山办公(+6.95%)"
+      },
+      {
+        "sector": "软件开发",
+        "avg_gain": -0.13,
+        "stock_count": 3,
+        "signal_count": 0,
+        "rise_count": 1,
+        "fall_count": 2,
+        "status": "观望",
+        "top_stock": "广联达(+1.25%)"
+      },
+      {
+        "sector": "AI应用",
+        "avg_gain": 2.35,
+        "stock_count": 3,
+        "signal_count": 1,
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "金山办公(+6.95%)"
+      },
+      {
+        "sector": "脑机接口",
+        "avg_gain": 5.44,
+        "stock_count": 3,
+        "signal_count": 2,
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "亨迪药业(+11.98%)"
+      },
+      {
+        "sector": "AIGC概念",
+        "avg_gain": 1.25,
+        "stock_count": 3,
+        "signal_count": 1,
+        "rise_count": 1,
+        "fall_count": 2,
+        "status": "正常",
+        "top_stock": "金山办公(+6.95%)"
+      },
+      {
+        "sector": "算力芯片",
+        "avg_gain": 2.05,
+        "stock_count": 3,
+        "signal_count": 0,
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "海光信息(+2.88%)"
+      },
+      {
+        "sector": "算力租赁",
+        "avg_gain": 3.56,
+        "stock_count": 3,
+        "signal_count": 1,
+        "rise_count": 3,
+        "fall_count": 0,
+        "status": "正常",
+        "top_stock": "锐新科技(+9.14%)"
+      },
+      {
+        "sector": "汽车零部件",
+        "avg_gain": 0.09,
+        "stock_count": 3,
+        "signal_count": 0,
+        "rise_count": 2,
+        "fall_count": 1,
+        "status": "正常",
+        "top_stock": "江铃汽车(+0.87%)"
       }
     ]
   },
   "positions": [],
   "trade_history": [],
-  "trade_stats": {
-    "total_trades": 0,
-    "win_trades": 0,
-    "loss_trades": 0,
-    "win_rate": 0,
-    "total_pnl": 0,
-    "avg_pnl": 0,
-    "hb_positions_count": 1,
-    "yk_positions_count": 0
-  },
   "scan_summary": {
-    "total_scanned": 24,
     "total_sectors": 24,
-    "yk_buy_signals": 0,
-    "sectors_with_signals": 0
-  },
-  "sectors_summary": {
-    "total_sectors": 24,
-    "sectors_with_signals": 0
-  },
-  "top_sectors": [],
-  "sector_details": {}
+    "yk_buy_signals": 14,
+    "sectors_with_signals": 11,
+    "strong_stocks_total": 14
+  }
 }
